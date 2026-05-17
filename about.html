@@ -5,21 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ABOUT | 当団体について</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .dropdown:hover .dropdown-menu { display: block; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <main class="max-w-4xl mx-auto px-4 py-12">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="新logo.jpg" alt="NSF ロゴ" class="h-14 w-auto object-contain">
+        <span class="font-black text-lg text-slate-900 tracking-wide">NSF PROJECTs</span>
+      </a>
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-600 transition py-2">HOME</a>
+        <a href="about.html" class="text-blue-600 py-2">ABOUT</a>
+        <a href="apply.html" class="hover:text-blue-600 transition py-2">APPLY</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2">CONTACT</a>
+        <div class="relative dropdown">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu">
+            <a href="hatenaki.html" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50">果てなき復興プロジェクト</a>
+            <a href="mamoneru.html" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50">Mamoneruプロジェクト</a>
+          </div>
+        </div>
+      </nav>
+      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
     <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">ABOUT US</span>
     <h1 class="text-3xl font-black text-slate-950 mt-1 mb-8">当団体について</h1>
 
     <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs mb-8 space-y-4">
       <h2 class="text-lg font-bold text-slate-950 border-b border-slate-100 pb-2">WHAT WE DO</h2>
       <p class="text-sm md:text-base text-slate-600 leading-relaxed">
-        令和６年１月１日１６時１０分に起こった能登半島地震。その被害は甚大で日本中に大きな衝撃を与えました。
-      </p>
-      <p class="text-sm md:text-base text-slate-600 leading-relaxed">
-        能登半島地震・学生による支援募金プロジェクトでは、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。
+        令和６年１月１日１６時１０分に起こった能登半島地震。その被害は甚大で日本中に大きな衝撃を与えました。能登半島地震・学生による支援募金プロジェクトでは、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。
       </p>
     </div>
 
@@ -28,15 +57,11 @@
       <div class="grid md:grid-cols-2 gap-8">
         <div>
           <h3 class="font-bold text-blue-600 text-base mb-2">● 能登創生</h3>
-          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
-            被災した地域を盛り上げる様々なプロジェクトを企画し、地域の伝統を広報するとともに創生を目指します。
-          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">被災した地域を盛り上げる様々なプロジェクトを企画し、地域の伝統を広報するとともに創生を目指します。</p>
         </div>
         <div>
           <h3 class="font-bold text-blue-600 text-base mb-2">● 全国の学生が集結</h3>
-          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
-            全国から学生が１００人以上集まり活動しています。コミュニケーションにはDiscordを使用しており、オンライン上で全国の学生が地域を問わず参加しています。
-          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">全国から学生が１００人以上集まり活動しています。コミュニケーションにはDiscordを使用しており、オンライン上で全国の学生が地域を問わず参加しています。</p>
         </div>
       </div>
     </div>
@@ -48,12 +73,11 @@
       <div>
         <span class="text-[10px] bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded">公式マスコット</span>
         <h3 class="text-lg font-bold text-slate-950 mt-1 mb-1">えぬくま</h3>
-        <p class="text-xs md:text-sm text-slate-500 leading-relaxed">
-          ヘルメットと学生服を身にまわった可愛いクマのキャラクター。全国の中高生メンバーとともに、防災意識の向上と能登の明るい未来に向けて、日々元気に活動を応援しています！
-        </p>
+        <p class="text-xs md:text-sm text-slate-500 leading-relaxed">ヘルメットと学生服を身にまわった可愛いクマのキャラクター。全国の中高生メンバーとともに、防災意識の向上と能登の明るい未来に向けて、日々元気に活動を応援しています！</p>
       </div>
     </div>
   </main>
 
+  <footer class="bg-slate-900 text-slate-500 py-6 text-xs text-center"><p>&copy; 2026 NSF PROJECTs.</p></footer>
 </body>
 </html>
