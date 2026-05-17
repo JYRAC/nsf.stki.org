@@ -10,165 +10,216 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
+    /* ナビゲーションのホバー時にドロップダウンを表示する設定 */
+    .dropdown:hover .dropdown-menu { display: block; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
     <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+      
       <div class="flex items-center space-x-3">
-        <img src="新logo.jpg" alt="NSF PROJECTs ロゴ" class="h-14 w-auto object-contain">
-        <div class="hidden sm:block">
+        <img src="images/新logo.jpg" alt="NSF PROJECTs ロゴ" class="h-14 w-auto object-contain">
+        <div>
           <span class="block font-black text-lg text-slate-900 tracking-wide">NSF PROJECTs</span>
-          <span class="block text-[10px] text-slate-500 font-medium">能登半島地震・学生による支援募金プロジェクト</span>
+          <span class="block text-[10px] text-slate-500 font-medium hidden sm:block">能登半島地震・学生による支援募金プロジェクト</span>
         </div>
       </div>
       
-      <nav class="hidden md:flex space-x-8 font-medium text-sm text-slate-600">
-        <a href="#about" class="hover:text-blue-600 transition">当団体について</a>
-        <a href="#projects" class="hover:text-blue-600 transition">プロジェクト一覧</a>
-        <a href="#instagram" class="hover:text-blue-600 transition">活動報告</a>
+      <nav class="hidden lg:flex space-x-6 font-medium text-sm text-slate-600">
+        <a href="#about" class="hover:text-blue-600 transition py-2">ABOUT</a>
+        
+        <div class="relative dropdown">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 focus:outline-hidden cursor-pointer">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="#bifrost" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">NSF Bifröst</a>
+            <a href="#hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">果てなき復興プロジェクト</a>
+            <a href="#umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">能登うまいもん再発見</a>
+            <a href="#samit" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">全国生徒会防災サミット</a>
+            <a href="#mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">Mamoneruプロジェクト</a>
+            <a href="#mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">Mamomizuプロジェクト</a>
+            <a href="#ash-tag" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">火山ASH-TAG</a>
+            <a href="#knot" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">NSF KNOT</a>
+            <a href="#international" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600">NSF International</a>
+          </div>
+        </div>
+
+        <a href="#instagram" class="hover:text-blue-600 transition py-2">活動報告</a>
+        <a href="#contact" class="hover:text-blue-600 transition py-2">CONTACT</a>
       </nav>
       
-      <a href="https://instagram.com/2024nsfproject" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-md transition">
-        お問い合わせ・加入
+      <a href="#apply" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-md transition">
+        APPLY
       </a>
     </div>
   </header>
 
-  <section class="relative h-[550px] flex items-center justify-center bg-slate-950 overflow-hidden">
-    <img src="images/IMG_1413.jpg" alt="NSF PROJECTs 活動写真" class="absolute inset-0 w-full h-full object-cover opacity-45">
-    
-    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center text-white">
-      <span class="inline-block bg-blue-600 text-xs font-bold tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-sm">
-        全国の中高生・学生による復興支援
-      </span>
-      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-6 tracking-wide">
-        能登半島の復興・<br class="md:hidden">中高生の防災意識向上を目指して
-      </h1>
-      <p class="text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed">
-        NSF PROJECTsは、能登半島地震の被災地支援と、災害大国日本における学生の防災意識の向上を目的に、多様なアプローチで活動を展開しています。
-      </p>
+  <section class="relative h-[400px] flex items-center justify-center bg-blue-900 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-950 opacity-90"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <span class="inline-block bg-orange-500 text-xs font-bold tracking-widest px-4 py-1.5 rounded-full mb-6">HOME</span>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide">能登半島の復興と学生の防災意識向上を目指して</h1>
+      <p class="text-sm md:text-base text-slate-200 max-w-2xl mx-auto">全国の中高生・学生が手を取り合い、未来のための防災アクションを起こすプロジェクトです。</p>
     </div>
   </section>
 
-  <section id="about" class="py-24 max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-2xl md:text-3xl font-bold border-l-4 border-blue-600 pl-4 mb-6 text-slate-950">
-          NSF PROJECTs とは
-        </h2>
-        <div class="space-y-4 text-slate-600 leading-relaxed text-base">
-          <p>
-            能登半島地震・学生による支援募金プロジェクト（NSF）では、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。
-          </p>
-          <p>
-            また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。
-          </p>
-          <p class="font-medium text-slate-900 pt-2">
-            【私たちの理念と強み】
-          </p>
-          <p>
-            当団体では「こんな支援を行なってみたい！」という思いから誰でも新プロジェクトを立ち上げられます。コミュニケーションにはDiscordを使用しており、オンライン上で全国の学生が地域を問わず参加しています。行政や企業、地域と連携しながら挑戦を続けています。
-          </p>
+  <section id="about" class="py-20 max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-12 items-center">
+      <div class="md:col-span-2">
+        <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-6 text-slate-950">ABOUT</h2>
+        <div class="space-y-4 text-slate-600 text-sm md:text-base leading-relaxed">
+          <p>能登半島地震・学生による支援募金プロジェクト（NSF）では、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。</p>
+          <p>また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。</p>
+          <p class="font-bold text-slate-900 pt-2">【私たちの運営スタイル】</p>
+          <p>当団体では「こんな支援を行なってみたい！」という思いから誰でも新プロジェクトを立ち上げられます。コミュニケーションにはDiscordを使用しており、オンライン上で全国の学生が地域を問わず参加しています。</p>
         </div>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-xl bg-slate-200 aspect-video md:aspect-square">
-        <img src="images/IMG_1413.jpg" alt="学生たちの活動の様子" class="w-full h-full object-cover">
+      <div class="bg-white p-6 rounded-2xl shadow-xs border border-slate-200 text-center">
+        <p class="text-xs font-bold text-blue-600 mb-2">公式マスコットキャラクター</p>
+        <div class="w-32 h-32 mx-auto mb-3 rounded-xl overflow-hidden bg-slate-50">
+          <img src="images/IMG_1413.jpg" alt="えぬくま" class="w-full h-full object-contain">
+        </div>
+        <h3 class="font-bold text-base text-slate-950">えぬくま</h3>
+        <p class="text-[11px] text-slate-500 mt-1">ヘルメットと学生服を身にまとい、全国のメンバーと一緒に防災・復興活動を応援しています！</p>
       </div>
     </div>
   </section>
 
-  <section id="projects" class="py-24 bg-white border-y border-slate-200">
+  <section id="projects" class="py-20 bg-white border-y border-slate-200">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-3">進行中のプロジェクト</h2>
-        <p class="text-sm text-slate-500 font-medium">現在、以下のような多様な支援・防災プロジェクトが動いています</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-3">PROJECTs</h2>
+        <p class="text-sm text-slate-500 font-medium">現在稼働している各プロジェクトの詳細です</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-slate-50 rounded-2xl shadow-xs border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
-          <div class="p-6">
-            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">mamoneruプロジェクト</span>
-            <h3 class="text-lg font-bold mt-4 mb-2 text-slate-950">避難所QOLの向上</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              災害関連死を未然に防ぎ、避難所のQOL（生活の質）を向上させるため、全国の自治体との「ダンボールベッド協定」の締締結と推進を行っています。
-            </p>
-          </div>
-          <div class="px-6 py-4 text-xs text-slate-400 border-t border-slate-200 bg-slate-100/50">
-            Instagram: <a href="https://instagram.com/nst_mamoneru2025" target="_blank" class="text-blue-500 hover:underline font-medium">@nst_mamoneru2025</a>
-          </div>
+      <div class="space-y-12">
+        
+        <div id="bifrost" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">デジタル・メタバース</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">NSF Bifröst</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            地域の記憶や文化をデジタル空間に再構成し発信するプロジェクト。石川県立飯田高校の生徒が撮影した写真をメタバース空間（Clusterなど）で展示し、能登のいまを世界へ届けます。
+          </p>
         </div>
 
-        <div class="bg-slate-50 rounded-2xl shadow-xs border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
-          <div class="p-6">
-            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">果てなき復興プロジェクト</span>
-            <h3 class="text-lg font-bold mt-4 mb-2 text-slate-950">震災と復興を学ぶ学生企画</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              復興に携わる人の事や、震災・復興の現状をまずは知ってみるという理念のもと学ぶプロジェクト。過去の講演のまとめやイベント情報を発信しています。
-            </p>
-          </div>
-          <div class="px-6 py-4 text-xs text-slate-400 border-t border-slate-200 bg-slate-100/50">
-            Instagram: <a href="https://instagram.com/nsf_pjrecovering" target="_blank" class="text-blue-500 hover:underline font-medium">@nsf_pjrecovering</a>
-          </div>
+        <div id="hatenaki" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">学び・アーカイブ</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">果てなき復興プロジェクト</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            震災・復興に携わる人々や現状を「まずは知ってみる」ことを理念に学ぶプロジェクト。過去の有識者講演のまとめやイベント情報を発信し、学生の視点から震災を風化させないアーカイブを作ります。
+          </p>
         </div>
 
-        <div class="bg-slate-50 rounded-2xl shadow-xs border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
-          <div class="p-6">
-            <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">NSF Bifröst</span>
-            <h3 class="text-lg font-bold mt-4 mb-2 text-slate-950">メタバースでのデジタル展示</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              地域の記憶や文化をデジタル空間に再構成し発信するプロジェクト。石川県立飯田高校の生徒が撮影した写真をメタバース空間で展示しています。
-            </p>
-          </div>
-          <div class="px-6 py-4 text-xs text-slate-400 border-t border-slate-200 bg-slate-100/50">
-            Instagram: <a href="https://instagram.com/nsfbifrost" target="_blank" class="text-blue-500 hover:underline font-medium">@nsfbifrost</a>
-          </div>
+        <div id="umaimon" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-md">地域活性・食文化</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">能登うまいもん再発見</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            能登半島の豊かな食文化や地域の特産品にスポットを当て、その魅力を全国に紹介・発信。物産イベントやSNS紹介を通じて、現地の方々の経済的な復興支援に直接繋げる活動です。
+          </p>
         </div>
-      </div>
 
-      <div class="mt-12 p-6 bg-slate-50 border border-slate-200 rounded-xl">
-        <h4 class="text-sm font-bold text-slate-900 mb-2">【その他多数のプロジェクトが進行中】</h4>
-        <p class="text-sm text-slate-600 leading-relaxed">
-          能登うまいもん再発見プロジェクト / 全国生徒会防災サミット / NSFサバイバルアカデミー / NSF BOUSAI Leaders project / TOSABO PROJECT など
-        </p>
+        <div id="samit" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">学校連携・組織</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">全国生徒会防災サミット</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            全国の学校の生徒会がオンライン・オフラインで集い、各校での防災訓練のアイデアや、学校単位でできる被災地支援について議論・共有する、学生による防災の全国ネットワークです。
+          </p>
+        </div>
+
+        <div id="mamoneru" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-md">避難所支援・QOL改善</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">Mamoneruプロジェクト</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            災害関連死を未然に防ぎ、避難所のQOL（生活の質）を向上させるため、全国の自治体との「ダンボールベッド協定」の締結と推進を行っています。学生が行政に働きかける先進的な取り組みです。
+          </p>
+        </div>
+
+        <div id="mamomizu" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-md">インフラ・ライフライン</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">Mamomizuプロジェクト</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            断水時や避難所生活における「安全な水の確保・衛生管理」に特化し、中高生が家庭や学校で実践できるライフハック知識の啓発、物資の支援パッケージを考案・提供するプロジェクトです。
+          </p>
+        </div>
+
+        <div id="ash-tag" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded-md">広報・SNS防災</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">火山ASH-TAG</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            地震だけでなく広域に被害をもたらす「火山の噴火と火山灰（ASH）被害」に着目。若者世代へ向けて、ハッシュタグをベースにSNS上で広く防災知識を拡散・共有していくユニークな情報発信試みです。
+          </p>
+        </div>
+
+        <div id="knot" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">ボランティア・マッチング</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">NSF KNOT</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            学生と被災地、または学生と企業を結ぶ「結び目（KNOT）」となり、支援を行いたい人同士のマッチングや、現地で求められているボランティアニーズのハブとしての役割を果たすプロジェクトです。
+          </p>
+        </div>
+
+        <div id="international" class="p-8 bg-slate-50 rounded-2xl border border-slate-200 scroll-mt-24">
+          <span class="text-xs font-bold text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-md">グローバル・多言語</span>
+          <h3 class="font-black text-xl text-slate-950 mt-3 mb-3">NSF International</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            日本の震災と復興の現状、中高生による防災活動を海外に向けて英語等の多言語で発信。世界の学生団体や支援組織との国境を越えた連携・ノウハウ共有を目指すグローバルプロジェクトです。
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <section id="instagram" class="py-24 bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-2">日々の活動報告</h2>
-        <p class="text-sm text-slate-500 font-medium">Instagramの最新投稿10件がここに自動で読み込まれます</p>
-      </div>
+  <section id="apply" class="py-20 bg-blue-50 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-2xl font-bold text-slate-950 mb-4">APPLY</h2>
+      <p class="text-slate-600 text-sm mb-8 leading-relaxed">NSF PROJECTsでは、一緒に活動する全国の中高生・学生メンバーを募集しています。</p>
+      <a href="https://instagram.com/2024nsfproject" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition">メンバー加入フォームを開く</a>
+    </div>
+  </section>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-xl overflow-hidden shadow-xs border border-slate-200">
-          <div class="aspect-square bg-slate-200 flex items-center justify-center text-slate-400 text-xs">【Instagram 投稿画像】</div>
-          <div class="p-4">
-            <p class="text-xs text-slate-400 mb-2 font-medium">YYYY.MM.DD</p>
-            <p class="text-sm text-slate-600 line-clamp-3">
-              ここにインスタの投稿が10件自動で並びます。活動ブログのように、日々の様子がリアルタイムにアップデートされます。
-            </p>
-          </div>
-        </div>
+  <section id="instagram" class="py-20 max-w-6xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-2xl font-bold text-slate-950 mb-2">ACTIVITY REPORT</h2>
+      <p class="text-sm text-slate-500 font-medium">Instagramの最新投稿10件がここに自動連携されます</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl overflow-hidden border border-slate-200">
+        <div class="aspect-square bg-slate-200 flex items-center justify-center text-slate-400 text-xs">【Instagram 投稿画像】</div>
+        <div class="p-4"><p class="text-xs text-slate-400 mb-2">YYYY.MM.DD</p><p class="text-sm text-slate-600 line-clamp-3">インスタの投稿がここに自動で読み込まれます。</p></div>
       </div>
     </div>
   </section>
 
-  <footer class="bg-slate-900 text-slate-400 py-16">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-center md:text-left">
-      <div>
-        <div class="flex items-center justify-center md:justify-start space-x-3 mb-3">
-          <img src="新logo.jpg" alt="NSF ロゴ" class="h-10 w-auto brightness-0 invert">
-          <p class="font-bold text-white text-lg">NSF PROJECTs</p>
-        </div>
-        <p class="text-xs font-light text-slate-400">能登半島地震・学生による支援募金プロジェクト</p>
+  <section id="contact" class="py-20 bg-slate-900 text-white text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">CONTACT</h2>
+      <p class="text-slate-400 text-sm mb-8">各種ご相談などは、下記公式窓口までお寄せください。</p>
+      <div class="inline-block bg-slate-800 border border-slate-700 px-6 py-4 rounded-xl text-sm">
+        メール：<a href="mailto:nsfpro.contact@gmail.com" class="text-blue-400 hover:underline">nsfpro.contact@gmail.com</a>
       </div>
-      <div class="text-sm space-y-1 text-slate-400 font-medium md:text-right">
-        <p>公式Instagram: <a href="https://instagram.com/2024nsfproject" target="_blank" class="text-blue-400 hover:underline">@2024nsfproject</a></p>
-        <p class="text-xs text-slate-500 mt-4">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </section>
+
+  <footer class="bg-slate-950 text-slate-500 py-12 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+      <div class="flex items-center space-x-3">
+        <img src="images/新logo.jpg" alt="NSF ロゴ" class="h-10 w-auto brightness-0 invert opacity-40">
+        <div class="text-left">
+          <p class="font-bold text-slate-400">NSF PROJECTs</p>
+          <p class="text-[10px] text-slate-600">能登半島地震・学生による支援募金プロジェクト</p>
+        </div>
+      </div>
+      <div class="flex flex-col md:items-end space-y-2">
+        <div class="space-x-4 font-medium text-slate-400">
+          <a href="#about" class="hover:underline">当団体について</a>
+          <a href="#" class="hover:underline">PRIVACY POLICY</a>
+        </div>
+        <p class="text-slate-600">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
       </div>
     </div>
   </footer>
