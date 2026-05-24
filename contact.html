@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTACT | NSF PROJECTs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .dropdown:hover .dropdown-menu { display: block; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="新logo.jpg" alt="NSF ロゴ" class="h-14 w-auto object-contain">
+        <span class="font-black text-lg text-slate-900 tracking-wide uppercase">NSF PROJECTs</span>
+      </a>
+      
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="about.html" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="apply.html" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="contact.html" class="text-blue-600 py-2 border-b-2 border-blue-600 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu">
+            <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
+            </div>
+        </div>
+      </nav>
+      
+      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+    </div>
+  </header>
+
+  <section class="relative h-[450px] flex items-center justify-center bg
