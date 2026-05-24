@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APPLY | メンバー加入</title>
+  <title>APPLY | NSF PROJECTs</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Noto Sans JP', sans-serif; } .dropdown:hover .dropdown-menu { display: block; }</style>
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .dropdown:hover .dropdown-menu { display: block; }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
@@ -14,37 +19,116 @@
     <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
       <a href="index.html" class="flex items-center space-x-3">
         <img src="新logo.jpg" alt="NSF ロゴ" class="h-14 w-auto object-contain">
-        <span class="font-black text-lg text-slate-900 tracking-wide">NSF PROJECTs</span>
+        <span class="font-black text-lg text-slate-900 tracking-wide uppercase">NSF PROJECTs</span>
       </a>
+      
       <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600">
-        <a href="index.html" class="hover:text-blue-600 transition py-2">HOME</a>
-        <a href="about.html" class="hover:text-blue-600 transition py-2">ABOUT</a>
-        <a href="apply.html" class="text-blue-600 py-2">APPLY</a>
-        <a href="contact.html" class="hover:text-blue-600 transition py-2">CONTACT</a>
-        <div class="relative dropdown">
+        <a href="index.html" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="about.html" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="apply.html" class="text-blue-600 py-2 border-b-2 border-blue-600 font-black">APPLY</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
           <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer">
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu">
-            <a href="hatenaki.html" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50">果てなき復興プロジェクト</a>
-            <a href="mamoneru.html" class="block px-4 py-2 text-xs text-slate-700 hover:bg-slate-50">Mamoneruプロジェクト</a>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
           </div>
         </div>
       </nav>
-      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+      
+      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
     </div>
   </header>
 
-  <main class="max-w-3xl mx-auto px-4 py-16 text-center flex-grow">
-    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">APPLY</span>
-    <h1 class="text-3xl font-black text-slate-950 mt-2 mb-6">能登の良い未来をあなたの個性を活かして<br>一緒に作りませんか？</h1>
-    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-slate-600 text-sm md:text-base leading-relaxed mb-8 max-w-xl mx-auto">
-      <p>NSF PROJECTsでは、日本全国から集まる仲間と共に活動を推進する学生メンバーを随時募集しています。あなたの個性を活かせる場所がきっとあります。</p>
+  <section class="relative h-[450px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="NSF_.JPG" alt="活動風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/40 to-blue-950/20"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <div class="flex justify-center space-x-8 md:space-x-16 text-xl md:text-3xl font-black tracking-widest text-orange-400 mb-6 drop-shadow-md">
+        <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg uppercase">APPLY</h1>
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto font-medium opacity-90 tracking-widest">メンバー加入のご案内</p>
     </div>
-    <a href="https://discord.gg/5G2evdHY8" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3.5 rounded-full shadow-md transition">メンバーとして参加</a>
+  </section>
+
+  <main class="max-w-4xl mx-auto px-4 py-16 flex-grow">
+    
+    <div class="text-center mb-12 space-y-6">
+      <h2 class="text-2xl md:text-4xl font-black text-slate-950 leading-tight">
+        能登の良い未来を<br class="sm:hidden">あなたの個性を活かして<br>一緒に作りませんか？
+      </h2>
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-xs text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+        <p>
+          NSF PROJECTsでは、日本全国から集まる仲間と共に活動を推進する学生メンバーを随時募集しています。あなたの個性を活かせる場所がきっとあります。
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center space-y-8">
+      <a href="https://discord.gg/5G2evdHY8" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 font-black text-white transition-all duration-200 bg-blue-600 rounded-full hover:bg-blue-700 shadow-lg hover:shadow-xl active:scale-95">
+        <span class="mr-3">Discordに参加してメンバーになる</span>
+        <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+      </a>
+      
+      <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Join our online community on Discord</p>
+    </div>
+
+    <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs text-center space-y-3">
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <h3 class="font-black text-slate-950 text-sm">全国に広がる仲間</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">北海道から沖縄まで、全国の中高生・学生メンバーが400人以上集まっています。</p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs text-center space-y-3">
+        <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        </div>
+        <h3 class="font-black text-slate-950 text-sm">個性を活かす</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">「こんな支援をしたい！」という思いから、誰でも新しいプロジェクトを立ち上げられます。</p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs text-center space-y-3">
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+        </div>
+        <h3 class="font-black text-slate-950 text-sm">Discordで連携</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">オンラインツールを活用し、地域を問わず活発なコミュニケーションを行っています。</p>
+      </div>
+    </div>
+
+    <div class="mt-16 flex justify-center">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 max-w-lg">
+        <img src="IMG_1413.jpg" alt="えぬくま" class="w-20 h-20 object-contain">
+        <div class="text-center sm:text-left">
+          <h4 class="font-black text-blue-600 text-sm mb-1 tracking-wider uppercase">Official Mascot</h4>
+          <p class="text-slate-500 text-[11px] leading-relaxed">
+            公式マスコットの「えぬくま」君です。君の参加を、全メンバーと一緒に楽しみに待ってるよ！
+          </p>
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <footer class="bg-slate-900 text-slate-500 py-6 text-xs text-center"><p>&copy; 2026 NSF PROJECTs.</p></footer>
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-center mb-4">
+        <img src="新logo.jpg" alt="NSF ロゴ" class="h-10 w-auto brightness-0 invert opacity-60">
+      </div>
+      <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
+      <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </footer>
+
 </body>
 </html>
