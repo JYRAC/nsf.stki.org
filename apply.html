@@ -10,14 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
-    .dropdown:hover .dropdown-menu { display: block; }
+    /* PC環境でのみホバーでドロップダウンを開く */
+    @media (min-width: 1024px) {
+      .dropdown:hover .dropdown-menu { display: block; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex items-center space-x-3">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="index.html" class="flex items-center space-x-3 z-50">
         <img src="新logo.jpg" alt="NSF ロゴ" class="h-14 w-auto object-contain">
         <span class="font-black text-lg text-slate-900 tracking-wide uppercase">NSF PROJECTs</span>
       </a>
@@ -40,7 +44,29 @@
         </div>
       </nav>
       
-      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+      <div class="flex items-center space-x-4 z-50">
+        <a href="apply.html" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-lg lg:hidden flex flex-col p-6 space-y-4 font-black text-slate-700">
+        <a href="index.html" class="hover:text-blue-600 transition text-base">HOME</a>
+        <a href="about.html" class="hover:text-blue-600 transition text-base">ABOUT</a>
+        <a href="apply.html" class="text-blue-600 text-base">APPLY</a>
+        <a href="contact.html" class="hover:text-blue-600 transition text-base">CONTACT</a>
+        <div class="border-t border-slate-100 pt-3">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">PROJECTs</p>
+          <a href="hatenaki.html" class="block py-2 text-sm text-slate-600 hover:text-blue-600 font-bold">・果てなき復興プロジェクト</a>
+          <a href="mamoneru.html" class="block py-2 text-sm text-slate-600 hover:text-blue-600 font-bold">・Mamoneruプロジェクト</a>
+        </div>
+        <a href="apply.html" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-xs">メンバー加入</a>
+      </div>
+
     </div>
   </header>
 
@@ -128,6 +154,23 @@
       <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      
+      // メニュー開閉時に三本線アイコンと「✕」アイコンを切り替える
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
 
 </body>
 </html>
