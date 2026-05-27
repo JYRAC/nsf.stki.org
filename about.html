@@ -10,37 +10,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
-    .dropdown:hover .dropdown-menu { display: block; }
+    /* PC環境でのみホバーでドロップダウンを開く */
+    @media (min-width: 1024px) {
+      .dropdown:hover .dropdown-menu { display: block; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex items-center space-x-3">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="index.html" class="flex items-center space-x-3 z-50">
         <img src="新logo.jpg" alt="NSF ロゴ" class="h-14 w-auto object-contain">
         <span class="font-black text-lg text-slate-900 tracking-wide uppercase">NSF PROJECTs</span>
       </a>
       
       <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600">
-        <a href="index.html" class="hover:text-blue-600 transition py-2">HOME</a>
-        <a href="about.html" class="text-blue-600 py-2 border-b-2 border-blue-600">ABOUT</a>
-        <a href="apply.html" class="hover:text-blue-600 transition py-2">APPLY</a>
-        <a href="contact.html" class="hover:text-blue-600 transition py-2">CONTACT</a>
+        <a href="index.html" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="about.html" class="text-blue-600 py-2 border-b-2 border-blue-600 font-black">ABOUT</a>
+        <a href="apply.html" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
         
-        <div class="relative dropdown">
+        <div class="relative dropdown font-black">
           <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer">
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu">
-            <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">果てなき復興プロジェクト</a>
-            <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Mamoneruプロジェクト</a>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
           </div>
         </div>
       </nav>
       
-      <a href="apply.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-xs">メンバー加入</a>
+      <div class="flex items-center space-x-4 z-50">
+        <a href="apply.html" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-xs transition">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-lg lg:hidden flex flex-col p-6 space-y-4 font-black text-slate-700">
+        <a href="index.html" class="hover:text-blue-600 transition text-base">HOME</a>
+        <a href="about.html" class="text-blue-600 text-base">ABOUT</a>
+        <a href="apply.html" class="hover:text-blue-600 transition text-base">APPLY</a>
+        <a href="contact.html" class="hover:text-blue-600 transition text-base">CONTACT</a>
+        <div class="border-t border-slate-100 pt-3">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">PROJECTs</p>
+          <a href="hatenaki.html" class="block py-2 text-sm text-slate-600 hover:text-blue-600 font-bold">・果てなき復興プロジェクト</a>
+          <a href="mamoneru.html" class="block py-2 text-sm text-slate-600 hover:text-blue-600 font-bold">・Mamoneruプロジェクト</a>
+        </div>
+        <a href="apply.html" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-xs">メンバー加入</a>
+      </div>
+
     </div>
   </header>
 
@@ -69,7 +95,7 @@
           を目指しています。
         </h2>
       </div>
-      <p class="text-slate-600 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
+      <p class="text-slate-600 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
         この目的を達成するため、私たちはプロジェクトをはじめとする様々な支援・防災活動を全国で展開しております。
       </p>
     </section>
@@ -84,9 +110,9 @@
           <p class="text-lg font-black text-slate-900 italic border-l-4 border-orange-400 pl-4 py-1">
             ― 未来をつくるのは、問い続ける勇気です ―
           </p>
-          <div class="text-slate-600 text-sm md:text-base leading-relaxed space-y-4 font-normal">
+          <div class="text-slate-600 text-sm md:text-base leading-relaxed space-y-4 font-medium">
             <p>私たちは、災害のたびに「人のつながり」が試される社会に生きています。誰かが困っているときに、どれだけの人が声をかけ、手を伸ばすことができるのか。その一つひとつの行動が、社会のあり方を映し出しています。NSF PROJECTsは、その小さな行動を形にするために生まれました。</p>
-            <p>災害支援や防災の現場に立つと、制度と行動の間にある「見えない隙間」に気づきます。良い仕組みがあっても、現場で機能しなければ意味がありません。そして、現場の声が制度に届かなければ、同じ課題が繰り返されてしまいます。私たちは、その隙間に若者としての想像力と行動力を注ぎ、制度と人とをつなぐ“橋”になりたいと願っています。</p>
+            <p>災害支援や防災の現場に立つと、制度と行動の間にある「見えない隙間」に気づきます。良い仕組みがあっても、現場で機能しなければ意味がありません。速度と行動、そして現場の声が制度に届かなければ、同じ課題が繰り返されてしまいます。私たちは、その隙間に若者としての想像力と行動力を注ぎ、制度と人とをつなぐ“橋”になりたいと願っています。</p>
             <p>NSFには、さまざまな分野の仲間が集まっています。共通しているのは「つなぐ」という信念です。行政と市民、制度と行動、過去と未来――その間に橋をかけることが、私たちの使命だと思っています。</p>
             <p>私たちは、まだ未完成な組織です。けれども、未完成だからこそ、立ち止まり、考え、学び、変わり続けることができます。社会の変化に正面から向き合いながら、失敗を恐れずに挑戦し続けること。それが、NSFの原動力です。</p>
             <p>防災も、復興も、文化の継承も、すべては「人と人との関わり」から始まります。制度を動かすのは、いつの時代も人の思いです。だからこそ、私たちは学びを重ね、想いをかたちにしていきたいと思います。</p>
@@ -121,7 +147,7 @@
               <h3 class="font-black text-slate-950 text-base">防災特命大臣　坂井学 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1 font-medium">
             未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。
             知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
           </p>
@@ -137,34 +163,54 @@
               <h3 class="font-black text-slate-950 text-base">石川県知事　馳浩 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1">
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1 font-medium">
             能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。
             皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
           </p>
         </div>
       </div>
-      <p class="text-[10px] text-slate-400 text-center mt-2 italic">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
+      <p class="text-[10px] text-slate-400 text-center mt-2 font-bold italic">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
     </section>
 
     <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
       <img src="IMG_1413.jpg" alt="えぬくま" class="w-24 h-24 object-contain">
       <div class="text-center sm:text-left">
         <h4 class="font-black text-blue-600 text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
-        <p class="text-slate-600 text-sm leading-relaxed max-w-md">
-          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとい、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
+        <p class="text-slate-600 text-sm leading-relaxed max-w-md font-medium">
+          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとも、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
         </p>
       </div>
     </section>
 
   </main>
 
-  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center">
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center mt-auto">
     <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-center mb-4">
+        <img src="新logo.jpg" alt="NSF ロゴ" class="h-10 w-auto brightness-0 invert opacity-60">
+      </div>
       <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
-      <p class="text-slate-600 mb-4 tracking-widest">能登半島地震・学生による支援募金プロジェクト</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
       <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      
+      // メニュー開閉時に三本線アイコンと「✕」アイコンを切り替える
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
 
 </body>
 </html>
