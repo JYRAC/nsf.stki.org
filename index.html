@@ -89,10 +89,18 @@
 
   <section class="py-16 max-w-4xl mx-auto px-4 text-center">
     <h2 class="text-xl font-bold text-slate-950 mb-4">OUR GOAL ： 震災前の当たり前を取り戻す。</h2>
-    <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto mb-6 font-medium">
+    <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
       令和６年１月１日の能登半島地震を受け、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。同じ目線での支援を提供し、未来の防災意識を高めるための様々なプロジェクトを展開しています。
     </p>
-    <a href="about.html" class="text-xs font-bold text-blue-600 hover:underline">NSF PROJECTsについて詳しく知る ➔</a>
+    
+    <div class="flex justify-center">
+      <a href="about.html" class="inline-flex items-center justify-center space-x-2 bg-blue-50 hover:bg-blue-100 text-blue-600 font-black text-sm md:text-base px-6 py-3 rounded-xl transition duration-200 group border border-blue-200/60 shadow-xs">
+        <span>NSF PROJECTsについて詳しく知る</span>
+        <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
   </section>
 
   <section id="instagram" class="py-16 bg-slate-100 border-t border-slate-200 mt-auto">
@@ -117,8 +125,7 @@
   <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-center mb-4">
-        <img src="新logo.jpg" alt="NSF ロゴ" class="h-10 w-auto brightness-0 invert opacity-60">
-      </div>
+             </div>
       <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
       <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
       <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
@@ -133,7 +140,6 @@
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
       
-      // メニュー開閉時に三本線アイコンと「✕」アイコンを切り替える
       if (mobileMenu.classList.contains('hidden')) {
         menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
       } else {
