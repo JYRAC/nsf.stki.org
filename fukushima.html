@@ -4,10 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FUKUSHIMA 2026｜果てなき復興プロジェクト</title>
-<link rel="stylesheet" href="css/fukushima.css">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="fukushima.css">
 <meta name="theme-color" content="#0D2454">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body>
 <!-- ===== HEADER ===== -->
@@ -181,23 +179,7 @@
 
   © NSF PROJECTs　果てなき復興プロジェクト
 </footer>
-<script src="js/fukushima.js"></script>
-<script>
-
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener("load", () => {
-
-    navigator.serviceWorker.register("/sw.js")
-
-      .then(() => console.log("SW登録成功"))
-
-      .catch(err => console.log("SW失敗", err));
-
-  });
-
-}
-</script>
+<script src="fukushima.js"></script>
 </body>
 </html>
  
