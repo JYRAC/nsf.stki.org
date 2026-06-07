@@ -18,12 +18,12 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-<header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
       
       <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
-        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+        <span class="font-black text-base sm:text-lg text-slate-995 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
       <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
@@ -81,6 +81,7 @@
 
     </div>
   </header>
+
   <section class="relative h-[450px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
     <img src="NSF_.JPG" alt="活動風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/40 to-blue-950/20"></div>
@@ -111,33 +112,38 @@
       </p>
     </section>
 
-    <section class="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-xs max-w-5xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-        <div class="lg:col-span-2 space-y-6">
-          <div class="flex items-center space-x-3 mb-6">
-            <span class="w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
-            <h2 class="text-2xl font-black text-slate-950">代表挨拶</h2>
-          </div>
-          <p class="text-lg font-black text-slate-900 italic border-l-4 border-orange-400 pl-4 py-1">
-            ― 未来をつくるのは、問い続ける勇気です ―
-          </p>
-          <div class="text-slate-600 text-sm md:text-base leading-relaxed space-y-4 font-medium">
-            <p>私たちは、災害のたびに「人のつながり」が試される社会に生きています。誰かが困っているときに、どれだけの人が声をかけ、手を伸ばすことができるのか。その一つひとつの行動が、社会のあり方を映し出しています。NSF PROJECTsは、その小さな行動を形にするために生まれました。</p>
-            <p>災害支援や防災の現場に立つと、制度と行動の間にある「見えない隙間」に気づきます。良い仕組みがあっても、現場で機能しなければ意味がありません。速度と行動、そして現場の声が制度に届かなければ、同じ課題が繰り返されてしまいます。私たちは、その隙間に若者としての想像力と行動力を注ぎ、制度と人とをつなぐ“橋”になりたいと願っています。</p>
-            <p>NSFには、さまざまな分野の仲間が集まっています。共通しているのは「つなぐ」という信念です。行政と市民、制度と行動、過去と未来――その間に橋をかけることが、私たちの使命だと思っています。</p>
-            <p>私たちは、まだ未完成な組織です。けれども、未完成だからこそ、立ち止まり、考え、学び、変わり続けることができます。社会の変化に正面から向き合いながら、失敗を恐れずに挑戦し続けること。それが、NSFの原動力です。</p>
-            <p>防災も、復興も、文化の継承も、すべては「人と人との関わり」から始まります。制度を動かすのは、いつの時代も人の思いです。だからこそ、私たちは学びを重ね、想いをかたちにしていきたいと思います。</p>
-            <p>NSFは、社会の片隅から静かに問いかけ続ける存在でありたいと思っています。「誰かの痛みを、自分ごととして感じることができるか」。その問いを胸に、今日も歩み続けています。未来は、私たちの行動の先に生まれるものだと信じて。</p>
+    <section class="bg-white p-6 md:p-12 rounded-3xl border border-slate-200 shadow-xs max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
+        
+        <div class="md:col-span-1 w-full order-first">
+          <div class="bg-slate-100 aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+            <img src="photo/representative.png" alt="NSF PROJECTs 6期代表 高野怜生" class="w-full h-full object-cover object-center">
           </div>
         </div>
         
-        <div class="lg:col-span-1 pt-4">
-          <div class="bg-slate-100 aspect-[3/4] rounded-2xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center text-slate-400 p-4">
-            <img src="ここに代表写真のファイル名.jpg" alt="代表写真" class="w-full h-full object-cover rounded-xl hidden last:block">
-            <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-            <span class="text-xs font-bold uppercase tracking-widest">Photo Frame</span>
+        <div class="md:col-span-2 space-y-6">
+          <div class="flex flex-col space-y-1.5 border-b border-slate-100 pb-3">
+            <p class="text-[10px] md:text-xs font-bold text-slate-400 tracking-widest uppercase">NSF REPRESENTATIVE</p>
+            <h2 class="text-2xl font-black text-slate-950">代表挨拶</h2>
+          </div>
+          
+          <p class="text-lg md:text-2xl font-black text-red-700 leading-tight tracking-wide border-l-4 border-red-700 pl-4 py-0.5">
+            ― 中高生の発想で、防災の『あたりまえ』を塗り替える ―
+          </p>
+          
+          <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 font-medium tracking-wide">
+            <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
+            <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
+            <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
+            <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
+          </div>
+          
+          <div class="pt-4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-4">
+            <span class="text-sm font-bold text-slate-500 tracking-wide">NSF PROJECTs 6期代表</span>
+            <span class="text-xl md:text-2xl font-black text-slate-900 tracking-wider">高野 怜生</span>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -147,36 +153,34 @@
         <h2 class="text-2xl font-black text-slate-950">応援メッセージ</h2>
       </div>
       
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col h-full">
-          <div class="flex items-center space-x-4 mb-4">
-            <div class="w-16 h-16 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-300">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="w-16 h-16 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-300 shadow-inner">
               <img src="ここに坂井氏写真.jpg" alt="坂井学氏" class="w-full h-full object-cover hidden last:block">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
             <div>
-              <h3 class="font-black text-slate-950 text-base">防災特命大臣　坂井学 氏</h3>
+              <h3 class="font-black text-slate-950 text-base">防災特命大臣 坂井学 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1 font-medium">
-            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。
-            知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-4 py-1 font-medium flex-grow">
+            未来を見据え、防災について学び、考え、語り合おうとするみなさんの姿勢に、心から敬意を表します。防災は命と暮らしを守る大切な知恵であり誰もが向き合うべきテーマです。知恵と胆力を携え、一歩先を見据えながら、自分らしいリーダーシップを育んでください。皆さんの挑戦に大きな期待を寄せています。
           </p>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col h-full">
-          <div class="flex items-center space-x-4 mb-4">
-            <div class="w-16 h-16 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-300">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
+          <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
+            <div class="w-16 h-16 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-300 shadow-inner">
               <img src="ここに馳氏写真.jpg" alt="馳浩氏" class="w-full h-full object-cover hidden last:block">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
             <div>
-              <h3 class="font-black text-slate-950 text-base">石川県知事　馳浩 氏</h3>
+              <h3 class="font-black text-slate-950 text-base">石川県知事 馳浩 氏</h3>
             </div>
           </div>
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4 py-1 font-medium">
-            能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。
-            皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic border-l-2 border-blue-600 pl-4 py-1 font-medium flex-grow">
+            能登では、令和６年元日の能登半島地震等で大きな被害が発生し、現在、復旧・復興に全力で取り組んでいます。皆さんは募金活動などに取り組まれ、今回、能登の魅力を全国に発信する活動をされるとお聞きしました。こうした取組は、能登の人々に勇気を与え、能登の復興の大きな後押しになるものと考えています。石川県知事として深く感謝申し上げます。
           </p>
         </div>
       </div>
@@ -188,7 +192,7 @@
       <div class="text-center sm:text-left">
         <h4 class="font-black text-blue-600 text-base mb-1 tracking-widest uppercase">Official Mascot</h4>
         <p class="text-slate-600 text-sm leading-relaxed max-w-md font-medium">
-          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとも、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
+          公式キャラクターの「えぬくま」君です。ヘルメットと学生服を身にまとい、全国の中高生メンバーと一緒に、能登の未来を毎日応援しています！
         </p>
       </div>
     </section>
@@ -211,7 +215,6 @@
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
       
-      // メニュー開閉時に三本線アイコンと「✕」アイコンを切り替える
       if (mobileMenu.classList.contains('hidden')) {
         menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
       } else {
