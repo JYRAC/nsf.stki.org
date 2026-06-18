@@ -186,32 +186,14 @@
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・最新の活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">JYRACとNSFの公式タイムラインを表示しています</p>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で最新順に並び替えて表示しています</p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <div class="space-y-4">
-          <div class="flex items-center space-x-2 px-2">
-            <span class="bg-purple-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">JYRAC</span>
-            <span class="text-sm font-bold text-slate-700">公式プロフィール</span>
-          </div>
-          <div class="w-full bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-xs">
-            <a class="note-embed" href="https://note.com/jyrac_official">JYRAC公式Note</a>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-center space-x-2 px-2">
-            <span class="bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">NSF</span>
-            <span class="text-sm font-bold text-slate-700">公式プロフィール</span>
-          </div>
-          <div class="w-full bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-xs">
-            <a class="note-embed" href="https://note.com/nsfprojct_2024">NSF公式Note</a>
-          </div>
-        </div>
-
+      <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
       </div>
     </div>
   </section>
@@ -243,8 +225,102 @@
     </div>
   </footer>
 
-  <script async src="https://note.com/scripts/embed.js" charset="utf-8"></script>
   <script>
+    const feeds = {
+      JYRAC: "https://note.com/jyrac_official/rss",
+      NSF: "https://note.com/nsfprojct_2024/rss"
+    };
+
+    // WordPressが世界に提供している最強かつ超安定のCORS完全回避RSS解析API
+    const fetchFeed = (rssUrl, creatorName) => {
+      const apiUrl = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(rssUrl)}`;
+      
+      return fetch(apiUrl)
+        .then(res => res.ok ? res.json() : { items: [] })
+        .then(data => {
+          return (data.items || []).map(item => {
+            const title = item.title || "無題の記事";
+            const link = item.url || "#";
+            
+            // WordPress APIが解析してくれた本文（content）から1番目の画像を完璧に抽出するロジック
+            let imgUrl = '新logo.jpg';
+            if (item.content) {
+              const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+              if (imgMatch && imgMatch[1]) {
+                // Noteの画像URLがエスケープされている場合の修正処理
+                imgUrl = imgMatch[1].replace(/&amp;/g, '&');
+              }
+            }
+
+            return {
+              title,
+              link,
+              imgUrl,
+              dateObj: new Date(item.date),
+              creator: creatorName
+            };
+          });
+        })
+        .catch(() => []);
+    };
+
+    // JYRACとNSFの両方を安全に並列フェッチ
+    Promise.all([
+      fetchFeed(feeds.JYRAC, 'JYRAC'),
+      fetchFeed(feeds.NSF, 'NSF')
+    ]).then(([articlesJyrac, articlesNsf]) => {
+      let allArticles = [...articlesJyrac, ...articlesNsf];
+
+      // 日付の新しい順（最新順）にソート
+      allArticles.sort((a, b) => b.dateObj - a.dateObj);
+
+      const container = document.getElementById('note-list');
+      container.innerHTML = ''; // アニメーションをクリア
+      
+      const displayCount = Math.min(allArticles.length, 3);
+      
+      if (displayCount === 0) {
+        container.innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">公開された記事がありません。</p>';
+        return;
+      }
+
+      for (let i = 0; i < displayCount; i++) {
+        const article = allArticles[i];
+        const date = `${article.dateObj.getFullYear()}.${String(article.dateObj.getMonth() + 1).padStart(2, '0')}.${String(article.dateObj.getDate()).padStart(2, '0')}`;
+        const labelColor = article.creator === 'JYRAC' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white';
+
+        const html = `
+          <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
+            <span class="absolute top-4 left-4 z-10 ${labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              ${article.creator}
+            </span>
+            
+            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
+              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
+                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='新logo.jpg';">
+              </div>
+              <div class="p-6 flex flex-col flex-grow justify-between">
+                <div class="space-y-2">
+                  <span class="text-xs font-bold text-slate-400 block">${date}</span>
+                  <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
+                </div>
+                <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
+                  <span>記事を読む</span>
+                  <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      }
+    }).catch(err => {
+      console.error(err);
+      document.getElementById('note-list').innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">記事の読み込みに失敗しました。</p>';
+    });
+
     // --- スマホ用ナビゲーションメニューの制御 ---
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
