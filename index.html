@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght=400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
     /* PC環境でのみホバーでドロップダウンを開く */
@@ -187,7 +187,7 @@
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
         <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動更新で表示しています</p>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
       </div>
       
       <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -226,103 +226,104 @@
   </footer>
 
   <script>
-    const feeds = {
-      JYRAC: "https://note.com/jyrac_official/rss",
-      NSF: "https://note.com/nsfprojct_2024/rss"
-    };
+    // 自ドメイン内の裏方（Cloudflare Functions）から安全にデータを呼び出すためCORSを回避
+    fetch('/functions/get-note')
+      .then(res => {
+        if (!res.ok) throw new Error('Noteの読み込みに失敗しました');
+        return res.json();
+      })
+      .then(data => {
+        const parser = new DOMParser();
+        let allArticles = [];
 
-    // WordPress公式の超高安定RSSパースAPI
-    const apiUrlJyrac = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(feeds.JYRAC)}`;
-    const apiUrlNsf = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(feeds.NSF)}`;
-
-    // 安全にデータをレンダリングする共通関数
-    const renderArticles = (articles) => {
-      const container = document.getElementById('note-list');
-      container.innerHTML = '';
-      
-      articles.forEach(article => {
-        const html = `
-          <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
-            <span class="absolute top-4 left-4 z-10 ${article.labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-              ${article.creator}
-            </span>
-            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
-              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
-                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='新logo.jpg';">
-              </div>
-              <div class="p-6 flex flex-col flex-grow justify-between">
-                <div class="space-y-2">
-                  <span class="text-xs font-bold text-slate-400 block">${article.date}</span>
-                  <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
-                </div>
-                <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
-                  <span>記事を読む</span>
-                  <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </span>
-              </div>
-            </a>
-          </article>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-      });
-    };
-
-    // セーフティネット：環境依存でAPI自体がブロックされた時に出す公式案内カード
-    const insertFallbackCards = () => {
-      const fallbackArticles = [
-        { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
-        { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
-      ];
-      renderArticles(fallbackArticles);
-    };
-
-    // 2つのAPIから並列で非同期取得
-    Promise.all([
-      fetch(apiUrlJyrac).then(res => res.ok ? res.json() : { items: [] }).catch(() => ({ items: [] })),
-      fetch(apiUrlNsf).then(res => res.ok ? res.json() : { items: [] }).catch(() => ({ items: [] }))
-    ]).then(([dataJyrac, dataNsf]) => {
-      let combined = [];
-
-      const processItems = (items, creator, labelColor) => {
-        (items || []).forEach(item => {
-          let imgUrl = '新logo.jpg';
-          if (item.content) {
-            const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-            if (imgMatch && imgMatch[1]) imgUrl = imgMatch[1].replace(/&amp;/g, '&');
-          }
-          const dObj = new Date(item.date);
-          const dateStr = isNaN(dObj.getTime()) ? "最新記事" : `${dObj.getFullYear()}.${String(dObj.getMonth() + 1).padStart(2, '0')}.${String(dObj.getDate()).padStart(2, '0')}`;
+        // 届いた生のXMLテキストから正確にデータを抽出
+        const parseRss = (xmlString, creatorName) => {
+          if (!xmlString) return;
+          const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+          const items = xmlDoc.getElementsByTagName("item");
           
-          combined.push({
-            title: item.title || "無題の記事",
-            link: item.url || "#",
-            imgUrl,
-            date: dateStr,
-            dateObj: dObj,
-            creator,
-            labelColor
-          });
-        });
-      };
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const title = item.getElementsByTagName("title")[0]?.textContent || "無題の記事";
+            const link = item.getElementsByTagName("link")[0]?.textContent || "#";
+            
+            // 隠しタグや本文（description）から漏れなくサムネイル画像URLを確保
+            let imgUrl = '新logo.jpg';
+            const mediaThumbnail = item.getElementsByTagName("media:thumbnail")[0];
+            const testThumbnail = item.getElementsByTagNameNS("*", "thumbnail")[0];
+            const description = item.getElementsByTagName("description")[0]?.textContent || "";
+            const imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
 
-      processItems(dataJyrac.items, 'JYRAC', 'bg-purple-600 text-white');
-      processItems(dataNsf.items, 'NSF', 'bg-blue-600 text-white');
+            if (mediaThumbnail && mediaThumbnail.textContent) {
+              imgUrl = mediaThumbnail.textContent;
+            } else if (testThumbnail && testThumbnail.textContent) {
+              imgUrl = testThumbnail.textContent;
+            } else if (imgMatch && imgMatch[1]) {
+              imgUrl = imgMatch[1];
+            }
 
-      if (combined.length === 0) {
-        insertFallbackCards();
-        return;
-      }
+            const pubDateText = item.getElementsByTagName("pubDate")[0]?.textContent;
+            const dateObj = new Date(pubDateText);
 
-      // 最新日付順にソートして上位3件を抽出
-      combined.sort((a, b) => b.dateObj - a.dateObj);
-      renderArticles(combined.slice(0, 3));
-    }).catch(() => {
-      insertFallbackCards();
-    });
+            allArticles.push({ title, link, imgUrl, dateObj, creator: creatorName });
+          }
+        };
 
-    // --- 2. スマホ用ナビゲーションメニューの制御 ---
+        parseRss(data.jyrac, 'JYRAC');
+        parseRss(data.nsf, 'NSF');
+
+        // すべてを統合して最新日付順にソート
+        allArticles.sort((a, b) => b.dateObj - a.dateObj);
+
+        const container = document.getElementById('note-list');
+        container.innerHTML = ''; // 骨組み（スケルトン）をクリア
+        
+        const displayCount = Math.min(allArticles.length, 3);
+        
+        if (displayCount === 0) {
+          container.innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">公開された記事がありません。</p>';
+          return;
+        }
+
+        for (let i = 0; i < displayCount; i++) {
+          const article = allArticles[i];
+          const date = `${article.dateObj.getFullYear()}.${String(article.dateObj.getMonth() + 1).padStart(2, '0')}.${String(article.dateObj.getDate()).padStart(2, '0')}`;
+          const labelColor = article.creator === 'JYRAC' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white';
+
+          const html = `
+            <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
+              <span class="absolute top-4 left-4 z-10 ${labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                ${article.creator}
+              </span>
+              
+              <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
+                <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
+                  <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='新logo.jpg';">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                  <div class="space-y-2">
+                    <span class="text-xs font-bold text-slate-400 block">${date}</span>
+                    <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
+                  </div>
+                  <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
+                    <span>記事を読む</span>
+                    <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </article>
+          `;
+          container.insertAdjacentHTML('beforeend', html);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('note-list').innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">記事の読み込みに失敗しました。</p>';
+      });
+
+    // --- スマホ用ナビゲーションメニューの制御 ---
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
