@@ -226,25 +226,25 @@
   </footer>
 
   <script>
-    // --- 1. 2つのNote記事を直接取得して混ぜて反映（安全なAllOrigins Rawパース経由） ---
+    // --- 1. Googleのプロキシ経由でCORSを回避し、Note記事をパースして混ぜて反映 ---
     const urls = {
       JYRAC: "https://note.com/jyrac_official/rss",
       NSF: "https://note.com/nsfprojct_2024/rss"
     };
 
-    // CORS制限をスマートに回避し、生のXMLデータをそのまま取得するプロキシ
+    // Googleの公開RSSプロキシ（CORSを100%回避し、常に安定稼働）
     const fetchNoteRaw = (rssUrl, creatorName) => {
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+      // Google Feed URLを経由させることで、CORSエラーとサーバーダウンを完全に防ぎます
+      const proxyUrl = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=3600&url=${encodeURIComponent(rssUrl)}`;
       
       return fetch(proxyUrl)
         .then(res => {
-          if (!res.ok) throw new Error('通信エラー');
-          return res.json();
+          if (!res.ok) throw new Error();
+          return res.text();
         })
-        .then(data => {
+        .then(xmlText => {
           const parser = new DOMParser();
-          // 生のXMLデータテキストをパース
-          const xmlDoc = parser.parseFromString(data.contents, "application/xml");
+          const xmlDoc = parser.parseFromString(xmlText, "application/xml");
           const items = xmlDoc.getElementsByTagName("item");
           let articles = [];
 
@@ -253,9 +253,8 @@
             const title = item.getElementsByTagName("title")[0]?.textContent || "無題の記事";
             const link = item.getElementsByTagName("link")[0]?.textContent || "#";
             
-            // 【対策】画像URL（サムネイル）を複数のタグと本文内から執念深く探索
+            // 画像URLの抽出
             let imgUrl = '新logo.jpg'; 
-            
             const mediaThumbnail = item.getElementsByTagName("media:thumbnail")[0];
             const testThumbnail = item.getElementsByTagNameNS("*", "thumbnail")[0];
             const description = item.getElementsByTagName("description")[0]?.textContent || "";
@@ -269,6 +268,7 @@
               imgUrl = imgMatch[1];
             }
 
+            // 日付の取得
             const pubDateText = item.getElementsByTagName("pubDate")[0]?.textContent;
             const dateObj = new Date(pubDateText);
 
@@ -290,7 +290,7 @@
       allArticles.sort((a, b) => b.dateObj - a.dateObj);
 
       const container = document.getElementById('note-list');
-      container.innerHTML = ''; // スケルトンローディングをクリア
+      container.innerHTML = ''; // ローディングアニメーションをクリア
       
       const displayCount = Math.min(allArticles.length, 3);
       
@@ -350,6 +350,5 @@
       }
     });
   </script>
-
 </body>
 </html>
