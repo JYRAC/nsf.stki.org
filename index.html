@@ -41,7 +41,7 @@
             <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="mamomizu.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
-            <a href="umaimon.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
+            <a href="umaimon.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能投うまいもん再発見プロジェクト</a>
             <a href="survival.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
             <a href="bifrost.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
           </div>
@@ -70,7 +70,7 @@
             <a href="hatenaki.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
             <a href="mamoneru.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="mamomizu.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
-            <a href="umaimon.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
+            <a href="umaimon.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能投うまいもん再発見プロジェクト</a>
             <a href="survival.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
             <a href="bifrost.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
@@ -226,33 +226,63 @@
   </footer>
 
   <script>
-    // --- 1. 外部API経由で2つのNote記事を直接取得して混ぜて反映 ---
+    // --- 1. 2つのNote記事を直接取得して混ぜて反映（安全なAllOrigins Rawパース経由） ---
     const urls = {
       JYRAC: "https://note.com/jyrac_official/rss",
       NSF: "https://note.com/nsfprojct_2024/rss"
     };
 
-    // rss2jsonの無料APIを経由して安全にデータをJSONにパース
-    const fetchNote = (rssUrl, creatorName) => {
-      const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-      return fetch(apiUrl)
-        .then(res => res.ok ? res.json() : { items: [] })
+    // CORS制限をスマートに回避し、生のXMLデータをそのまま取得するプロキシ
+    const fetchNoteRaw = (rssUrl, creatorName) => {
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+      
+      return fetch(proxyUrl)
+        .then(res => {
+          if (!res.ok) throw new Error('通信エラー');
+          return res.json();
+        })
         .then(data => {
-          return (data.items || []).map(item => ({
-            title: item.title || "無題の記事",
-            link: item.link || "#",
-            imgUrl: item.thumbnail || 'https://via.placeholder.com/600x400?text=NSF+PROJECTs',
-            dateObj: new Date(item.pubDate),
-            creator: creatorName
-          }));
+          const parser = new DOMParser();
+          // 生のXMLデータテキストをパース
+          const xmlDoc = parser.parseFromString(data.contents, "application/xml");
+          const items = xmlDoc.getElementsByTagName("item");
+          let articles = [];
+
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const title = item.getElementsByTagName("title")[0]?.textContent || "無題の記事";
+            const link = item.getElementsByTagName("link")[0]?.textContent || "#";
+            
+            // 【対策】画像URL（サムネイル）を複数のタグと本文内から執念深く探索
+            let imgUrl = '新logo.jpg'; 
+            
+            const mediaThumbnail = item.getElementsByTagName("media:thumbnail")[0];
+            const testThumbnail = item.getElementsByTagNameNS("*", "thumbnail")[0];
+            const description = item.getElementsByTagName("description")[0]?.textContent || "";
+            const imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
+
+            if (mediaThumbnail && mediaThumbnail.textContent) {
+              imgUrl = mediaThumbnail.textContent;
+            } else if (testThumbnail && testThumbnail.textContent) {
+              imgUrl = testThumbnail.textContent;
+            } else if (imgMatch && imgMatch[1]) {
+              imgUrl = imgMatch[1];
+            }
+
+            const pubDateText = item.getElementsByTagName("pubDate")[0]?.textContent;
+            const dateObj = new Date(pubDateText);
+
+            articles.push({ title, link, imgUrl, dateObj, creator: creatorName });
+          }
+          return articles;
         })
         .catch(() => []);
     };
 
-    // 両方のアカウントデータを並列処理で合体
+    // JYRACとNSFの両方を同時に並列処理で取得
     Promise.all([
-      fetchNote(urls.JYRAC, 'JYRAC'),
-      fetchNote(urls.NSF, 'NSF')
+      fetchNoteRaw(urls.JYRAC, 'JYRAC'),
+      fetchNoteRaw(urls.NSF, 'NSF')
     ]).then(([articlesJyrac, articlesNsf]) => {
       let allArticles = [...articlesJyrac, ...articlesNsf];
 
@@ -260,7 +290,7 @@
       allArticles.sort((a, b) => b.dateObj - a.dateObj);
 
       const container = document.getElementById('note-list');
-      container.innerHTML = ''; // ローディングをクリア
+      container.innerHTML = ''; // スケルトンローディングをクリア
       
       const displayCount = Math.min(allArticles.length, 3);
       
@@ -282,7 +312,7 @@
             
             <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
               <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
-                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy">
+                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='新logo.jpg';">
               </div>
               <div class="p-6 flex flex-col flex-grow justify-between">
                 <div class="space-y-2">
