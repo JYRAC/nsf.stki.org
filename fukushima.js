@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const phases = [
       {
         main: "NOW RECRUITING",
-        sub: "現在、プロジェクトメンバー応募受付中です"
+        sub: "現在、参加者応募受付中です"
       },
       {
         main: "JOIN FUKUSHIMA 2026",
