@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght=400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" crossorigin="anonymous">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
     /* PC環境でのみホバーでドロップダウンを開く */
@@ -41,7 +41,7 @@
             <a href="hatenaki.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="mamoneru.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="mamomizu.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
-            <a href="umaimon.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能投うまいもん再発見プロジェクト</a>
+            <a href="umaimon.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
             <a href="survival.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
             <a href="bifrost.html" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
           </div>
@@ -70,7 +70,7 @@
             <a href="hatenaki.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
             <a href="mamoneru.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="mamomizu.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
-            <a href="umaimon.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能投うまいもん再発見プロジェクト</a>
+            <a href="umaimon.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
             <a href="survival.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
             <a href="bifrost.html" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
@@ -187,7 +187,7 @@
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
         <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で最新順に並び替えて表示しています</p>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動更新で表示しています</p>
       </div>
       
       <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -231,77 +231,28 @@
       NSF: "https://note.com/nsfprojct_2024/rss"
     };
 
-    // WordPressが世界に提供している最強かつ超安定のCORS完全回避RSS解析API
-    const fetchFeed = (rssUrl, creatorName) => {
-      const apiUrl = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(rssUrl)}`;
-      
-      return fetch(apiUrl)
-        .then(res => res.ok ? res.json() : { items: [] })
-        .then(data => {
-          return (data.items || []).map(item => {
-            const title = item.title || "無題の記事";
-            const link = item.url || "#";
-            
-            // WordPress APIが解析してくれた本文（content）から1番目の画像を完璧に抽出するロジック
-            let imgUrl = '新logo.jpg';
-            if (item.content) {
-              const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-              if (imgMatch && imgMatch[1]) {
-                // Noteの画像URLがエスケープされている場合の修正処理
-                imgUrl = imgMatch[1].replace(/&amp;/g, '&');
-              }
-            }
+    // WordPress公式の超高安定RSSパースAPI
+    const apiUrlJyrac = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(feeds.JYRAC)}`;
+    const apiUrlNsf = `https://public-api.wordpress.com/rest/v1.1/read/feed/?url=${encodeURIComponent(feeds.NSF)}`;
 
-            return {
-              title,
-              link,
-              imgUrl,
-              dateObj: new Date(item.date),
-              creator: creatorName
-            };
-          });
-        })
-        .catch(() => []);
-    };
-
-    // JYRACとNSFの両方を安全に並列フェッチ
-    Promise.all([
-      fetchFeed(feeds.JYRAC, 'JYRAC'),
-      fetchFeed(feeds.NSF, 'NSF')
-    ]).then(([articlesJyrac, articlesNsf]) => {
-      let allArticles = [...articlesJyrac, ...articlesNsf];
-
-      // 日付の新しい順（最新順）にソート
-      allArticles.sort((a, b) => b.dateObj - a.dateObj);
-
+    // 安全にデータをレンダリングする共通関数
+    const renderArticles = (articles) => {
       const container = document.getElementById('note-list');
-      container.innerHTML = ''; // アニメーションをクリア
+      container.innerHTML = '';
       
-      const displayCount = Math.min(allArticles.length, 3);
-      
-      if (displayCount === 0) {
-        container.innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">公開された記事がありません。</p>';
-        return;
-      }
-
-      for (let i = 0; i < displayCount; i++) {
-        const article = allArticles[i];
-        const date = `${article.dateObj.getFullYear()}.${String(article.dateObj.getMonth() + 1).padStart(2, '0')}.${String(article.dateObj.getDate()).padStart(2, '0')}`;
-        const labelColor = article.creator === 'JYRAC' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white';
-
+      articles.forEach(article => {
         const html = `
           <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
-            <span class="absolute top-4 left-4 z-10 ${labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            <span class="absolute top-4 left-4 z-10 ${article.labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
               ${article.creator}
             </span>
-            
             <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
               <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
                 <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='新logo.jpg';">
               </div>
               <div class="p-6 flex flex-col flex-grow justify-between">
                 <div class="space-y-2">
-                  <span class="text-xs font-bold text-slate-400 block">${date}</span>
+                  <span class="text-xs font-bold text-slate-400 block">${article.date}</span>
                   <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
                 </div>
                 <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
@@ -315,13 +266,63 @@
           </article>
         `;
         container.insertAdjacentHTML('beforeend', html);
+      });
+    };
+
+    // セーフティネット：環境依存でAPI自体がブロックされた時に出す公式案内カード
+    const insertFallbackCards = () => {
+      const fallbackArticles = [
+        { title: "JYRAC (青少年災害復興支援活動団体) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
+        { title: "能登半島地震・学生支援募金プロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
+      ];
+      renderArticles(fallbackArticles);
+    };
+
+    // 2つのAPIから並列で非同期取得
+    Promise.all([
+      fetch(apiUrlJyrac).then(res => res.ok ? res.json() : { items: [] }).catch(() => ({ items: [] })),
+      fetch(apiUrlNsf).then(res => res.ok ? res.json() : { items: [] }).catch(() => ({ items: [] }))
+    ]).then(([dataJyrac, dataNsf]) => {
+      let combined = [];
+
+      const processItems = (items, creator, labelColor) => {
+        (items || []).forEach(item => {
+          let imgUrl = '新logo.jpg';
+          if (item.content) {
+            const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+            if (imgMatch && imgMatch[1]) imgUrl = imgMatch[1].replace(/&amp;/g, '&');
+          }
+          const dObj = new Date(item.date);
+          const dateStr = isNaN(dObj.getTime()) ? "最新記事" : `${dObj.getFullYear()}.${String(dObj.getMonth() + 1).padStart(2, '0')}.${String(dObj.getDate()).padStart(2, '0')}`;
+          
+          combined.push({
+            title: item.title || "無題の記事",
+            link: item.url || "#",
+            imgUrl,
+            date: dateStr,
+            dateObj: dObj,
+            creator,
+            labelColor
+          });
+        });
+      };
+
+      processItems(dataJyrac.items, 'JYRAC', 'bg-purple-600 text-white');
+      processItems(dataNsf.items, 'NSF', 'bg-blue-600 text-white');
+
+      if (combined.length === 0) {
+        insertFallbackCards();
+        return;
       }
-    }).catch(err => {
-      console.error(err);
-      document.getElementById('note-list').innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">記事の読み込みに失敗しました。</p>';
+
+      // 最新日付順にソートして上位3件を抽出
+      combined.sort((a, b) => b.dateObj - a.dateObj);
+      renderArticles(combined.slice(0, 3));
+    }).catch(() => {
+      insertFallbackCards();
     });
 
-    // --- スマホ用ナビゲーションメニューの制御 ---
+    // --- 2. スマホ用ナビゲーションメニューの制御 ---
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
