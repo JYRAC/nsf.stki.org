@@ -223,56 +223,95 @@
       <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
       <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
     </div>
-  </footer >
+  </footer>
 
   <script>
-    // --- 1. Cloudflare Functions経由でNoteの記事を取得して画面に反映 ---
+    // --- 1. Cloudflare Functions経由で2つのNote記事を取得して混ぜて反映 ---
     fetch('/functions/get-note')
       .then(res => {
         if (!res.ok) throw new Error('Noteの読み込みに失敗しました');
-        return res.text();
+        return res.json();
       })
-      .then(xmlString => {
+      .then(data => {
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlString, "text/xml");
-        const items = xmlDoc.getElementsByTagName("item");
+        let allArticles = [];
+
+        // 各RSSのXMLを解析して共通の配列に突っ込む関数
+        const parseRss = (xmlString, creatorName) => {
+          if (!xmlString) return;
+          const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+          const items = xmlDoc.getElementsByTagName("item");
+          
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const title = item.getElementsByTagName("title")[0]?.textContent || "無題の記事";
+            const link = item.getElementsByTagName("link")[0]?.textContent || "#";
+            
+            // サムネイルの取得
+            let imgUrl = 'https://via.placeholder.com/600x400?text=NSF+PROJECTs';
+            const thumbnailNodes = item.getElementsByTagName("media:thumbnail");
+            if (thumbnailNodes.length > 0) {
+              imgUrl = thumbnailNodes[0].textContent;
+            } else {
+              const mediaThumbnail = item.getElementsByTagNameNS("http://search.yahoo.com/mrss/", "thumbnail")[0];
+              if (mediaThumbnail) imgUrl = mediaThumbnail.textContent;
+            }
+
+            // 日付の取得
+            const pubDateText = item.getElementsByTagName("pubDate")[0]?.textContent;
+            const dateObj = new Date(pubDateText);
+
+            allArticles.push({
+              title,
+              link,
+              imgUrl,
+              dateObj,
+              creator: creatorName // 'JYRAC' または 'NSF'
+            });
+          }
+        };
+
+        // JYRACとNSFのデータをそれぞれ解析
+        parseRss(data.jyrac, 'JYRAC');
+        parseRss(data.nsf, 'NSF');
+
+        // すべてを日付の新しい順（降順）に並び替える
+        allArticles.sort((a, b) => b.dateObj - a.dateObj);
+
         const container = document.getElementById('note-list');
+        container.innerHTML = ''; // ローディングをクリア
         
-        // 既存のローディングアニメーションをクリア
-        container.innerHTML = '';
+        // 最新の3件をピックアップ
+        const displayCount = Math.min(allArticles.length, 3);
         
-        // 最新の3件を表示
-        const displayCount = Math.min(items.length, 3);
-        
-        if(displayCount === 0) {
+        if (displayCount === 0) {
           container.innerHTML = '<p class="text-slate-500 col-span-3 text-center py-8">公開された記事がありません。</p>';
           return;
         }
 
         for (let i = 0; i < displayCount; i++) {
-          const title = items[i].getElementsByTagName("title")[0].textContent;
-          const link = items[i].getElementsByTagName("link")[0].textContent;
+          const article = allArticles[i];
           
-          // サムネイル画像の取得（media:thumbnailタグ）
-          const mediaImg = items[i].getElementsByTagName("media:thumbnail")[0];
-          const imgUrl = mediaImg ? mediaImg.textContent : 'https://via.placeholder.com/600x400?text=NSF+PROJECTs';
+          // 日付フォーマット（YYYY.MM.DD）
+          const date = `${article.dateObj.getFullYear()}.${String(article.dateObj.getMonth() + 1).padStart(2, '0')}.${String(article.dateObj.getDate()).padStart(2, '0')}`;
+          
+          // 所属によってラベルの色を変える（JYRAC=紫、NSF=青）
+          const labelColor = article.creator === 'JYRAC' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white';
 
-          // 日付の取得と整形（YYYY.MM.DD形式に変換）
-          const pubDateText = items[i].getElementsByTagName("pubDate")[0].textContent;
-          const dateObj = new Date(pubDateText);
-          const date = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
-
-          // 他の要素とデザインを統一したTailwindカード型HTML
           const html = `
-            <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300">
-              <a href="${link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
+            <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
+              <span class="absolute top-4 left-4 z-10 ${labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                ${article.creator}
+              </span>
+              
+              <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
                 <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
-                  <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy">
+                  <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col flex-grow justify-between">
                   <div class="space-y-2">
                     <span class="text-xs font-bold text-slate-400 block">${date}</span>
-                    <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${title}</h3>
+                    <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
                   </div>
                   <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
                     <span>記事を読む</span>
