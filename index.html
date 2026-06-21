@@ -269,8 +269,8 @@
       renderArticles(fallbackArticles);
     };
 
-    // 管理者が指定してくれた別サイト(Dev-TRANs)共通仕様の中継APIパスを叩く
-    fetch('/functions/api/rss')
+    // 稼働が確認できている中継APIエンドポイント（/api/rss）からダイレクトにfetch
+    fetch('/api/rss')
       .then(res => {
         if (!res.ok) throw new Error('APIの応答が正常ではありません');
         return res.json();
@@ -319,8 +319,10 @@
           return;
         }
 
-        // 統合して最新の日付順に並び替え
+        // 統合して最新の日付順に並び替え（降順）
         allArticles.sort((a, b) => b.dateObj - a.dateObj);
+        
+        // 厳選したトップ3の最新記事をレンダー
         renderArticles(allArticles.slice(0, 3));
       })
       .catch(err => {
