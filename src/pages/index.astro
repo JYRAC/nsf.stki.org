@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <style>html { opacity: 0 !important; }</style>
+  <style id="fouc-prevention">html { opacity: 0 !important; }</style>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,24 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-  <style>
-    .is-ready { opacity: 1 !important; transition: opacity 0.15s ease-in; }
-  </style>
-
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <script is:inline>
+    function showPage() {
+      const style = document.getElementById('fouc-prevention');
+      if (style) style.remove(); // 非表示にしていたCSS自体を消し去ることで確実に表示させる
+    }
+    // HTMLの解析が終わるか、数ミリ秒経ったら即実行して真っ白での停止を防ぐ
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showPage);
+    } else {
+      showPage();
+    }
+    // 万が一のための保険（0.1秒経ったら何が何でも強制表示）
+    setTimeout(showPage, 100);
+  </script>
 </head>
-<body class="is-ready bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
