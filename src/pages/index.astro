@@ -8,11 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NSF PROJECTs | ホーム</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/4.0.0-alpha.32/style.min.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2 family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -70,7 +70,7 @@
             <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
-            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">运行survival Academyプロジェクト</a>
             <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
         </div>
@@ -87,7 +87,7 @@
     
     <div class="relative z-10 max-w-4xl mx-auto px-4">
       <div class="flex justify-center space-x-8 md:space-x-16 text-xl md:text-3xl font-black tracking-widest text-orange-400 mb-6 drop-shadow-md">
-        <span>幕開け。</span><span>つなぐ。</span><span>そなえる。</span>
+        <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
       </div>
       <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
         能登半島の復興と<br class="md:hidden">学生の防災意識向上を目指して
@@ -168,7 +168,7 @@
           <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-900">全国の学生が集結</h3>
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950">全国の学生が集結</h3>
           <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
             全国から志を持った学生が１０0人以上集まり活動しています。
           </p>
@@ -267,17 +267,20 @@
       renderArticles(fallbackArticles);
     };
 
-    fetch('/api/rss')
-      .then(res => {
+    // 🛠️ サーバーが404エラー（API未実装）のときでも、絶対に他のJavaScript処理をクラッシュさせない独立・堅牢化コード
+    const initRSS = async () => {
+      try {
+        const res = await fetch('/api/rss');
         if (!res.ok) {
           insertFallbackCards();
-          return null;
+          return;
         }
-        return res.json();
-      })
-      .then(data => {
-        if (!data) return;
-        
+        const data = await res.json();
+        if (!data) {
+          insertFallbackCards();
+          return;
+        }
+
         const parser = new DOMParser();
         let allArticles = [];
 
@@ -323,11 +326,14 @@
 
         allArticles.sort((a, b) => b.dateObj - a.dateObj);
         renderArticles(allArticles.slice(0, 3));
-      })
-      .catch(err => {
-        console.error("RSS Fetch Error:", err);
+      } catch (err) {
+        console.warn("RSS loading skipped, using fallback cards:", err);
         insertFallbackCards();
-      });
+      }
+    };
+
+    // 実行
+    initRSS();
 
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
