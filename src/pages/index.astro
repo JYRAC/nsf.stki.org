@@ -4,43 +4,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <style id="fouc-prevention">
-    html { opacity: 0 !important; visibility: hidden !important; }
-  </style>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NSF PROJECTs | ホーム</title>
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4/index.css" />
+
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-  <script is:inline>
-    function forceShowPage() {
-      const style = document.getElementById('fouc-prevention');
-      if (style) {
-        document.documentElement.style.setProperty('transition', 'opacity 0.12s ease-in', 'important');
-        document.documentElement.style.setProperty('opacity', '1', 'important');
-        document.documentElement.style.setProperty('visibility', 'visible', 'important');
-        // 完全にフェードインが終わる頃にstyleタグを消去
-        setTimeout(() => { if (style) style.remove(); }, 120);
-      }
-    }
-
-    // Tailwind v4の処理完了イベントをキャッチして表示
-    window.addEventListener('unhide', forceShowPage);
-
-    // HTMLのこの行を読み込んだ瞬間に即時実行（イベントを逃した場合の最速フォールバック）
-    forceShowPage();
-
-    // 予備の保険（APIエラーなどで止まっても、0.1秒後に何が何でも強制表示）
-    setTimeout(forceShowPage, 100);
-  </script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
