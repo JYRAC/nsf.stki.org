@@ -267,19 +267,18 @@
       renderArticles(fallbackArticles);
     };
 
-    // 🛠️ サーバーが404エラー（API未実装）のときでも、絶対に他のJavaScript処理をクラッシュさせない独立・堅牢化コード
+    // 🛠️ 【一発完全解決】ブラウザだけでプロキシを介して安全にNoteのRSSを取得する処理
     const initRSS = async () => {
+      // CORSを安全にバイパスするための公開プロキシAPIを使用
+      const proxyUrl = "https://api.allorigins.win/get?url=";
+      const jyracRss = encodeURIComponent("https://note.com/jyrac_official/rss");
+      const nsfRss = encodeURIComponent("https://note.com/nsfprojct_2024/rss");
+
       try {
-        const res = await fetch('/api/rss');
-        if (!res.ok) {
-          insertFallbackCards();
-          return;
-        }
-        const data = await res.json();
-        if (!data) {
-          insertFallbackCards();
-          return;
-        }
+        const [resJyrac, resNsf] = await Promise.all([
+          fetch(proxyUrl + jyracRss).then(res => res.json()).catch(() => null),
+          fetch(proxyUrl + nsfRss).then(res => res.json()).catch(() => null)
+        ]);
 
         const parser = new DOMParser();
         let allArticles = [];
@@ -316,8 +315,8 @@
           }
         };
 
-        parseRss(data.jyrac, 'JYRAC', 'bg-purple-600 text-white');
-        parseRss(data.nsf, 'NSF', 'bg-blue-600 text-white');
+        if (resJyrac && resJyrac.contents) parseRss(resJyrac.contents, 'JYRAC', 'bg-purple-600 text-white');
+        if (resNsf && resNsf.contents) parseRss(resNsf.contents, 'NSF', 'bg-blue-600 text-white');
 
         if (allArticles.length === 0) {
           insertFallbackCards();
