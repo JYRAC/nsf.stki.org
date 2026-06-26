@@ -1,5 +1,59 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// ⭕ Astroのサーバーサイド処理：ビルド時にNoteのRSSをCORSエラーなしで直接100%自動取得します
+let allArticles = [];
+
+try {
+  const [jyracText, nsfText] = await Promise.all([
+    fetch("https://note.com/jyrac_official/rss").then(res => res.text()).catch(() => ""),
+    fetch("https://note.com/nsfprojct_2024/rss").then(res => res.text()).catch(() => "")
+  ]);
+
+  const parseAstroRss = (xmlString, creatorName, labelColor) => {
+    if (!xmlString) return;
+    
+    // 簡易パース（ライブラリ不要で拡張子や画像、タイトルを安全に抽出する正規表現）
+    const items = xmlString.split("<item>");
+    // 最初の要素はchannel情報なのでスキップ
+    for (let i = 1; i < items.length; i++) {
+      const item = items[i];
+      const titleMatch = item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/) || item.match(/<title>([\s\S]*?)<\/title>/);
+      const linkMatch = item.match(/<link>([\s\S]*?)<\/link>/);
+      const pubDateMatch = item.match(/<pubDate>([\s\S]*?)<\/pubDate>/);
+      
+      // 画像URLの抽出（media:thumbnail または description 内の img タグ）
+      const thumbMatch = item.match(/<media:thumbnail>([\s\S]*?)<\/media:thumbnail>/) || item.match(/<img[^>]+src="([^">]+)"/);
+      
+      if (titleMatch && linkMatch) {
+        const title = titleMatch[1].trim();
+        const link = linkMatch[1].trim();
+        const imgUrl = thumbMatch ? thumbMatch[1].trim() : "/新logo.jpg";
+        
+        const pubDateText = pubDateMatch ? pubDateMatch[1] : "";
+        const dateObj = new Date(pubDateText);
+        const dateStr = isNaN(dateObj.getTime()) ? "最新の活動" : `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+        
+        allArticles.push({ title, link, imgUrl, dateObj, date: dateStr, creator: creatorName, labelColor });
+      }
+    }
+  };
+
+  parseAstroRss(jyracText, 'JYRAC', 'bg-purple-600 text-white');
+  parseAstroRss(nsfText, 'NSF', 'bg-blue-600 text-white');
+
+  // 最新順にソートして上位3件を抽出
+  allArticles.sort((a, b) => b.dateObj - a.dateObj);
+  allArticles = allArticles.slice(0, 3);
+} catch (e) {
+  console.error("RSSビルドエラー:", e);
+}
+
+// 万が一Note側が落ちていて1件も取れなかったときの予備データ
+if (allArticles.length === 0) {
+  allArticles = [
+    { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
+    { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
+  ];
+}
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -13,7 +67,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -188,11 +241,35 @@
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
         <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を表示しています</p>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動取得して表示しています</p>
       </div>
       
       <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        </div>
+        {allArticles.map((article) => (
+          <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
+            <span class={`absolute top-4 left-4 z-10 ${article.labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm`}>
+              {article.creator}
+            </span>
+            <a href={article.link} target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
+              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
+                <img src={article.imgUrl} alt={article.title} class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='/新logo.jpg';">
+              </div>
+              <div class="p-6 flex flex-col flex-grow justify-between">
+                <div class="space-y-2">
+                  <span class="text-xs font-bold text-slate-400 block">{article.date}</span>
+                  <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">{article.title}</h3>
+                </div>
+                <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
+                  <span>記事を読む</span>
+                  <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -224,47 +301,7 @@
   </footer>
 
   <script>
-    const container = document.getElementById('note-list');
-
-    const renderArticles = (articles) => {
-      container.innerHTML = '';
-      articles.forEach(article => {
-        const html = `
-          <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
-            <span class="absolute top-4 left-4 z-10 ${article.labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-              ${article.creator}
-            </span>
-            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
-              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
-                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='/新logo.jpg';">
-              </div>
-              <div class="p-6 flex flex-col flex-grow justify-between">
-                <div class="space-y-2">
-                  <span class="text-xs font-bold text-slate-400 block">${article.date}</span>
-                  <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">${article.title}</h3>
-                </div>
-                <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
-                  <span>記事を読む</span>
-                  <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </span>
-              </div>
-            </a>
-          </article>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-      });
-    };
-
-    const fallbackArticles = [
-      { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
-      { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
-    ];
-    
-    // 即時描画
-    renderArticles(fallbackArticles);
-
+    // 不要な通信処理・エラーを誘発するパースロジックをすべて削除し、純粋なメニュー制御だけに変更
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
