@@ -2,15 +2,19 @@
 // Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ABOUT | NSF PROJECTs</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/4.0.0-alpha.32/style.min.css" />
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
@@ -19,7 +23,7 @@
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
-        <span class="font-black text-base sm:text-lg text-slate-995 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
       <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
@@ -54,7 +58,7 @@
         </button>
       </div>
 
-      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto" style="display: none;">
         <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
         <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
         <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
@@ -67,7 +71,7 @@
             <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
-            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">survival Academyプロジェクト</a>
             <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
         </div>
@@ -78,72 +82,57 @@
     </div>
   </header>
 
-  <section class="relative h-[450px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
-    <img src="/NSF_.JPG" alt="活動風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
-    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/40 to-blue-950/20"></div>
+  <section class="relative h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-45">
+    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/50 to-blue-950/30"></div>
     
     <div class="relative z-10 max-w-4xl mx-auto px-4">
       <div class="flex justify-center space-x-8 md:space-x-16 text-xl md:text-3xl font-black tracking-widest text-orange-400 mb-6 drop-shadow-md">
         <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
       </div>
-      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">ABOUT US</h1>
-      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto font-medium opacity-90 tracking-widest uppercase">当団体について</p>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
+        能登半島の復興と<br class="md:hidden">学生の防災意識向上を目指して
+      </h1>
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90">
+        全国の中高生が手を取り合い、未来のための防災アクションを起こすプロジェクト
+      </p>
     </div>
   </section>
 
-  <main class="max-w-6xl mx-auto px-4 py-16 flex-grow space-y-20">
-
-    <section class="max-w-4xl mx-auto text-center space-y-8">
-      <div class="inline-block border-y-2 border-blue-600 py-4 px-8">
-        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2">OUR GOAL</span>
-        <h2 class="text-2xl md:text-4xl font-black text-slate-950 leading-relaxed">
-          私たちは<br>
-          「能登の一日も早い復興」<br>
-          「中高生の防災意識向上」<br>
-          を目指しています。
-        </h2>
-      </div>
-      <p class="text-slate-600 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-        この目的を達成するため、私たちはプロジェクトをはじめとする様々な支援・防災活動を全国で展開しております。
+  <main class="py-16 max-w-4xl mx-auto px-4 space-y-16">
+    
+    <section class="text-center space-y-6">
+      <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">OUR GOAL</span>
+      <h2 class="text-2xl md:text-4xl font-black text-slate-950">震災前の当たり前を取り戻す。</h2>
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+        全国の学生で被災地を支援することで、同じ目線での支援を提供します。
       </p>
     </section>
 
-    <section class="bg-white p-6 md:p-12 rounded-3xl border border-slate-200 shadow-xs max-w-5xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
-        
-        <div class="md:col-span-1 w-full order-first">
-          <div class="bg-slate-100 aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden shadow-sm border border-slate-200">
-            <img src="/p_logo/representative.png" alt="NSF PROJECTs 6期代表 高野怜生" class="w-full h-full object-cover object-center">
-          </div>
+    <section class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">代表メッセージ</h3>
+        <p class="text-xs font-bold text-slate-400 block tracking-wider uppercase">Message from the Leader</p>
+        <p class="text-lg md:text-2xl font-black text-red-700 leading-tight tracking-wide border-l-4 border-red-700 pl-4 py-0.5 text-left">
+          ― 中高生の発想で、防災の『あたりまえ』を塗り替える ―
+        </p>
+        <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 font-medium tracking-wide text-left">
+          <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
+          <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
+          <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
+          <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
         </div>
-        
-        <div class="md:col-span-2 space-y-6">
-          <div class="flex flex-col space-y-1.5 border-b border-slate-100 pb-3">
-            <p class="text-[10px] md:text-xs font-bold text-slate-400 tracking-widest uppercase">NSF REPRESENTATIVE</p>
-            <h2 class="text-2xl font-black text-slate-950">代表挨拶</h2>
-          </div>
-          
-          <p class="text-lg md:text-2xl font-black text-red-700 leading-tight tracking-wide border-l-4 border-red-700 pl-4 py-0.5">
-            ― 中高生の発想で、防災の『あたりまえ』を塗り替える ―
-          </p>
-          
-          <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 font-medium tracking-wide">
-            <p>NSFは、中高生の発想力と行動力で、防災・復興の未来に向き合ってきました。</p>
-            <p>災害を“遠い出来事”で終わらせず、一人ひとりが考え、備え、動ける社会をつくること。</p>
-            <p>その小さな行動の積み重ねが、誰かの命を守る力になると信じています。</p>
-            <p>これからも、一人ひとりが挑戦できる場所として、NSFをさらに前へ進めていきます。</p>
-          </div>
-          
-          <div class="pt-4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-4">
-            <span class="text-sm font-bold text-slate-500 tracking-wide">NSF PROJECTs 6期代表</span>
-            <span class="text-xl md:text-2xl font-black text-slate-900 tracking-wider">高野 怜生</span>
-          </div>
+        <div class="pt-4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+          <span class="text-sm font-bold text-slate-500 tracking-wide">NSF PROJECTs 6期代表</span>
+          <span class="text-xl md:text-2xl font-black text-slate-900 tracking-wider">高野 怜生</span>
         </div>
-
       </div>
     </section>
 
-    <section class="max-w-5xl mx-auto space-y-10">
+    <section class="space-y-10">
       <div class="flex items-center space-x-3">
         <span class="w-10 h-1 bg-blue-600 inline-block rounded-full"></span>
         <h2 class="text-2xl font-black text-slate-950">応援メッセージ</h2>
@@ -153,8 +142,8 @@
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
             <div class="avatar-box w-24 h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner">
-              <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <img src="/p_logo/sakai.jpg" alt="坂井学氏" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
             <div>
               <h3 class="font-black text-slate-950 text-base md:text-lg">防災特命大臣<br class="sm:hidden"> 坂井学 氏</h3>
@@ -168,8 +157,8 @@
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col space-y-4">
           <div class="flex items-center space-x-4 border-b border-slate-100 pb-3">
             <div class="avatar-box w-24 h-24 bg-slate-50 border border-slate-200 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center text-slate-400 shadow-inner">
-              <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <img src="/p_logo/komaba.jpg" alt="馳浩氏" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
             <div>
               <h3 class="font-black text-slate-950 text-base md:text-lg">石川県知事<br class="sm:hidden"> 馳浩 氏</h3>
@@ -180,7 +169,7 @@
           </p>
         </div>
       </div>
-      <p class="text-slate-400 text-center mt-2 font-bold italic">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
+      <p class="text-slate-400 text-center mt-2 font-bold italic text-xs">※各氏の肩書はメッセージ提供当時の役職に基づいています。</p>
     </section>
 
     <section class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
@@ -210,7 +199,6 @@
 
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
-      
       if (mobileMenu.classList.contains('hidden')) {
         menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
       } else {
@@ -229,9 +217,4 @@
   @media (min-width: 1024px) {
     .dropdown:hover .dropdown-menu { display: block; }
   }
-  
-  /* 画像が読み込めなかった場合、フォールバックのSVGアイコンを表示させる設定 */
-  .avatar-box img[src=""], .avatar-box img:not([src]) { display: none; }
-  .avatar-box img { display: block; }
-  .avatar-box img ~ svg { display: none; }
 </style>
