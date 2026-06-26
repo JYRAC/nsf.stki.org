@@ -1,0 +1,350 @@
+---
+// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FUKUSHIMA 2026｜果てなき復興プロジェクト | NSF PROJECTs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
+        <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+      </a>
+      
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+        <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
+          <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-blue-600 bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
+            <a href="/bifrost" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 z-50">
+        <a href="/apply" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-sm transition whitespace-nowrap">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer flex-shrink-0" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
+        <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
+        <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
+        <a href="/contact" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">CONTACT</a>
+        
+        <div class="border-t border-slate-200 pt-4 mt-2">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
+          <div class="flex flex-col space-y-2.5 pl-1">
+            <a href="/hatenaki" class="text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
+          </div>
+        </div>
+        
+        <a href="/apply" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-md mt-4">メンバー加入</a>
+      </div>
+
+    </div>
+  </header>
+
+  <section class="relative h-[480px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="/NSF_.JPG" alt="福島の風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-25">
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-blue-950/40"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-4 space-y-4">
+      <div class="text-xs font-bold tracking-widest text-blue-400 bg-blue-950/40 px-4 py-1.5 rounded-full border border-blue-500/20 w-fit mx-auto uppercase">
+        PROJECT PREVIEW
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight tracking-wide drop-shadow-lg">
+        FUKUSHIMA 2026<br>
+        <span class="text-base md:text-xl text-slate-300 font-medium tracking-wider mt-2 block">復興のその先にある、新しい福島の地図を描く</span>
+      </h1>
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90 pt-2">
+        震災から15年。私たちは福島の「現在地」と向き合い、次世代として描くべき未来を構想しています。
+      </p>
+      
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl max-w-xs mx-auto text-left shadow-lg backdrop-blur-xs">
+        <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase mb-1">CURRENT STATUS</p>
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+          <span class="text-sm font-black text-emerald-400 tracking-wider hero-status-text">NOW RECRUITING</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1 hero-status-sub">安全に参加者応募受付中です</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 py-16 flex-grow space-y-16">
+
+    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs reveal">
+      <div class="space-y-4">
+        <h2 class="text-xl md:text-2xl font-black text-slate-950 flex items-center space-x-2">
+          <span>🌱</span> <span>震災から15年、私たちが福島から学ぶこと</span>
+        </h2>
+        <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
+          東日本大震災から長い年月が経ち、福島は一歩ずつ確実に復興の道を歩んしてきました。私たちは能登での活動を通じて、改めて福島の歩みに向き合う必要性を感じています。帰還困難区域の現状や風評被害などを知ることは、これからの社会を考える上で重要な視点となります。
+        </p>
+      </div>
+    </section>
+
+    <section class="space-y-8 reveal">
+      <div class="text-center">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT CONCEPT</span>
+        <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <div class="text-3xl">🎨</div>
+          <h3 class="text-lg font-black text-slate-950">理想の福島を描く</h3>
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            若者の視点で「復興後の福島」を構想し、新しい価値 and 可能性を創出する。
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <div class="text-3xl">🧠</div>
+          <h3 class="text-lg font-black text-slate-950">学びを未来へ</h3>
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            過去の震災の教訓を整理し、次世代へ繋げる知識として再構築。
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <div class="text-3xl">🤝</div>
+          <h3 class="text-lg font-black text-slate-950">次の復興へ繋ぐ</h3>
+          <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+            能登から福島へと繋がる経験をもとに、新たな復興のあり方を模索する。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-3xl mx-auto space-y-8 reveal">
+      <div class="text-center">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">PROJECT STATUS</span>
+        <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="relative border-l-2 border-slate-200 ml-4 md:ml-32 space-y-12 pb-4 timeline">
+        
+        <div class="relative pl-6 md:pl-8 timeline-item">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+            <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.06.21</span>
+            <h3 class="text-lg font-black text-slate-950">特別イベントを開催いたしました！</h3>
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
+              昨日、FUKUSHIMA 2026プロジェクトの特別イベントを開催いたしました。多くの方にご参加いただき、誠にありがとうございました。これからの福島の未来に向けた、私たちの挑戦の大きな第一歩となりました。
+            </p>
+          </div>
+        </div>
+        
+        <div class="relative pl-6 md:pl-8 timeline-item">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+            <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.10</span>
+            <h3 class="text-lg font-black text-slate-950">災害復興学生団体連合の設立</h3>
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+              災害や防災を目的に掲げ活動している団体内での情報共有やお互いの団体の企画の広報協力などをお願いなどを流せる場として果てなき復興プロジェクトを主に設立しました。
+            </p>
+          </div>
+        </div>
+
+        <div class="relative pl-6 md:pl-8 timeline-item">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3 timeline-card">
+            <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.04.06</span>
+            <h3 class="text-lg font-black text-slate-950">応募受付開始</h3>
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+              FUKUSHIMA 2026プロジェクトの応募受付を開始しました。福島の未来を考え、共に学び、行動する仲間を募集しています。
+            </p>
+            <div class="pt-1">
+              <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-sm transition duration-150 tracking-wider timeline-btn">
+                <span>応募フォームへ ➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative pl-6 md:pl-8 timeline-item">
+          <span class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-xs timeline-dot"></span>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2 timeline-card">
+            <span class="text-xs font-black text-blue-600 tracking-wider block timeline-date">2026.03.26</span>
+            <h3 class="text-lg font-black text-slate-950">プロジェクト始動</h3>
+            <p class="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">
+              福島編スタート。これまでの震災と復興の歩みを整理し、次世代としてどのような関わり方ができるかを構想しています。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="max-w-3xl mx-auto text-center bg-slate-900 text-slate-100 p-8 rounded-3xl shadow-sm reveal">
+      <p class="text-sm md:text-base leading-relaxed font-medium italic tracking-wide">
+        能登から福島へ。そして全国へ。<br>
+        私たちは「果てなき復興」という視点で、災害の記憶を未来へ繋ぎ続けます。
+      </p>
+    </section>
+
+    <section class="max-w-3xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 md:p-12 rounded-3xl text-center shadow-md space-y-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-black tracking-wide">JOIN THE PROJECT</h2>
+      <p class="text-xs md:text-sm text-blue-100 font-medium">福島の未来を一緒に考える参加者を募集しています</p>
+      <div class="pt-4">
+        <a href="https://forms.gle/7ZXhhNroAuR2FKWm8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-blue-600 font-black text-sm px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition duration-150">
+          <span>応募フォームへ</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
+      <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // ===== reveal animation =====
+      const revealItems = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      revealItems.forEach(item => revealObserver.observe(item));
+
+      // ===== ステータス文字の定期切り替え処理 =====
+      const statusText = document.querySelector(".hero-status-text");
+      const statusSub = document.querySelector(".hero-status-sub");
+
+      if (statusText && statusSub) {
+        const phases = [
+          {
+            main: "NOW RECRUITING",
+            sub: "現在、参加者応募受付中です"
+          },
+          {
+            main: "JOIN FUKUSHIMA 2026",
+            sub: "福島の未来を考え、共に学び、行動する仲間を募集中です"
+          },
+          {
+            main: "NEXT STORY — WITH YOU",
+            sub: "次世代の視点で、新たな復興の物語を一緒に作りましょう"
+          }
+        ];
+
+        let index = 0;
+        setInterval(() => {
+          index = (index + 1) % phases.length;
+          statusText.textContent = phases[index].main;
+          statusSub.textContent = phases[index].sub;
+        }, 3200);
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+<style is:global>
+  :root{
+    --main:#0D2454;
+    --accent:#00448d;
+    --gold:#F3E195;
+    --bg:#ffffff;
+    --text:#14213d;
+    --sub:#5b6475;
+    --line:#d9e2f0;
+    --soft:#f4f8fc;
+    --card:#ffffff;
+  }
+  
+  html{
+    scroll-behavior:smooth;
+  }
+  
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  
+  /* PC環境でのみホバーでドロップダウンを開く */
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+
+  /* ===== タイムライン固有のライン装飾（Tailwindクラスへの補足） ===== */
+  .timeline::before{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:22px;
+    width:3px;
+    background:linear-gradient(180deg,var(--main),var(--accent));
+    border-radius:999px;
+  }
+  @media (max-width:768px){
+    .timeline::before{ left:18px; }
+  }
+
+  /* ===== スクロール表示用（reveal）アニメーションスタイル ===== */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.show{
+    opacity:1;
+    transform:translateY(0);
+  }
+</style>

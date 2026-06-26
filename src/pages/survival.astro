@@ -1,0 +1,277 @@
+---
+// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSFサバイバルアカデミー | NSF PROJECTs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
+        <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+      </a>
+      
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+        <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
+          <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="block px-4 py-2 text-xs font-bold text-blue-600 bg-slate-50 transition">survival Academyプロジェクト</a>
+            <a href="/bifrost" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 z-50">
+        <a href="/apply" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-sm transition whitespace-nowrap">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer flex-shrink-0" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
+        <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
+        <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
+        <a href="/contact" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">CONTACT</a>
+        
+        <div class="border-t border-slate-200 pt-4 mt-2">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
+          <div class="flex flex-col space-y-2.5 pl-1">
+            <a href="/hatenaki" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
+          </div>
+        </div>
+        
+        <a href="/apply" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-md mt-4">メンバー加入</a>
+      </div>
+
+    </div>
+  </header>
+
+  <section class="relative h-[450px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="/NSF_.JPG" alt="活動風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-t from-green-950/90 via-slate-900/50 to-emerald-900/30"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <div class="flex justify-center space-x-4 text-xs font-bold tracking-widest text-green-400 mb-4 bg-green-950/40 px-4 py-1.5 rounded-full border border-green-500/20 w-fit mx-auto uppercase">
+        SURVIVAL ACADEMY
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">NSFサバイバルアカデミー</h1>
+      <p class="text-xs md:text-sm text-slate-200 max-w-2xl mx-auto font-medium opacity-90 tracking-wider">
+        「知る防災」から「動ける防災」へ。中高生が実際に体験しながら、災害時に生き抜く力を身につける。
+      </p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 py-16 flex-grow space-y-16">
+
+    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
+      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-green-600 pl-4 py-1">
+        単なる防災講演や知識学習ではなく、「知る防災」から「動ける防災」へ、「教わる防災」から「鍛える防災」へ。<br class="hidden md:block">
+        中高生が実際に体験しながら災害対応力を身につけることを目的とした、「災害時に生き抜く力を、中高生が実際に体験しながら学ぶ学校外の防災スクール」です。
+      </p>
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <div class="lg:col-span-1 space-y-6">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
+          
+          <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
+            <img src="/photo/survival.jpg" alt="NSFサバイバルアカデミー ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
+          </div>
+
+          <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
+          <div class="space-y-3">
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">プロジェクトリーダー</p>
+              <p class="text-sm font-black text-slate-100">高江洲 義心</p>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">開始時期</p>
+              <p class="text-sm font-black text-slate-100">2025年12月</p>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">現在の参加人数</p>
+              <p class="text-sm font-black text-slate-100"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-800 to-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
+          <h4 class="font-black text-xs text-green-300 uppercase tracking-widest">Concept</h4>
+          <p class="text-xs text-slate-200 leading-relaxed font-medium">
+            テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。対象は中学生・高校生・大学生です。
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
+        <div class="space-y-6">
+          <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+            <span class="w-2 h-6 bg-green-600 rounded-full"></span>
+            <h3 class="text-lg font-black text-slate-950">具体的な活動内容</h3>
+          </div>
+          
+          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+            防災を単なる知識として学ぶだけでなく、「実際に体験し、自ら判断し、行動する力」を養うため、体験型ワークショップ・訓練・フィールド活動を企画・実施しています。
+          </p>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
+            <div class="flex items-center space-x-2">
+              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2.5 py-0.5 rounded">実践訓練</span>
+              <h4 class="font-black text-slate-950 text-sm">災害対応スキルの体験</h4>
+            </div>
+            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+              災害派遣時の指揮シミュレーション、ロープワーク、レンジャー訓練の基礎体験、災害現場での判断訓練などを通じて、実践的な災害対応力を養います。
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
+            <div class="flex items-center space-x-2">
+              <span class="bg-emerald-100 text-emerald-700 font-black text-[10px] px-2.5 py-0.5 rounded">将来構想</span>
+              <h4 class="font-black text-slate-950 text-sm">継続的な教育ブランドへ</h4>
+            </div>
+            <p class="text-slate-500 text-xs leading-relaxed font-medium">
+              単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、精度高く自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto space-y-8">
+      <div class="text-center">
+        <h3 class="text-xl font-black text-slate-950">開催実績</h3>
+        <div class="w-12 h-1 bg-green-500 mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第1回</span>
+          <span class="text-[11px] font-bold text-slate-400">2026年2月8日</span>
+        </div>
+        <h4 class="font-black text-slate-950 text-base">第1回 サバイバルアカデミー</h4>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          NSF PROJECTs・全国高校生未来会議のアフターイベントとして実施。共催は防衛省自衛隊東京地方協力本部、会場は渋谷募集案内所でした。
+        </p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">災害派遣時の指揮シミュレーション</span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">ロープワーク</span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">レンジャー訓練の基礎体験</span>
+          <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded">災害現場での判断訓練</span>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第2回</span>
+          <span class="text-[11px] font-bold text-slate-400">2026年4月25日（土）〜26日（日）</span>
+        </div>
+        <h4 class="font-black text-slate-950 text-base">NSFサバイバルアカデミー2026春<br class="sm:hidden"><span class="text-slate-500 text-sm font-bold"> 〜朝霞駐屯地で学ぶ、災害時に生き抜く力〜</span></h4>
+        <p class="text-[11px] font-bold text-slate-400">（NSFサバイバルアカデミー 第2回 段ボールベッドキャンプ）</p>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          埼玉県の朝霞駐屯地周辺において、1泊2日の共同生活で防災・救命・サバイバル技術を学びました。「知る防災から、できる防災へ」をテーマに、講義ではなく実際の体験を通して災害時に必要な知識や技術を習得。全国から集まった中高生・大学生の交流の場にもなりました。
+        </p>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-3">
+          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">実施プログラム</p>
+          <ol class="space-y-1.5 text-slate-600 text-xs md:text-sm font-medium list-decimal list-inside marker:text-green-600 marker:font-black">
+            <li>天幕設営体験</li>
+            <li>応急救護体験（AEDを用いた心肺蘇生法、戦傷模型を活用した止血法、毛布を使用した搬送訓練）</li>
+            <li>段ボールベッド宿泊体験</li>
+            <li>暗視眼鏡（NVG）体験</li>
+            <li>夜間サバイバルプログラム（ペットボトルランタン作成 ほか）</li>
+            <li>自衛隊喫食体験（隊員食堂での喫食・携行食の加温体験）</li>
+            <li>りっくんランド見学</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-green-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full">第3回</span>
+          <span class="text-[11px] font-bold text-slate-400">2026年6月14日（日）</span>
+        </div>
+        <h4 class="font-black text-slate-950 text-base">防災講話 × アイデアコンテスト<br class="sm:hidden"><span class="text-slate-500 text-sm font-bold"> 〜もしもこの町で災害が起きたら？あなたは動けるか。〜</span></h4>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium">
+          防衛省自衛隊渋谷募集案内所（オフライン）およびZoom（オンライン）にて開催。「災害支援や防災を通じて、自衛隊のことを知ってもらうには」をテーマとしたアイデアコンテストを実施しました。また防災講話では、第一空挺団や帯広地方協力本部本部長などの著名な役職を務められた現・防災推進担当課長の方に、実践的なお話を登壇いただきました。
+        </p>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2">
+          <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">主な内容・特徴</p>
+          <ul class="space-y-1 text-slate-600 text-xs md:text-sm font-medium list-inside list-disc marker:text-green-600">
+            <li>自衛隊の認知・理解を深めるためのアイデアコンテストの実施</li>
+            <li>元・第一空挺団等の経歴を持つ防災のプロフェッショナルによる防災講話</li>
+            <li>上位入賞者が東京地方協力本部本部長へアイデアを直接提言できる機会の創出（調整中）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
+      <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+<style is:global>
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  
+  /* PC環境でのみホバーでドロップダウンを開く */
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+</style>

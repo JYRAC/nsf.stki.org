@@ -1,0 +1,347 @@
+---
+// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSF PROJECTs | ホーム</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght=400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
+        <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+      </a>
+      
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+        <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
+            <a href="/bifrost" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 z-50">
+        <a href="/apply" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-sm transition whitespace-nowrap">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer flex-shrink-0" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
+        <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
+        <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
+        <a href="/contact" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">CONTACT</a>
+        
+        <div class="border-t border-slate-200 pt-4 mt-2">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
+          <div class="flex flex-col space-y-2.5 pl-1">
+            <a href="/hatenaki" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
+          </div>
+        </div>
+        
+        <a href="/apply" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-md mt-4">メンバー加入</a>
+      </div>
+
+    </div>
+  </header>
+
+  <section class="relative h-[550px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-45">
+    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-slate-900/50 to-blue-950/30"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <div class="flex justify-center space-x-8 md:space-x-16 text-xl md:text-3xl font-black tracking-widest text-orange-400 mb-6 drop-shadow-md">
+        <span>まなぶ。</span><span>つなぐ。</span><span>そなえる。</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">
+        能登半島の復興と<br class="md:hidden">学生の防災意識向上を目指して
+      </h1>
+      <p class="text-xs md:text-sm text-slate-200 max-w-xl mx-auto tracking-wider font-medium opacity-90">
+        全国の中高生が手を取り合い、未来のための防災アクションを起こすプロジェクト
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 max-w-4xl mx-auto px-4 text-center">
+    <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">OUR GOAL</span>
+    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震災前の当たり前を取り戻す。</h2>
+    <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
+      全国の学生で被災地を支援することで、同じ目線での支援を提供します。
+    </p>
+    
+    <div class="flex justify-center">
+      <a href="/about" class="inline-flex items-center justify-center space-x-2 bg-blue-50 hover:bg-blue-100 text-blue-600 font-black text-sm md:text-base px-6 py-3 rounded-xl transition duration-200 group border border-blue-200/60 shadow-xs">
+        <span>わたしたちについて詳しく知る</span>
+        <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="pb-16 max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-4/3">
+        <img src="/unnamed.jpg" alt="活動の様子 1" class="w-full h-full object-cover hover:scale-103 transition duration-500">
+      </div>
+      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-4/3">
+        <img src="/unnamed (1).jpg" alt="活動の様子 2" class="w-full h-full object-cover hover:scale-103 transition duration-500">
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-slate-100 border-t border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+      <span class="text-xs font-bold text-blue-600 tracking-widest block uppercase">WHAT WE DO</span>
+      <h2 class="text-xl md:text-3xl font-black text-slate-950 leading-tight">
+        令和６年 １月１日 １６時１０分に起こった能登半島地震。<br>
+        その被害は甚大で日本中に大きな衝撃を与えました。
+      </h2>
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-medium text-left md:text-center">
+        能登半島地震・学生による支援募金プロジェクトでは、少しでも被災地の力になれるよう全国の中高生で支援活動を行っています。また、災害大国と呼ばれる日本に生きる私たちが少しでも防災に対する意識を高めるため、SNSを活用した情報発信も行っています。
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 max-w-5xl mx-auto px-4 space-y-12">
+    <div class="text-center">
+      <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">VISION</span>
+      <h2 class="text-2xl md:text-3xl font-black text-slate-950">私たちの未来の展望</h2>
+    </div>
+
+    <div class="space-y-12">
+      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+        <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+          <img src="/photo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover">
+        </div>
+        <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950">能登創生</h3>
+          <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+            被災した地域を盛り上げる様々なプロジェクトを企画し、地域の伝統を広報するとともに創生を目指します。
+          </p>
+          <div class="pt-4 flex justify-center md:justify-start">
+            <a href="/projects" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+              <span>PROJECTs一覧 ➔</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+        <div class="w-full md:w-72 h-80 md:h-96 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+          <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
+        </div>
+        <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950">全国の学生が集結</h3>
+          <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+            全国から志を持った学生が１０0人以上集まり活動しています。
+          </p>
+          <div class="pt-4 flex justify-center md:justify-start">
+            <a href="/about" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+              <span>活動内容を見る ➔</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="note" class="py-20 border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
+      </div>
+      
+      <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="instagram" class="py-16 bg-slate-100 border-t border-slate-200 mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-xl font-bold text-slate-950 mb-1">最新のInstagram活動報告</h2>
+        <p class="text-xs text-slate-500 font-medium">Instagramから6件を自動で並べています</p>
+      </div>
+      
+      <div class="w-full">
+        <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
+        <script>
+          (() => {
+            const d=document,s=d.createElement("script");s.type="module";
+            s.src="https://w.behold.so/widget.js";d.head.append(s);
+          })block();
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
+      <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const container = document.getElementById('note-list');
+
+    const renderArticles = (articles) => {
+      container.innerHTML = '';
+      articles.forEach(article => {
+        const html = `
+          <article class="bg-white rounded-3xl border border-slate-200 shadow-xs overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300 relative">
+            <span class="absolute top-4 left-4 z-10 \${article.labelColor} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              \${article.creator}
+            </span>
+            <a href="\${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
+              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
+                <img src="\${article.imgUrl}" alt="\${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='/新logo.jpg';">
+              </div>
+              <div class="p-6 flex flex-col flex-grow justify-between">
+                <div class="space-y-2">
+                  <span class="text-xs font-bold text-slate-400 block">\${article.date}</span>
+                  <h3 class="text-base font-black text-slate-950 leading-snug group-hover:text-blue-600 transition-colors line-clamp-3">\${article.title}</h3>
+                </div>
+                <span class="text-xs font-bold text-blue-600 flex items-center space-x-1 pt-4 mt-auto">
+                  <span>記事を読む</span>
+                  <svg class="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      });
+    };
+
+    const insertFallbackCards = () => {
+      const fallbackArticles = [
+        { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
+        { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
+      ];
+      renderArticles(fallbackArticles);
+    };
+
+    fetch('/api/rss')
+      .then(res => {
+        if (!res.ok) throw new Error('APIの応答が正常ではありません');
+        return res.json();
+      })
+      .then(data => {
+        const parser = new DOMParser();
+        let allArticles = [];
+
+        const parseRss = (xmlString, creatorName, labelColor) => {
+          if (!xmlString) return;
+          const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+          const items = xmlDoc.getElementsByTagName("item");
+          
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const title = item.getElementsByTagName("title")[0]?.textContent || "無題の記事";
+            const link = item.getElementsByTagName("link")[0]?.textContent || "#";
+            
+            let imgUrl = '/新logo.jpg';
+            const mediaThumbnail = item.getElementsByTagName("media:thumbnail")[0];
+            const testThumbnail = item.getElementsByTagNameNS("*", "thumbnail")[0];
+            const description = item.getElementsByTagName("description")[0]?.textContent || "";
+            const imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
+
+            if (mediaThumbnail && mediaThumbnail.textContent) {
+              imgUrl = mediaThumbnail.textContent;
+            } else if (testThumbnail && testThumbnail.textContent) {
+              imgUrl = testThumbnail.textContent;
+            } else if (imgMatch && imgMatch[1]) {
+              imgUrl = imgMatch[1];
+            }
+
+            const pubDateText = item.getElementsByTagName("pubDate")[0]?.textContent;
+            const dateObj = new Date(pubDateText);
+            const dateStr = isNaN(dateObj.getTime()) ? "最新記事" : `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+
+            allArticles.push({ title, link, imgUrl, dateObj, date: dateStr, creator: creatorName, labelColor });
+          }
+        };
+
+        parseRss(data.jyrac, 'JYRAC', 'bg-purple-600 text-white');
+        parseRss(data.nsf, 'NSF', 'bg-blue-600 text-white');
+
+        if (allArticles.length === 0) {
+          insertFallbackCards();
+          return;
+        }
+
+        allArticles.sort((a, b) => b.dateObj - a.dateObj);
+        renderArticles(allArticles.slice(0, 3));
+      })
+      .catch(err => {
+        console.error(err);
+        insertFallbackCards();
+      });
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
+</body>
+</html>
+
+<style is:global>
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  
+  /* PC環境でのみホバーでドロップダウンを開く */
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+</style>

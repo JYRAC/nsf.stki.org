@@ -1,0 +1,230 @@
+---
+// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECTs | NSF PROJECTs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+      
+      <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
+        <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+      </a>
+      
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+        <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
+        <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
+        <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
+        <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
+        
+        <div class="relative dropdown font-black">
+          <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+            <span>PROJECTs</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
+            <a href="/bifrost" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">NSF Bifröst</a>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 z-50">
+        <a href="/apply" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-sm transition whitespace-nowrap">メンバー加入</a>
+        
+        <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer flex-shrink-0" aria-label="メニューを開く">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
+        <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
+        <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
+        <a href="/contact" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">CONTACT</a>
+        
+        <div class="border-t border-slate-200 pt-4 mt-2">
+          <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
+          <div class="flex flex-col space-y-2.5 pl-1">
+            <a href="/hatenaki" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
+            <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
+            <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
+            <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
+          </div>
+        </div>
+        <a href="/apply" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-md mt-4">メンバー加入</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative h-[300px] flex items-center justify-center bg-slate-950 text-white text-center overflow-hidden">
+    <img src="/NSF_.JPG" alt="活動風景" class="absolute inset-0 w-full h-full object-cover object-center opacity-35">
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/50 to-blue-950/30"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <span class="text-xs font-bold tracking-widest text-blue-400 mb-2 block uppercase">WHAT WE DO</span>
+      <h1 class="text-3xl md:text-5xl font-black leading-tight tracking-wide drop-shadow-lg">PROJECTs</h1>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 py-16 flex-grow space-y-12">
+    
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/photo/hatenaki.png" alt="果てなき復興プロジェクト" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">果てなき復興プロジェクト</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          能登の復興に向けて、一時的な支援で終わらせず「果てなき」持続可能なサポートの仕組みを学生たちの手で創り出していくプロジェクトです。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/hatenaki" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/photo/mamoneru.png" alt="Mamoneruプロジェクト" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <div class="flex flex-col md:flex-row md:items-center space-y-1 md:space-y-0 md:space-x-3 justify-center md:justify-start">
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950">Mamoneruプロジェクト</h3>
+          <span class="bg-red-50 text-red-600 font-bold text-xs px-2.5 py-1 rounded-full border border-red-200/60 w-fit mx-auto md:mx-0">避難所のQOL向上</span>
+        </div>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          避難所のQOL向上と災害関連死の撲滅を目指し、全国の中高生が自治体の「段ボールベッド協定」の締結状況を調査・提言していく、社会のセーフティネットを強固にする挑戦です。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/mamoneru" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/photo/Mamomizu.jpg" alt="Mamomizuプロジェクト" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">Mamomizuプロジェクト</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          災害時に最も深刻な課題となる「水」のインフラや備蓄に焦点を当て、大切な命と生活のインフラを守るための調査や啓発活動を行います。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/mamomizu" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/photo/umaimon.png" alt="能登うまいもん再発見プロジェクト" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">能登うまいもん再発見プロジェクト</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          「“能登”を通して人が繋がり、能登を輝かせられる復興支援」を、郷土料理や地元の食材の手配・イベント企画を通して1からメンバー全員で形にしていきます。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/umaimon" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/photo/survival.jpg" alt="survival Academyプロジェクト" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">survival Academyプロジェクト</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          いざという時に「生き残る知恵と技術」を学び、身につけるためのアカデミー。中高生世代のリアルな防災力とサバイバルスキルを向上させるためのワークショップや情報発信を行います。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/survival" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+      <div class="w-full md:w-72 h-64 md:h-72 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm">
+        <img src="/bifrost/bifrostロゴ.jpg" alt="NSF Bifröst" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
+        <h3 class="text-2xl md:text-3xl font-black text-slate-950">NSF Bifröst</h3>
+        <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+          能登の記憶と文化をメタバースに架ける「虹の橋」。クラスター（cluster）空間を活用し、飯田高校芸術部の写真ギャラリーやデジタル交流館を展開、世界と能登をオンラインで繋ぎます。
+        </p>
+        <div class="pt-2 flex justify-center md:justify-start">
+          <a href="/bifrost" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-sm transition duration-150 tracking-wider">
+            <span>詳細を見る ➔</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-500 py-10 text-xs border-t border-slate-800 text-center mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-slate-400 font-bold mb-1">NSF PROJECTs</p>
+      <p class="text-slate-600 mb-4 tracking-widest font-medium uppercase">Noto Student Fundraising Projects</p>
+      <p class="text-slate-700">&copy; 2026 NSF PROJECTs. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+<style is:global>
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  
+  /* PC環境でのみホバーでドロップダウンを開く */
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+</style>
