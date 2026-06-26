@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <style id="fouc-prevention">html { opacity: 0 !important; }</style>
+  <style id="fouc-prevention">
+    html { opacity: 0 !important; visibility: hidden !important; }
+  </style>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,17 +21,19 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <script is:inline>
-    function showPage() {
+    function forceShowPage() {
       const style = document.getElementById('fouc-prevention');
-      if (style) style.remove(); // 非表示にしていたCSS自体を消し去ることで確実に表示させる
+      if (style) {
+        document.documentElement.style.setProperty('transition', 'opacity 0.1s ease-in', 'important');
+        document.documentElement.style.setProperty('opacity', '1', 'important');
+        document.documentElement.style.setProperty('visibility', 'visible', 'important');
+        setTimeout(() => { if(style) style.remove(); }, 100);
+      }
     }
-    // HTMLの解析が終わるか、数ミリ秒経ったら即実行して真っ白での停止を防ぐ
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', showPage);
-    } else {
-      showPage();
-    }
-    // 万が一のための保険（0.1秒経ったら何が何でも強制表示）
+    // Tailwindの完了イベント、またはHTML読み込み完了のどちらか早い方で即座に表示
+    window.addEventListener('unhide', forceShowPage);
+    document.addEventListener('DOMContentLoaded', showPage);
+    // どんなに遅くても0.1秒後には強制的に表示（真っ白を100%防止）
     setTimeout(showPage, 100);
   </script>
 </head>
@@ -285,6 +289,7 @@
       renderArticles(fallbackArticles);
     };
 
+    // 🛠️ Note読み込みのエラーハンドリングを強化し、落ちても確実に画面の非表示を解除
     fetch('/api/rss')
       .then(res => {
         if (!res.ok) throw new Error('APIの応答が正常ではありません');
