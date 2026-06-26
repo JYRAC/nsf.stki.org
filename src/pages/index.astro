@@ -24,17 +24,23 @@
     function forceShowPage() {
       const style = document.getElementById('fouc-prevention');
       if (style) {
-        document.documentElement.style.setProperty('transition', 'opacity 0.1s ease-in', 'important');
+        document.documentElement.style.setProperty('transition', 'opacity 0.15s ease-in', 'important');
         document.documentElement.style.setProperty('opacity', '1', 'important');
         document.documentElement.style.setProperty('visibility', 'visible', 'important');
-        setTimeout(() => { if(style) style.remove(); }, 100);
+        // 完全にフェードインが終わる頃にstyleタグを消去
+        setTimeout(() => { if (style) style.remove(); }, 150);
       }
     }
-    // Tailwindの完了イベント、またはHTML読み込み完了のどちらか早い方で即座に表示
+
+    // Tailwind v4の処理完了を検知
     window.addEventListener('unhide', forceShowPage);
-    document.addEventListener('DOMContentLoaded', showPage);
-    // どんなに遅くても0.1秒後には強制的に表示（真っ白を100%防止）
-    setTimeout(showPage, 100);
+
+    // Astroやブラウザの読み込み速度が速すぎてDOMイベントを逃した場合の保険
+    // HTMLのこの行を読み込んだ瞬間に即時実行し、遅れて発火するTailwindの上書きに備えます
+    forceShowPage();
+
+    // 予備の保険（万が一に備え、0.1秒後にも再実行）
+    setTimeout(forceShowPage, 100);
   </script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
@@ -190,7 +196,7 @@
           <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-950">全国の学生が集結</h3>
+          <h3 class="text-2xl md:text-3xl font-black text-slate-900">全国の学生が集結</h3>
           <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
             全国から志を持った学生が１０0人以上集まり活動しています。
           </p>
@@ -289,7 +295,6 @@
       renderArticles(fallbackArticles);
     };
 
-    // 🛠️ Note読み込みのエラーハンドリングを強化し、落ちても確実に画面の非表示を解除
     fetch('/api/rss')
       .then(res => {
         if (!res.ok) throw new Error('APIの応答が正常ではありません');
