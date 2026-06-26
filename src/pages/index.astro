@@ -27,17 +27,18 @@
         document.documentElement.style.setProperty('transition', 'opacity 0.12s ease-in', 'important');
         document.documentElement.style.setProperty('opacity', '1', 'important');
         document.documentElement.style.setProperty('visibility', 'visible', 'important');
+        // 完全にフェードインが終わる頃にstyleタグを消去
         setTimeout(() => { if (style) style.remove(); }, 120);
       }
     }
 
-    // Tailwind v4の読込完了イベントをキャッチ
+    // Tailwind v4の処理完了イベントをキャッチして表示
     window.addEventListener('unhide', forceShowPage);
 
-    // Astroの爆速ロードでイベントを逃した際のために、この行を通った瞬間にも実行
+    // HTMLのこの行を読み込んだ瞬間に即時実行（イベントを逃した場合の最速フォールバック）
     forceShowPage();
 
-    // どんなエラーが起きても、100ミリ秒後には確実に画面を強制表示（真っ白フリーズ撲滅）
+    // 予備の保険（APIエラーなどで止まっても、0.1秒後に何が何でも強制表示）
     setTimeout(forceShowPage, 100);
   </script>
 </head>
