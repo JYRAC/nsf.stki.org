@@ -1,5 +1,5 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// Astroのフロントマター
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NSF PROJECTs | ホーム</title>
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/4.0.0-alpha.32/style.min.css" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -68,7 +70,7 @@
             <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
-            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">survival Academyプロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">运行survival Academyプロジェクト</a>
             <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
         </div>
@@ -185,11 +187,14 @@
       <div class="text-center mb-12">
         <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">NOTE</span>
         <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
-        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を表示しています</p>
+        <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
       </div>
       
       <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        </div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse h-64 hidden md:block"></div>
+      </div>
     </div>
   </section>
 
@@ -254,13 +259,16 @@
       });
     };
 
-    const fallbackArticles = [
-      { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
-      { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
-    ];
-    
-    // 即座に描画
-    renderArticles(fallbackArticles);
+    const insertFallbackCards = () => {
+      const fallbackArticles = [
+        { title: "JYRAC (日本若者防災復興協会) 公式Note", link: "https://note.com/jyrac_official", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "JYRAC", labelColor: "bg-purple-600 text-white" },
+        { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
+      ];
+      renderArticles(fallbackArticles);
+    };
+
+    // タイムアウトを回避するセキュアな直描画
+    insertFallbackCards();
 
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
