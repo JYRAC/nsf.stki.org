@@ -3,6 +3,11 @@
   "name": "nsf",
   "compatibility_date": "2026-06-14",
   "assets": {
-    "directory": "dist"
-  }
+    "directory": "dist",
+    "binding": "ASSETS"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+
 }
