@@ -24,22 +24,20 @@
     function forceShowPage() {
       const style = document.getElementById('fouc-prevention');
       if (style) {
-        document.documentElement.style.setProperty('transition', 'opacity 0.15s ease-in', 'important');
+        document.documentElement.style.setProperty('transition', 'opacity 0.12s ease-in', 'important');
         document.documentElement.style.setProperty('opacity', '1', 'important');
         document.documentElement.style.setProperty('visibility', 'visible', 'important');
-        // 完全にフェードインが終わる頃にstyleタグを消去
-        setTimeout(() => { if (style) style.remove(); }, 150);
+        setTimeout(() => { if (style) style.remove(); }, 120);
       }
     }
 
-    // Tailwind v4の処理完了を検知
+    // Tailwind v4の読込完了イベントをキャッチ
     window.addEventListener('unhide', forceShowPage);
 
-    // Astroやブラウザの読み込み速度が速すぎてDOMイベントを逃した場合の保険
-    // HTMLのこの行を読み込んだ瞬間に即時実行し、遅れて発火するTailwindの上書きに備えます
+    // Astroの爆速ロードでイベントを逃した際のために、この行を通った瞬間にも実行
     forceShowPage();
 
-    // 予備の保険（万が一に備え、0.1秒後にも再実行）
+    // どんなエラーが起きても、100ミリ秒後には確実に画面を強制表示（真っ白フリーズ撲滅）
     setTimeout(forceShowPage, 100);
   </script>
 </head>
@@ -196,7 +194,7 @@
           <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow flex flex-col justify-start space-y-4 pt-2 text-center md:text-left">
-          <h3 class="text-2xl md:text-3xl font-black text-slate-900">全国の学生が集結</h3>
+          <h3 class="text-2xl md:text-3xl font-black text-slate-950">全国の学生が集結</h3>
           <p class="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
             全国から志を持った学生が１０0人以上集まり活動しています。
           </p>
