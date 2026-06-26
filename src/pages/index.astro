@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NSF PROJECTs | ホーム</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4/index.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu">
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
@@ -267,12 +267,18 @@
       renderArticles(fallbackArticles);
     };
 
+    // 🛠️ 404エラー時に処理がクラッシュしないよう、安全にフォールバックを呼ぶ堅牢な記述に修正
     fetch('/api/rss')
       .then(res => {
-        if (!res.ok) throw new Error('APIの応答が正常ではありません');
+        if (!res.ok) {
+          insertFallbackCards();
+          return null;
+        }
         return res.json();
       })
       .then(data => {
+        if (!data) return; // 404の時はここで安全に処理を終了
+        
         const parser = new DOMParser();
         let allArticles = [];
 
@@ -320,7 +326,7 @@
         renderArticles(allArticles.slice(0, 3));
       })
       .catch(err => {
-        console.error(err);
+        console.error("RSS Fetch Error:", err);
         insertFallbackCards();
       });
 
