@@ -1,41 +1,46 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// Astroのフロントマター
+// 💡 対策：ここでTailwindとフォント設定が含まれるglobal.cssを必ず読み込みます！
+import '../global.css';
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mamoneruプロジェクト | NSF PROJECTs</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+    <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
-        <span class="font-black text-base sm:text-lg text-slate-995 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
-      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
         <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
         <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
         <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
         <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
         
+        {/* 💡 対策：ドロップダウンリストのホバー開閉バグを完全に修正 */}
         <div class="relative dropdown font-black">
-          <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
-            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-blue-700 bg-slate-50 transition">Mamoneruプロジェクト</a>
+            <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-blue-600 bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
             <a href="/umaimon" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">能登うまいもん再発見プロジェクト</a>
             <a href="/survival" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">survival Academyプロジェクト</a>
@@ -64,7 +69,7 @@
           <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
           <div class="flex flex-col space-y-2.5 pl-1">
             <a href="/hatenaki" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・果てなき復興プロジェクト</a>
-            <a href="/mamoneru" class="text-blue-700 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
+            <a href="/mamoneru" class="text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
             <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
@@ -106,16 +111,14 @@
       
       <div class="lg:col-span-1 space-y-6">
         <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
-          
           <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
             <img src="/p_logo/mamoneru.png" alt="プロジェクト ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
           </div>
-
           <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
           <div class="space-y-3">
             <div>
               <p class="text-[10px] text-slate-500 font-bold uppercase">プロジェクトリーダー</p>
-              <p class="text-sm font-black text-slate-100"></p>
+              <p class="text-sm font-black text-slate-100">（選定中）</p>
             </div>
             <div>
               <p class="text-[10px] text-slate-500 font-bold uppercase">開始時期</p>
@@ -153,7 +156,7 @@
               <h4 class="font-black text-slate-950 text-sm">協定締結状況の全国調査</h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              全国の自治体を対象に、災害時における「段ボールベッド協定」の締結状況や備蓄の現状について綿密な調査を進めていきます。
+              全国の自治いを対象に、災害時における「段ボールベッド協定」の締結状況や備蓄の現状について綿密な調査を進めていきます。
             </p>
           </div>
 
@@ -163,11 +166,10 @@
               <h4 class="font-black text-slate-950 text-sm">地方自治体への質問・提言活動</h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              調査結果をもとに、未締結の自治体や改善の余地がある地域に対して、各メンバーが在住・在学する地元自治体へ主タイトルかつ具体的な質問・提言を直接行います。
+              調査結果をもとに、未締結の自治体や改善の余地がある地域に対して、各メンバーが在住・在学する地元自治体へ、主体的な視点から具体的な質問・提言を直接行います。
             </p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -219,8 +221,9 @@
 <style is:global>
   body { font-family: 'Noto Sans JP', sans-serif; }
   
-  /* PC環境でのみホバーでドロップダウンを開く */
+  /* 💡 対策：リストの開閉が正しく動くようにCSSを設定 */
+  .dropdown-menu { display: none; }
   @media (min-width: 1024px) {
-    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-menu { display: block !important; }
   }
 </style>
