@@ -1,5 +1,7 @@
 ---
 // Astroフロントマター
+// 💡 対策：ここでTailwind用のCSSをプロジェクトに強制的に認識させます！
+import '../global.css';
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -14,8 +16,14 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
   <style is:inline>
-    /* 💡 対策2: Tailwind CSSの読み込みを待たずに、最優先でスプラッシュを全画面に強制表示する生のCSS */
+    /* 💡 超重要：Tailwindが効く前の一瞬のレイアウト崩れ（縦並び）をブラウザ側で100%隠蔽する命令 */
+    body {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    
     #splash-screen {
+      visibility: visible !important;
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
@@ -29,28 +37,30 @@
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      opacity: 1;
+      opacity: 1 !important;
       transition: opacity 0.4s ease-out !important;
     }
     .splash-content {
       text-align: center;
       color: #ffffff;
       font-family: sans-serif;
+      visibility: visible !important;
     }
     .splash-logo {
       height: 80px;
       width: auto;
       margin-bottom: 20px;
+      visibility: visible !important;
     }
-    /* 簡易版ローディングアニメーション（Tailwind未読み込み時用） */
     .splash-spinner {
       width: 30px;
       height: 30px;
       border: 3px solid rgba(255,255,255,0.3);
       border-radius: 50%;
-      border-top-color: #3b82f6; /* blue-500 */
+      border-top-color: #3b82f6;
       animation: splash-spin 1s ease-in-out infinite;
       margin: 0 auto;
+      visibility: visible !important;
     }
     @keyframes splash-spin {
       to { transform: rotate(360deg); }
@@ -272,10 +282,15 @@
     const container = document.getElementById('note-list');
     const splash = document.getElementById('splash-screen');
 
-    // スプラッシュ画面をフェードアウトさせて完全に消去
+    // 💡 変更：スプラッシュ画面が消えるタイミングで隠していたbodyの透明化を即座に解除する安全設計
     const hideSplashScreen = () => {
       if (splash && splash.style.opacity !== '0') {
         splash.style.opacity = '0';
+        
+        // メインコンテンツのTailwindデザインをここで強制的に一気に表示させます
+        document.body.style.setProperty('visibility', 'visible', 'important');
+        document.body.style.setProperty('opacity', '1', 'important');
+        
         setTimeout(() => splash.remove(), 400); 
       }
     };
@@ -319,7 +334,10 @@
     const initRSS = async () => {
       renderArticles(fallbackArticles);
 
-      // 通信環境に関わらず、最長1.2秒でスプラッシュを強制終了してメイン画面を出す
+      // 💡 対策：画面読み込み開始直後に、最優先で「body非表示・スプラッシュ起動」を確定させる
+      document.body.style.setProperty('visibility', 'hidden', 'important');
+      document.body.style.setProperty('opacity', '0', 'important');
+
       const timeoutId = setTimeout(hideSplashScreen, 1200);
 
       const workerProxy = "https://api.allorigins.win/raw?url=";
