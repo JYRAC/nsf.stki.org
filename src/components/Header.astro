@@ -1,0 +1,88 @@
+---
+// src/components/Header.astro
+// ナビゲーション項目を一箇所にまとめ、activeKeyで現在ページのハイライトを制御する。
+// (旧実装ではページごとにコピペしていたため、一部ページでハイライト漏れがあった)
+
+export type NavKey = "home" | "about" | "apply" | "contact" | "projects";
+
+interface ProjectLink {
+  href: string;
+  label: string;
+}
+
+const PROJECT_LINKS: ProjectLink[] = [
+  { href: "/hatenaki", label: "果てなき復興プロジェクト" },
+  { href: "/mamoneru", label: "Mamoneruプロジェクト" },
+  { href: "/mamomizu", label: "Mamomizuプロジェクト" },
+  { href: "/umaimon", label: "能登うまいもん再発見プロジェクト" },
+  { href: "/survival", label: "survival Academyプロジェクト" },
+  { href: "/bifrost", label: "NSF Bifröst" },
+];
+
+interface Props {
+  activeKey?: NavKey;
+}
+
+const { activeKey } = Astro.props;
+
+const navClass = (key: NavKey) =>
+  `hover:text-blue-600 transition py-2 font-black${activeKey === key ? " text-blue-600" : ""}`;
+
+const dropdownButtonClass =
+  `transition flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap${
+    activeKey === "projects" ? " text-blue-600" : " hover:text-blue-600"
+  }`;
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+  <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
+    <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
+      <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
+      <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+    </a>
+
+    <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
+      <a href="/" class={navClass("home")}>HOME</a>
+      <a href="/about" class={navClass("about")}>ABOUT</a>
+      <a href="/apply" class={navClass("apply")}>APPLY</a>
+      <a href="/contact" class={navClass("contact")}>CONTACT</a>
+
+      <div class="relative dropdown font-black">
+        <button class={dropdownButtonClass}>
+          <span>PROJECTs</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+          {PROJECT_LINKS.map((p) => (
+            <a href={p.href} class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">{p.label}</a>
+          ))}
+        </div>
+      </div>
+    </nav>
+
+    <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 z-50">
+      <a href="/apply" class="hidden sm:inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-sm transition whitespace-nowrap">メンバー加入</a>
+      <button id="menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 transition cursor-pointer flex-shrink-0" aria-label="メニューを開く">
+        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+      <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
+      <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
+      <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
+      <a href="/contact" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">CONTACT</a>
+      <div class="border-t border-slate-200 pt-4 mt-2">
+        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">プロジェクト一覧</p>
+        <div class="flex flex-col space-y-2.5 pl-1">
+          {PROJECT_LINKS.map((p) => (
+            <a href={p.href} class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・{p.label}</a>
+          ))}
+        </div>
+      </div>
+      <a href="/apply" class="sm:hidden block text-center bg-blue-600 text-white font-bold text-sm py-3 rounded-full transition shadow-md mt-4">メンバー加入</a>
+    </div>
+  </div>
+</header>

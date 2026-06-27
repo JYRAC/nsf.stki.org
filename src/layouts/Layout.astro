@@ -1,0 +1,201 @@
+---
+// src/layouts/Layout.astro
+// 全ページ共通のhead / header / footer / スプラッシュ画面 / モバイルメニュー制御をまとめる。
+import "../global.css";
+import Header, { type NavKey } from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  activeKey?: NavKey;
+  /** トップページのみtrueにし、ロゴアニメーション付きスプラッシュ画面を表示する */
+  showSplash?: boolean;
+}
+
+const { title, activeKey, showSplash = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | NSF PROJECTs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  {showSplash && (
+    <style is:inline>
+      body {
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+
+      #splash-screen {
+        visibility: visible !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%) !important;
+        z-index: 999999 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        opacity: 1 !important;
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      .splash-content {
+        text-align: center;
+        visibility: visible !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .splash-logo {
+        height: 90px;
+        width: auto;
+        margin-bottom: 16px;
+        visibility: visible !important;
+        animation: logo-fade-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .splash-title {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        margin-bottom: 24px;
+        font-family: sans-serif;
+        visibility: visible !important;
+        animation: logo-fade-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .splash-progress-container {
+        width: 180px;
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        visibility: visible !important;
+      }
+
+      .splash-progress-bar {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        transform: translateX(-100%);
+        animation: progress-fill 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        visibility: visible !important;
+      }
+
+      .splash-text {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        visibility: visible !important;
+        animation: text-pulse 1.5s ease-in-out infinite;
+        padding-left: 0.4em;
+      }
+
+      @keyframes logo-fade-in {
+        from { opacity: 0; transform: scale(0.96) translateY(8px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      @keyframes progress-fill {
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(0); }
+        100% { transform: translateX(100%); }
+      }
+
+      @keyframes text-pulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.8; }
+      }
+    </style>
+  )}
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  {showSplash && (
+    <div id="splash-screen">
+      <div class="splash-content">
+        <img src="/新logo.jpg" alt="NSF ロゴ" class="splash-logo">
+        <h2 class="splash-title">NSF PROJECTs</h2>
+        <div class="splash-progress-container">
+          <div class="splash-progress-bar"></div>
+        </div>
+        <p class="splash-text">Connecting</p>
+      </div>
+    </div>
+  )}
+
+  <Header activeKey={activeKey} />
+
+  <main class="flex-grow">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <script>
+    // ハンバーガーメニューの開閉
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+      if (mobileMenu?.classList.contains('hidden')) {
+        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+      } else {
+        menuIcon!.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+      }
+    });
+  </script>
+
+  {showSplash && (
+    <script>
+      // スプラッシュ画面を滑らかに消し、メイン表示を確定させる
+      const splash = document.getElementById('splash-screen');
+
+      const hideSplashScreen = () => {
+        if (splash && splash.style.opacity !== '0') {
+          splash.style.opacity = '0';
+          document.body.style.setProperty('visibility', 'visible', 'important');
+          document.body.style.setProperty('opacity', '1', 'important');
+          setTimeout(() => splash.remove(), 500);
+        }
+      };
+
+      // 0.8秒だけアニメーションを見せてから消去する
+      setTimeout(hideSplashScreen, 800);
+    </script>
+  )}
+</body>
+</html>
+
+<style is:global>
+  body { font-family: 'Noto Sans JP', sans-serif; }
+</style>
+
+<style>
+  .dropdown-menu { display: none; }
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+</style>

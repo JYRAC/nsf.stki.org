@@ -2,13 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nsf",
   "compatibility_date": "2026-06-14",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "./dist/_worker.js/index.js",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "dist"
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
 }
