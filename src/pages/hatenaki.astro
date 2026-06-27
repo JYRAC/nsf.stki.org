@@ -1,38 +1,44 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// Astroのフロントマター
+// 💡 対策：ここでTailwindとフォント設定が含まれるglobal.cssを必ず読み込みます！
+import '../global.css';
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>果てなき復興プロジェクト | NSF PROJECTs</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+    <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
-        <span class="font-black text-base sm:text-lg text-slate-995 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
+        <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
-      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
         <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
         <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
         <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
         <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
         
+        {/* 💡 対策：ドロップダウンリストの開閉が壊れないようABOUTと全く同じ完璧な構造に変更 */}
         <div class="relative dropdown font-black">
           <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
             <span>PROJECTs</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-blue-600 bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
@@ -97,11 +103,11 @@
           Project Concept
         </div>
         <h2 class="text-2xl md:text-4xl font-black text-slate-950 leading-snug">
-          被災地の現状を自らの視点で捉え直し、復興を“終わらせない”ために Tweed。
+          被災地の現状を自らの視点で捉え直し、復興を“終わらせない”ために。
         </h2>
       </div>
       <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-blue-600 pl-4 py-1">
-        東日本大震災、精度高く時が流れる令和6年能登半島地震。時間の経過とともにメディアからの報道が減っていくなか、被災地のリアルな課題や教訓は埋もれがちになります。私たちは、若者自身の手による徹底的な「学び・発信・提言」を通して、災害の記憶を風化させず未来へと繋ぎ続ける取り組みを展開しています。
+        東日本大震災、そして時が流れる令和6年能登半島地震。時間の経過とともにメディアからの報道が減っていくなか、被災地のリアルな課題や教訓は埋もれがちになります。私たちは、若者自身の手による徹底的な「学び・発信・提言」を通して、災害の記憶を風化させず未来へと繋ぎ続ける取り組みを展開しています。
       </p>
     </section>
 
@@ -132,7 +138,7 @@
         <div class="bg-gradient-to-br from-blue-900 to-slate-950 text-white p-6 rounded-2xl shadow-sm space-y-3">
           <h4 class="font-black text-xs text-blue-400 uppercase tracking-widest">Our Mission</h4>
           <p class="text-xs text-slate-300 leading-relaxed font-medium">
-            震災や復興、精度高く現地で懸命に活動する方々の存在を、日本全国へ、そして未来へ「知ってもらう」ためのアクションを最優先に展開しています。
+            震災や復興、現地で懸命に活動する方々の存在を、日本全国へ、そして未来へ「知ってもらう」ためのアクションを最優先に展開しています。
           </p>
         </div>
       </div>
@@ -148,7 +154,7 @@
             <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-1">
               <h4 class="font-black text-slate-950 text-sm">1. 多角的な現地調査</h4>
               <p class="text-slate-500 text-xs leading-relaxed font-medium">
-                行政、支援団体、教育機関、誠に住民の方々へ直接アプローチ。多角的な目線から復興の進捗と潜在する課題を浮き彫りにします。
+                行政、支援団体、教育機関、そして住民の方々へ直接アプローチ。多角的な目線から復興の進捗と潜在する課題を浮き彫りにします。
               </p>
             </div>
 
@@ -190,7 +196,7 @@
           </div>
           <h4 class="text-lg font-black text-slate-950">福島プロジェクトが始動中</h4>
           <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-            東日本大震災から歳月が経過しようとする今、現地の「現在地」を見つめ直し、次世代として描くべき新しい福島の地図と復興ストーリーを構想・募集しています。
+            東日本大震災から歳月が経過しようとする今、現地の「現在地」を見つめ直し、次世代として描くべき新しい福島の地図と復興ストーリーを構想しています。
           </p>
         </div>
         <div>
@@ -287,8 +293,9 @@
 <style is:global>
   body { font-family: 'Noto Sans JP', sans-serif; }
   
-  /* PC環境でのみホバーでドロップダウンを開く */
+  /* 💡 対策：リストの開閉が正しく動くようにCSSを設定 */
+  .dropdown-menu { display: none; }
   @media (min-width: 1024px) {
-    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-menu { display: block !important; }
   }
 </style>
