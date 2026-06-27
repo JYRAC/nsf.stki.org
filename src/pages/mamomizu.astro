@@ -1,28 +1,30 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// Astroのフロントマター
+// 💡 対策1：ここでTailwindとフォント設定が含まれるglobal.cssを必ず読み込みます！
+import '../global.css';
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mamomizuプロジェクト | NSF PROJECTs</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+    <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
         <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
-      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
         <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
         <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
         <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
@@ -33,7 +35,7 @@
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-blue-600 bg-slate-50 transition">Mamomizuプロジェクト</a>
@@ -87,7 +89,7 @@
         WATER DISASTER PREVENTION
       </div>
       <h1 class="text-3xl md:text-5xl font-black leading-tight mb-4 tracking-wide drop-shadow-lg">Mamomizu プロジェクト</h1>
-      <p class="text-base md:text-xl text-slate-100 max-w-2xl mx-auto font-bold opacity-95 tracking-wider text-sky-300">
+      <p class="text-base md:text-xl max-w-2xl mx-auto font-bold opacity-95 tracking-wider text-sky-300">
         災害時も、平常時も。誰もが安心して水を使える社会へ。
       </p>
     </div>
@@ -98,7 +100,7 @@
     <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6">
       <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-sky-500 pl-4 py-1">
         災害時には「水の72時間」が生死を分けるとされ、飲料・調理・衛生の確保は喫緊の課題です。<br><br>
-        同時に、日本は食料や製品を通じて海外から大量 of 「仮想水（バーチャルウォーター）」を輸入しており、平常時から水環境に大きく依存しています。私たちMamomizuは、災害時の水環境改善と平常時の水問題への取り組みを「提言」と「行動」の両輪で進め、誰もが安心して水を使える環境を目指します。
+        同時に、日本は食料や製品を通じて海外から大量の「仮想水（バーチャルウォーター）」を輸入しており、平常時から水環境に大きく依存しています。私たちMamomizuは、災害時の水環境改善と平常時の水問題への取り組みを「提言」と「行動」の両輪で進め、誰もが安心して水を使える環境を目指します。
       </p>
     </section>
 
@@ -228,7 +230,7 @@
               <h4 class="font-black text-slate-950 text-sm">衛生管理の啓発</h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              消毒・手洗い方法 of 確認や「トイレ衛生チェックシート」を作成。感染症拡大防止のための正しい処理方法を、ポスターやSNSで発信します。
+              消毒・手洗い方法の確認や「トイレ衛生チェックシート」を作成。感染症拡大防止のための正しい処理方法を、ポスターやSNSで発信します。
             </p>
           </div>
 
@@ -326,3 +328,11 @@
 
 </body>
 </html>
+
+<style is:global>
+  body { font-family: 'Noto Sans JP', sans-serif; }
+  .dropdown-menu { display: none; }
+  @media (min-width: 1024px) {
+    .dropdown:hover .dropdown-menu { display: block; }
+  }
+</style>
