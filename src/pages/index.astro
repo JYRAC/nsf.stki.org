@@ -1,5 +1,7 @@
 ---
-// Astroフロントマター：ビルド時に最適化されるため、特別なサーバーサイド処理がなければ空で問題ありません
+// Astroフロントマター
+// 💡 対策：ここでTailwind用のCSSをプロジェクトに強制的に認識させます！
+import '../global.css';
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -10,10 +12,69 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <style is:inline>
+    /* 💡 超重要：Tailwindが効く前の一瞬のレイアウト崩れ（縦並び）をブラウザ側で100%隠蔽する命令 */
+    body {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    
+    #splash-screen {
+      visibility: visible !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: #0f172a !important; /* slate-900 */
+      z-index: 999999 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      opacity: 1 !important;
+      transition: opacity 0.4s ease-out !important;
+    }
+    .splash-content {
+      text-align: center;
+      color: #ffffff;
+      font-family: sans-serif;
+      visibility: visible !important;
+    }
+    .splash-logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 20px;
+      visibility: visible !important;
+    }
+    .splash-spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: splash-spin 1s ease-in-out infinite;
+      margin: 0 auto;
+      visibility: visible !important;
+    }
+    @keyframes splash-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <div id="splash-screen">
+    <div class="splash-content">
+      <img src="/新logo.jpg" alt="NSF ロゴ" class="splash-logo">
+      <div class="splash-spinner"></div>
+    </div>
+  </div>
 
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
     <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
@@ -219,6 +280,20 @@
 
   <script>
     const container = document.getElementById('note-list');
+    const splash = document.getElementById('splash-screen');
+
+    // 💡 変更：スプラッシュ画面が消えるタイミングで隠していたbodyの透明化を即座に解除する安全設計
+    const hideSplashScreen = () => {
+      if (splash && splash.style.opacity !== '0') {
+        splash.style.opacity = '0';
+        
+        // メインコンテンツのTailwindデザインをここで強制的に一気に表示させます
+        document.body.style.setProperty('visibility', 'visible', 'important');
+        document.body.style.setProperty('opacity', '1', 'important');
+        
+        setTimeout(() => splash.remove(), 400); 
+      }
+    };
 
     const renderArticles = (articles) => {
       container.innerHTML = '';
@@ -257,8 +332,13 @@
     ];
 
     const initRSS = async () => {
-      // 外部データ取得中のガタつきを防ぐため、まずは初期状態でフォールバック（骨組み）を表示
       renderArticles(fallbackArticles);
+
+      // 💡 対策：画面読み込み開始直後に、最優先で「body非表示・スプラッシュ起動」を確定させる
+      document.body.style.setProperty('visibility', 'hidden', 'important');
+      document.body.style.setProperty('opacity', '0', 'important');
+
+      const timeoutId = setTimeout(hideSplashScreen, 1200);
 
       const workerProxy = "https://api.allorigins.win/raw?url=";
       const jyracFeed = encodeURIComponent("https://note.com/jyrac_official/rss");
@@ -316,6 +396,9 @@
         }
       } catch (err) {
         console.warn("Note RSS live reload bypassed:", err);
+      } finally {
+        clearTimeout(timeoutId);
+        hideSplashScreen();
       }
     };
 
