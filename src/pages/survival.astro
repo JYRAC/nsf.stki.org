@@ -1,39 +1,44 @@
 ---
-// Astroのフロントマター（必要に応じてコンポーネントのインポートやサーバーサイド処理をここに書きます）
+// Astroのフロントマター
+// 💡 対策：ここでTailwindとフォント設定が含まれるglobal.cssを必ず読み込みます！
+import '../global.css';
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NSFサバイバルアカデミー | NSF PROJECTs</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+    <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
         <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
-      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0">
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
         <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
         <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
         <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
         <a href="/contact" class="hover:text-blue-600 transition py-2 font-black">CONTACT</a>
         
+        {/* 💡 対策：ドロップダウンリストのホバー開閉バグを完全に修正 */}
         <div class="relative dropdown font-black">
-          <button class="text-blue-600 flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
+          <button class="hover:text-blue-600 transition flex items-center space-x-1 py-2 cursor-pointer whitespace-nowrap">
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
@@ -67,7 +72,7 @@
             <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
-            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
+            <a href="/survival" class="text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
             <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
         </div>
@@ -106,7 +111,6 @@
       
       <div class="lg:col-span-1 space-y-6">
         <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5">
-          
           <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
             <img src="/p_logo/survival.jpg" alt="NSFサバイバルアカデミー ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
           </div>
@@ -122,8 +126,8 @@
               <p class="text-sm font-black text-slate-100">2025年12月</p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">現在の参加人数</p>
-              <p class="text-sm font-black text-slate-100"></p>
+              <p class="text-[10px] text-slate-500 font-bold uppercase">対象メンバー</p>
+              <p class="text-sm font-black text-slate-100">中高生・大学生</p>
             </div>
           </div>
         </div>
@@ -131,7 +135,7 @@
         <div class="bg-gradient-to-br from-green-800 to-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-4">
           <h4 class="font-black text-xs text-green-300 uppercase tracking-widest">Concept</h4>
           <p class="text-xs text-slate-200 leading-relaxed font-medium">
-            テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。対象は中学生・高校生・大学生です。
+            テーマは「防災・サバイバル・アウトドア」。体験型ワークショップ・訓練・フィールド活動を通じて、災害時に必要な知識・判断力・適応力を身につけることを目指します。
           </p>
         </div>
       </div>
@@ -163,11 +167,10 @@
               <h4 class="font-black text-slate-950 text-sm">継続的な教育ブランドへ</h4>
             </div>
             <p class="text-slate-500 text-xs leading-relaxed font-medium">
-              単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、精度高く自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。
+              単発のイベントではなく、キャンプ・登山・野営・防災訓練・災害対応シミュレーション、自衛隊・消防・自治体との連携を継続的に行う教育ブランドへの発展を構想しています。
             </p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -270,8 +273,9 @@
 <style is:global>
   body { font-family: 'Noto Sans JP', sans-serif; }
   
-  /* PC環境でのみホバーでドロップダウンを開く */
+  /* 💡 対策：リストの開閉が正しく動くようにCSSを設定 */
+  .dropdown-menu { display: none; }
   @media (min-width: 1024px) {
-    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-menu { display: block !important; }
   }
 </style>
