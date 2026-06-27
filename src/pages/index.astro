@@ -1,5 +1,5 @@
 ---
-// Astroフロントマター
+// Astroフロントマター：ビルド時に最適化されるため、特別なサーバーサイド処理がなければ空で問題ありません
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -10,61 +10,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-  <style is:inline>
-    /* 💡 対策2: Tailwind CSSの読み込みを待たずに、最優先でスプラッシュを全画面に強制表示する生のCSS */
-    #splash-screen {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      background-color: #0f172a !important; /* slate-900 */
-      z-index: 999999 !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      opacity: 1;
-      transition: opacity 0.4s ease-out !important;
-    }
-    .splash-content {
-      text-align: center;
-      color: #ffffff;
-      font-family: sans-serif;
-    }
-    .splash-logo {
-      height: 80px;
-      width: auto;
-      margin-bottom: 20px;
-    }
-    /* 簡易版ローディングアニメーション（Tailwind未読み込み時用） */
-    .splash-spinner {
-      width: 30px;
-      height: 30px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #3b82f6; /* blue-500 */
-      animation: splash-spin 1s ease-in-out infinite;
-      margin: 0 auto;
-    }
-    @keyframes splash-spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
-
-  <div id="splash-screen">
-    <div class="splash-content">
-      <img src="/新logo.jpg" alt="NSF ロゴ" class="splash-logo">
-      <div class="splash-spinner"></div>
-    </div>
-  </div>
 
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
     <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
@@ -270,15 +219,6 @@
 
   <script>
     const container = document.getElementById('note-list');
-    const splash = document.getElementById('splash-screen');
-
-    // スプラッシュ画面をフェードアウトさせて完全に消去
-    const hideSplashScreen = () => {
-      if (splash && splash.style.opacity !== '0') {
-        splash.style.opacity = '0';
-        setTimeout(() => splash.remove(), 400); 
-      }
-    };
 
     const renderArticles = (articles) => {
       container.innerHTML = '';
@@ -317,10 +257,8 @@
     ];
 
     const initRSS = async () => {
+      // 外部データ取得中のガタつきを防ぐため、まずは初期状態でフォールバック（骨組み）を表示
       renderArticles(fallbackArticles);
-
-      // 通信環境に関わらず、最長1.2秒でスプラッシュを強制終了してメイン画面を出す
-      const timeoutId = setTimeout(hideSplashScreen, 1200);
 
       const workerProxy = "https://api.allorigins.win/raw?url=";
       const jyracFeed = encodeURIComponent("https://note.com/jyrac_official/rss");
@@ -378,9 +316,6 @@
         }
       } catch (err) {
         console.warn("Note RSS live reload bypassed:", err);
-      } finally {
-        clearTimeout(timeoutId);
-        hideSplashScreen();
       }
     };
 
