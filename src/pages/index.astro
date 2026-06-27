@@ -1,7 +1,5 @@
 ---
-// Astroフロントマター: 必要に応じてコンポーネントのインポートやサーバーサイド処理をここに記述します
-// 💡 Tailwind CSSはAstroのプロジェクト設定（astro.config.mjs等）で統合されていることを前提とし、
-//    HTML内にあったCDNスクリプト（@tailwindcss/browser）はパフォーマンス最適化のため削除しました。
+// Astroフロントマター
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -12,10 +10,61 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <style is:inline>
+    /* 💡 対策2: Tailwind CSSの読み込みを待たずに、最優先でスプラッシュを全画面に強制表示する生のCSS */
+    #splash-screen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: #0f172a !important; /* slate-900 */
+      z-index: 999999 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      opacity: 1;
+      transition: opacity 0.4s ease-out !important;
+    }
+    .splash-content {
+      text-align: center;
+      color: #ffffff;
+      font-family: sans-serif;
+    }
+    .splash-logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+    /* 簡易版ローディングアニメーション（Tailwind未読み込み時用） */
+    .splash-spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #3b82f6; /* blue-500 */
+      animation: splash-spin 1s ease-in-out infinite;
+      margin: 0 auto;
+    }
+    @keyframes splash-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+  <div id="splash-screen">
+    <div class="splash-content">
+      <img src="/新logo.jpg" alt="NSF ロゴ" class="splash-logo">
+      <div class="splash-spinner"></div>
+    </div>
+  </div>
 
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
     <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
@@ -100,7 +149,7 @@
 
   <section class="py-20 max-w-4xl mx-auto px-4 text-center">
     <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">OUR GOAL</span>
-    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震震災前の当たり前を取り戻す。</h2>
+    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震災前の当たり前を取り戻す。</h2>
     <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
       全国の学生で被災地を支援することで、同じ目線での支援を提供します。
     </p>
@@ -189,7 +238,6 @@
         <h2 class="text-2xl md:text-3xl font-black text-slate-950">公式Note・活動記事</h2>
         <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
       </div>
-      
       <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
     </div>
   </section>
@@ -200,7 +248,6 @@
         <h2 class="text-xl font-bold text-slate-950 mb-1">最新のInstagram活動報告</h2>
         <p class="text-xs text-slate-500 font-medium">Instagramから6件を自動で並べています</p>
       </div>
-      
       <div class="w-full">
         <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
         <script>
@@ -223,6 +270,15 @@
 
   <script>
     const container = document.getElementById('note-list');
+    const splash = document.getElementById('splash-screen');
+
+    // スプラッシュ画面をフェードアウトさせて完全に消去
+    const hideSplashScreen = () => {
+      if (splash && splash.style.opacity !== '0') {
+        splash.style.opacity = '0';
+        setTimeout(() => splash.remove(), 400); 
+      }
+    };
 
     const renderArticles = (articles) => {
       container.innerHTML = '';
@@ -263,7 +319,9 @@
     const initRSS = async () => {
       renderArticles(fallbackArticles);
 
-      // 💡 前回のCORSエラー修正：/raw?url= を使用してテキスト取得に変形
+      // 通信環境に関わらず、最長1.2秒でスプラッシュを強制終了してメイン画面を出す
+      const timeoutId = setTimeout(hideSplashScreen, 1200);
+
       const workerProxy = "https://api.allorigins.win/raw?url=";
       const jyracFeed = encodeURIComponent("https://note.com/jyrac_official/rss");
       const nsfFeed = encodeURIComponent("https://note.com/nsfprojct_2024/rss");
@@ -320,11 +378,15 @@
         }
       } catch (err) {
         console.warn("Note RSS live reload bypassed:", err);
+      } finally {
+        clearTimeout(timeoutId);
+        hideSplashScreen();
       }
     };
 
     initRSS();
 
+    // ハンバーガーメニュー
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -346,14 +408,8 @@
 </style>
 
 <style>
-  /* 💡 Astro最適化: 元のインラインCSSと非表示クラスの挙動をスコープ型CSSへ安全に移行 */
-  .dropdown-menu {
-    display: none;
-  }
-  
+  .dropdown-menu { display: none; }
   @media (min-width: 1024px) {
-    .dropdown:hover .dropdown-menu { 
-      display: block; 
-    }
+    .dropdown:hover .dropdown-menu { display: block; }
   }
 </style>
