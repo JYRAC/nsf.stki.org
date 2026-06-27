@@ -1,5 +1,7 @@
 ---
-// Astroのフロントマター（サーバーサイドでの危険な外部fetchを完全に排除し、安全に構築します）
+// Astroフロントマター: 必要に応じてコンポーネントのインポートやサーバーサイド処理をここに記述します
+// 💡 Tailwind CSSはAstroのプロジェクト設定（astro.config.mjs等）で統合されていることを前提とし、
+//    HTML内にあったCDNスクリプト（@tailwindcss/browser）はパフォーマンス最適化のため削除しました。
 ---
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
@@ -11,30 +13,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-  <style is:inline>
-    header { height: 5rem; }
-    .nav-fixed { display: flex; align-items: center; }
-    @media (max-width: 1023px) { .nav-fixed { display: none; } }
-    .hero-mask { background: linear-gradient(to top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.3)); }
-    #note-list { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 2rem; }
-    @media (min-width: 768px) { #note-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between relative">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm h-20">
+    <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between relative">
       
       <a href="/" class="flex items-center space-x-2 sm:space-x-3 z-50 min-w-0">
         <img src="/新logo.jpg" alt="NSF ロゴ" class="h-11 sm:h-14 w-auto object-contain flex-shrink-0">
         <span class="font-black text-base sm:text-lg text-slate-900 tracking-wide uppercase truncate whitespace-nowrap">NSF PROJECTs</span>
       </a>
       
-      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 nav-fixed">
+      <nav class="hidden lg:flex space-x-8 font-bold text-sm text-slate-600 flex-shrink-0 items-center">
         <a href="/" class="hover:text-blue-600 transition py-2 font-black">HOME</a>
         <a href="/about" class="hover:text-blue-600 transition py-2 font-black">ABOUT</a>
         <a href="/apply" class="hover:text-blue-600 transition py-2 font-black">APPLY</a>
@@ -45,7 +36,7 @@
             <span>PROJECTs</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
+          <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-xl py-2 dropdown-menu animate-in fade-in slide-in-from-top-1 duration-200">
             <a href="/hatenaki" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">果てなき復興プロジェクト</a>
             <a href="/mamoneru" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">Mamomizuプロジェクト</a>
@@ -66,7 +57,7 @@
         </button>
       </div>
 
-      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto" style="display: none;">
+      <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl lg:hidden flex flex-col p-6 space-y-4 font-black z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
         <a href="/" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">HOME</a>
         <a href="/about" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">ABOUT</a>
         <a href="/apply" class="text-slate-800 hover:text-blue-600 transition text-base block py-1">APPLY</a>
@@ -79,7 +70,7 @@
             <a href="/mamoneru" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamoneruプロジェクト</a>
             <a href="/mamomizu" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・Mamomizuプロジェクト</a>
             <a href="/umaimon" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・能登うまいもん再発見プロジェクト</a>
-            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">运行survival Academyプロジェクト</a>
+            <a href="/survival" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・survival Academyプロジェクト</a>
             <a href="/bifrost" class="text-slate-700 hover:text-blue-600 font-bold text-sm block py-1">・NSF Bifröst</a>
           </div>
         </div>
@@ -109,7 +100,7 @@
 
   <section class="py-20 max-w-4xl mx-auto px-4 text-center">
     <span class="text-xs font-bold text-blue-600 tracking-widest block mb-2 uppercase">OUR GOAL</span>
-    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震災前の当たり前を取り戻す。</h2>
+    <h2 class="text-2xl md:text-4xl font-black text-slate-950 mb-6">震震災前の当たり前を取り戻す。</h2>
     <p class="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
       全国の学生で被災地を支援することで、同じ目線での支援を提供します。
     </p>
@@ -126,11 +117,11 @@
 
   <section class="pb-16 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-4/3">
-        <img src="/unnamed.jpg" alt="活動の様子 1" class="w-full h-full object-cover hover:scale-103 transition duration-500">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-video md:aspect-[4/3]">
+        <img src="/unnamed.jpg" alt="活動の様子 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
       </div>
-      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-4/3">
-        <img src="/unnamed (1).jpg" alt="活動の様子 2" class="w-full h-full object-cover hover:scale-103 transition duration duration-500">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-xs bg-slate-100 aspect-video md:aspect-[4/3]">
+        <img src="/unnamed (1).jpg" alt="活動の様子 2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
       </div>
     </div>
   </section>
@@ -199,8 +190,7 @@
         <p class="text-xs text-slate-500 font-medium mt-1">Noteの記事を自動で取得して表示しています</p>
       </div>
       
-      <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        </div>
+      <div id="note-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
     </div>
   </section>
 
@@ -244,7 +234,7 @@
             </span>
             <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
               <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
-                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-103 transition duration-500" loading="lazy" onerror="this.src='/新logo.jpg';">
+                <img src="${article.imgUrl}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="this.src='/新logo.jpg';">
               </div>
               <div class="p-6 flex flex-col flex-grow justify-between">
                 <div class="space-y-2">
@@ -270,20 +260,18 @@
       { title: "NSFプロジェクト 公式Note", link: "https://note.com/nsfprojct_2024", imgUrl: "/新logo.jpg", date: "最新の活動", creator: "NSF", labelColor: "bg-blue-600 text-white" }
     ];
 
-    // 🛠️ 【タイムアウト完全回避】混雑する外部プロキシに依存せず、安全にブラウザ側でNoteデータをキャッシュ・非同期取得する堅牢コード
     const initRSS = async () => {
-      // 408やサーバーエラーを防ぐため、まずは瞬時にフォールバック用カードを表示させてラグを完全に無くす
       renderArticles(fallbackArticles);
 
-      const workerProxy = "https://api.allorigins.win/get?url=";
+      // 💡 前回のCORSエラー修正：/raw?url= を使用してテキスト取得に変形
+      const workerProxy = "https://api.allorigins.win/raw?url=";
       const jyracFeed = encodeURIComponent("https://note.com/jyrac_official/rss");
       const nsfFeed = encodeURIComponent("https://note.com/nsfprojct_2024/rss");
 
       try {
-        // バックグラウンドで非同期にNoteデータをロード。失敗しても画面は一切止まりません
-        const [resJyrac, resNsf] = await Promise.all([
-          fetch(workerProxy + jyracFeed).then(res => res.ok ? res.json() : null).catch(() => null),
-          fetch(workerProxy + nsfFeed).then(res => res.ok ? res.json() : null).catch(() => null)
+        const [resJyracText, resNsfText] = await Promise.all([
+          fetch(workerProxy + jyracFeed).then(res => res.ok ? res.text() : null).catch(() => null),
+          fetch(workerProxy + nsfFeed).then(res => res.ok ? res.text() : null).catch(() => null)
         ]);
 
         const parser = new DOMParser();
@@ -292,6 +280,8 @@
         const parseRss = (xmlString, creatorName, labelColor) => {
           if (!xmlString) return;
           const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+          if (xmlDoc.getElementsByTagName("parsererror").length > 0) return;
+
           const items = xmlDoc.getElementsByTagName("item");
           
           for (let i = 0; i < items.length; i++) {
@@ -321,8 +311,8 @@
           }
         };
 
-        if (resJyrac && resJyrac.contents) parseRss(resJyrac.contents, 'JYRAC', 'bg-purple-600 text-white');
-        if (resNsf && resNsf.contents) parseRss(resNsf.contents, 'NSF', 'bg-blue-600 text-white');
+        if (resJyracText) parseRss(resJyracText, 'JYRAC', 'bg-purple-600 text-white');
+        if (resNsfText) parseRss(resNsfText, 'NSF', 'bg-blue-600 text-white');
 
         if (allArticles.length > 0) {
           allArticles.sort((a, b) => b.dateObj - a.dateObj);
@@ -353,9 +343,17 @@
 
 <style is:global>
   body { font-family: 'Noto Sans JP', sans-serif; }
+</style>
+
+<style>
+  /* 💡 Astro最適化: 元のインラインCSSと非表示クラスの挙動をスコープ型CSSへ安全に移行 */
+  .dropdown-menu {
+    display: none;
+  }
   
-  /* PC環境でのみホバーでドロップダウンを開く */
   @media (min-width: 1024px) {
-    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown:hover .dropdown-menu { 
+      display: block; 
+    }
   }
 </style>
