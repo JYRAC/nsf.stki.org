@@ -35,7 +35,7 @@ const FALLBACK_ARTICLES: NoteArticle[] = [
   {
     title: "JYRAC (日本若者防災復興協会) 公式Note",
     link: "https://note.com/jyrac_official",
-    imgUrl: "/新logo.jpg",
+    imgUrl: "/logo.jpg",
     date: "最新の活動",
     dateObj: new Date(0),
     creator: "JYRAC",
@@ -44,7 +44,7 @@ const FALLBACK_ARTICLES: NoteArticle[] = [
   {
     title: "NSFプロジェクト 公式Note",
     link: "https://note.com/nsfprojct_2024",
-    imgUrl: "/新logo.jpg",
+    imgUrl: "/logo.jpg",
     date: "最新の活動",
     dateObj: new Date(0),
     creator: "NSF",
@@ -52,7 +52,7 @@ const FALLBACK_ARTICLES: NoteArticle[] = [
   },
 ];
 
-const DEFAULT_THUMBNAIL = "/新logo.jpg";
+const DEFAULT_THUMBNAIL = "/logo.jpg";
 const FETCH_TIMEOUT_MS = 4000;
 
 function formatDate(pubDate: string | null): { date: string; dateObj: Date } {
