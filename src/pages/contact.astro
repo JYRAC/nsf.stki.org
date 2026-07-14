@@ -14,7 +14,7 @@ import Layout from "../layouts/Layout.astro";
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
       
       <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs flex flex-col items-center text-center justify-between space-y-4">
         <div class="flex flex-col items-center space-y-4">
@@ -38,14 +38,34 @@ import Layout from "../layouts/Layout.astro";
           </div>
           <h3 class="text-base font-black tracking-wide">お問い合わせフォーム</h3>
           
-          <div class="text-left text-[11px] text-blue-100 leading-relaxed bg-white/5 p-3.5 rounded-2xl border border-white/10 w-full space-y-1.5">
-            <p>※必要事項をご記入の上、送信してください。</p>
+          <div class="text-left text-[11px] text-blue-100 leading-relaxed bg-white/5 p-3 rounded-2xl border border-white/10 w-full space-y-1">
             <p>※送信後、自動返信メールが届きます。（届かない場合はアドレス誤りや迷惑メールフォルダをご確認ください）</p>
             <p>※通常2〜3営業日以内にご連絡いたします。</p>
           </div>
+
+          <div class="w-full text-left bg-slate-950/20 rounded-2xl border border-white/10 p-3 h-28 overflow-y-auto text-[10px] text-blue-100/90 leading-relaxed space-y-3 custom-scrollbar">
+            <p class="font-bold text-white border-b border-white/10 pb-1">プライバシーポリシー（要約）</p>
+            <p>
+              NSFPROJECTs（以下、「当プロジェクト」といいます）は、お問い合わせフォームのご利用に際し取得した個人情報を、個人情報保護法に基づき適切に管理いたします。
+            </p>
+            <div class="space-y-1">
+              <p class="font-bold text-white">1. 個人情報の利用目的</p>
+              <p>取得した個人情報は、お問い合わせに対する回答、資料の送付、緊急時のご連絡、およびサービス向上のための分析にのみ利用いたします。</p>
+            </div>
+            <div class="space-y-1">
+              <p class="font-bold text-white">2. 第三者提供について</p>
+              <p>法令に基づく場合を除き、利用者の同意を得ることなく個人情報を第三者に提供・開示することはありません。</p>
+            </div>
+            <div class="space-y-1">
+              <p class="font-bold text-white">3. お問い合わせ窓口</p>
+              <p>開示・訂正・削除のご請求、その他お問い合わせは jyrac.pr@gmail.com までご連絡ください。</p>
+            </div>
+          </div>
+          <p class="text-[10px] text-blue-200">※上記ポリシーに同意の上、お進みください。</p>
         </div>
+
         <a href="https://forms.gle/DxoWvqMbyahnsHig7" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-slate-100 text-blue-600 font-black text-xs py-3 rounded-full shadow-sm transition inline-block">
-          お問い合わせフォームを開く ➔
+          同意してフォームを開く ➔
         </a>
       </div>
 
@@ -88,70 +108,23 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
 
-    <div class="mt-12 max-w-3xl mx-auto">
-      <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
-        <summary class="flex justify-between items-center font-black text-slate-950 text-sm p-5 cursor-pointer select-none hover:bg-slate-50 transition list-none">
-          <span>プライバシーポリシー（個人情報保護方針）</span>
-          <span class="transition group-open:rotate-180">
-            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </span>
-        </summary>
-        
-        <div class="p-6 border-t border-slate-100 bg-slate-50/50 text-xs text-slate-600 space-y-6 leading-relaxed max-h-96 overflow-y-auto">
-          <p>
-            NSFPROJECTs（以下、「当プロジェクト」といいます）は、お問い合わせいただいた皆様（以下、「利用者」といいます）の個人情報の重要性を認識し、個人情報の保護に関する法律（個人情報保護法）を遵守するとともに、以下のプライバシーポリシーに従って適切な取扱いと保護に努めます。
-          </p>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">1. 個人情報の取得について</h4>
-            <p>当プロジェクトは、お問い合わせフォームのご利用に際し、氏名、メールアドレス、その他お問い合わせに必要な範囲の個人情報を適正に取得いたします。</p>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">2. 個人情報の利用目的</h4>
-            <p>取得した個人情報は、以下の目的の範囲内でのみ利用し、利用者の同意なく目的外の利用はいたしません。</p>
-            <ul class="list-disc pl-4 space-y-1">
-              <li>お問い合わせに対する回答、資料の送付、および緊急時のご連絡のため</li>
-              <li>当プロジェクトのサービス向上や運営改善のための分析のため</li>
-            </ul>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">3. 個人情報の第三者提供</h4>
-            <p>当プロジェクトは、法令に基づく場合を除き、利用者の同意を得ることなく個人情報を第三者に提供・開示することはありません。</p>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">4. 個人情報の管理・セキュリティ</h4>
-            <p>当プロジェクトは、お預かりした個人情報への不正アクセス、紛失、破壊、改ざん、および漏洩を防止するため、適切な安全管理措置を講じます。</p>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">5. 個人情報の開示・訂正・削除</h4>
-            <p>利用者ご本人から個人情報の開示、訂正、追加、削除、または利用停止のご要望があった場合は、ご本人であることを確認の上、速やかに対応いたします。</p>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="font-black text-slate-900 text-sm">6. お問い合わせ窓口</h4>
-            <p>個人情報の取扱いに関するお問い合わせ、または開示等のご請求は、下記までご連絡ください。</p>
-            <p class="pt-2">
-              ［お問い合わせ先］<a href="mailto:jyrac.pr@gmail.com" class="text-blue-600 hover:underline">jyrac.pr@gmail.com</a><br>
-              ［公式サイト］<a href="https://nsf.stki.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://nsf.stki.org/</a>
-            </p>
-          </div>
-        </div>
-      </details>
-    </div>
-
   </div>
 </Layout>
 
 <style>
-  /* Chrome等でデフォルトのアコーディオン矢印(▶)を消すためのスタイル 
-  */
-  summary::-webkit-details-marker {
-    display: none;
+  /* スクロールバーのカスタマイズ（より細くスタイリッシュに） */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
   }
 </style>
