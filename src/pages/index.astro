@@ -49,110 +49,116 @@ function normalizeCategory(rawCategory: any): string {
 function getCategoryBadge(rawCategory: any) {
   const category = normalizeCategory(rawCategory);
   if (["activity", "活動note", "活動", "note", "活動報告"].includes(category)) {
-    return { class: "bg-blue-500/10 text-blue-600 border-blue-400/30", defaultText: "Note", normalized: "activity" };
+    return { class: "bg-blue-50 text-blue-700 border-blue-200/80", defaultText: "Note", normalized: "activity" };
   } else if (["event", "イベント"].includes(category)) {
-    return { class: "bg-purple-500/10 text-purple-600 border-purple-400/30", defaultText: "イベント", normalized: "event" };
+    return { class: "bg-purple-50 text-purple-700 border-purple-200/80", defaultText: "イベント", normalized: "event" };
   } else if (["press", "リリース", "プレスリリース"].includes(category)) {
-    return { class: "bg-emerald-500/10 text-emerald-600 border-emerald-400/30", defaultText: "リリース", normalized: "press" };
+    return { class: "bg-emerald-50 text-emerald-700 border-emerald-200/80", defaultText: "リリース", normalized: "press" };
   } else if (["recruit", "募集", "採用"].includes(category)) {
-    return { class: "bg-rose-500/10 text-rose-600 border-rose-400/30", defaultText: "募集", normalized: "recruit" };
+    return { class: "bg-rose-50 text-rose-700 border-rose-200/80", defaultText: "募集", normalized: "recruit" };
   } else {
-    return { class: "bg-amber-500/10 text-amber-600 border-amber-400/30", defaultText: "お知らせ", normalized: "news" };
+    return { class: "bg-amber-50 text-amber-800 border-amber-200/80", defaultText: "お知らせ", normalized: "news" };
   }
 }
 ---
 
 <Layout title={t.home} activeKey="home" showSplash>
 
-  <!-- 緊急お知らせ（クリスタル・発光バナー） -->
+  <!-- 緊急お知らせ（ホワイトクリスタル・警告バナー） -->
   {urgentNews && (
-    <div class="relative z-50 bg-gradient-to-r from-red-600/90 via-rose-600/90 to-amber-600/90 backdrop-blur-md text-white py-3 px-4 shadow-lg border-b border-white/20">
+    <div class="relative z-50 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 text-white py-3 px-4 shadow-lg border-b border-red-700">
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs md:text-sm font-medium">
         <div class="flex items-center gap-3 min-w-0">
-          <span class="bg-white/20 border border-white/40 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-inner animate-pulse shrink-0">
+          <span class="bg-white text-red-700 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm animate-pulse shrink-0">
             {currentLang === 'en' ? 'URGENT' : '緊急情報'}
           </span>
-          <span class="font-mono text-white/80 text-xs shrink-0">
+          <span class="font-mono text-white/90 text-xs shrink-0">
             {(urgentNews.published_at ?? urgentNews.date_created).slice(0, 10).replace(/-/g, ".")}
           </span>
           <a href={urgentNews.link || `/news/${urgentNews.id}`} class="font-bold hover:underline truncate">
             {urgentNews.title}
           </a>
         </div>
-        <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs font-bold underline shrink-0 hover:text-amber-200 self-end sm:self-auto">
+        <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs font-bold underline shrink-0 hover:text-amber-100 self-end sm:self-auto">
           詳細を見る ➔
         </a>
       </div>
     </div>
   )}
 
-  <!-- ヒーローセクション（クリスタル＆オーロラ背景） -->
-  <section class="relative min-h-[85vh] flex flex-col justify-center items-center overflow-hidden py-20 px-4 bg-slate-950 text-white">
-    <!-- 背景写真 + 多層グラデーション & アニメーションオーロラ -->
-    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-30 mix-blend-overlay scale-105 animate-pulse-slow" />
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-blue-950/50 to-slate-950"></div>
+  <!-- ヒーローセクション（ホワイトオーロラ & クリスタル） -->
+  <section class="relative min-h-[88vh] flex flex-col justify-center items-center overflow-hidden py-24 px-4 bg-white text-slate-900">
+    <!-- 写真背景：/NSF_.JPG（淡いホワイトフィルター） -->
+    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-15 scale-105 animate-pulse-slow" />
+    <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-blue-50/40 to-white"></div>
     
-    <!-- クリスタルオーロラスポット -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/30 via-indigo-500/20 to-pink-500/30 rounded-full blur-[120px] pointer-events-none animate-aurora"></div>
+    <!-- ホワイト＆明るいオーロラスポット -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-cyan-200/50 via-blue-200/40 to-pink-200/50 rounded-full blur-[120px] pointer-events-none animate-aurora"></div>
 
-    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-      <!-- クリスタルキャッチバッジ -->
-      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span class="text-xs md:text-sm font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-amber-300">
-          {t.heroCatch}
+    <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+      
+      <!-- 画像抽出：バッジ -->
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-[0_4px_20px_rgba(59,130,246,0.12)] backdrop-blur-xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
+        <span class="text-xs md:text-sm font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-amber-600">
+          {currentLang === 'en' ? 'Noto Recovery & Disaster Awareness' : '能登半島の復興 × 中高生の防災意識向上'}
         </span>
       </div>
 
-      <!-- タイトル -->
+      <!-- 画像抽出：メインタイトル -->
       <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-tight">
-        <span class="block drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">{t.heroTitleLine1}</span>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-200 to-pink-300 drop-shadow-[0_0_35px_rgba(59,130,246,0.5)]">
-          {t.heroTitleLine2}
+        <span class="block text-2xl sm:text-4xl md:text-5xl font-extrabold text-blue-900 mb-2 drop-shadow-xs">
+          「自然災害」から切り開く
+        </span>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 drop-shadow-sm">
+          日本の未来デザイン
         </span>
       </h1>
 
-      <p class="text-xs sm:text-base text-slate-300/90 max-w-2xl mx-auto font-medium leading-relaxed backdrop-blur-sm p-4 rounded-2xl bg-white/5 border border-white/10">
-        {t.heroSub}
+      <!-- 画像抽出：理念・文章 -->
+      <p class="text-xs sm:text-base text-slate-700 max-w-3xl mx-auto font-medium leading-relaxed backdrop-blur-xl p-6 rounded-3xl bg-white/70 border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+        {currentLang === 'en' 
+          ? "NSF PROJECTs started as a disaster relief initiative for the Noto Peninsula Earthquake and has grown into a student organization with over 500 members nationwide. Driven by the philosophy 'Youth Speak Up, Take Action, and Shape the Future,' we collaborate with local governments, corporations, and communities to take on bold challenges."
+          : "NSF PROJECTsは能登半島地震の復興支援を出発点に、現在500名を超えるメンバーで活動する学生団体です。「能登の復興」と「中高生の防災意識向上」を目的に、北海道から沖縄まで全国のメンバーが奮闘中。「若者が声をあげ、行動し、未来を創る」を理念に行政・企業・地域と連携しながら挑戦を続けていきます。"}
       </p>
 
       <!-- クリスタルCTAボタン群 -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-lg mx-auto">
-        <a href="/about" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_0_25px_rgba(6,182,212,0.4)] transition-all duration-300 text-center">
+        <a href="/about" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_8px_25px_rgba(37,99,235,0.3)] transition-all duration-300 text-center">
           {t.about}
         </a>
-        <a href="/ema" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-all duration-300 text-center">
+        <a href="/ema" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_8px_25px_rgba(245,158,11,0.3)] transition-all duration-300 text-center">
           {t.emaSubmit}
         </a>
-        <a href="/projects" class="crystal-btn w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-black text-sm px-8 py-4 rounded-2xl backdrop-blur-md transition-all duration-300 text-center">
+        <a href="/projects" class="crystal-btn w-full sm:w-auto bg-white/90 hover:bg-white text-slate-800 border border-slate-200/80 shadow-[0_4px_15px_rgba(0,0,0,0.05)] font-black text-sm px-8 py-4 rounded-2xl backdrop-blur-md transition-all duration-300 text-center">
           {t.projects} ➔
         </a>
       </div>
     </div>
   </section>
 
-  <!-- お知らせ & 活動Note (グラスモフィズム & インラクティブタブ) -->
-  <section class="relative py-20 bg-slate-900 text-white overflow-hidden border-b border-slate-800" id="news">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+  <!-- お知らせ & 活動Note (ホワイトグラスモフィズム) -->
+  <section class="relative py-24 bg-gradient-to-b from-white via-slate-50/80 to-white text-slate-900 overflow-hidden border-t border-b border-slate-200/80" id="news">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-100/60 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-100/60 rounded-full blur-[100px] pointer-events-none"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto px-4 space-y-10">
       
-      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b border-white/10 pb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b border-slate-200 pb-6">
         <div>
-          <span class="text-xs font-black tracking-widest text-cyan-400 uppercase">Updates & Activity</span>
-          <h2 class="text-3xl font-black text-white mt-1 drop-shadow-md">{t.news}</h2>
+          <span class="text-xs font-black tracking-widest text-blue-600 uppercase">Updates & Activity</span>
+          <h2 class="text-3xl font-black text-slate-900 mt-1">{t.news}</h2>
         </div>
 
-        <!-- タブボタン (ガラス質感 & グラデーションハイライト) -->
-        <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl w-full sm:w-auto">
-          <button class="tab-btn active flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)] cursor-pointer" data-tab="all">
+        <!-- タブボタン -->
+        <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/60 border border-slate-300/50 backdrop-blur-xl w-full sm:w-auto">
+          <button class="tab-btn active flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 bg-white text-blue-600 shadow-[0_2px_10px_rgba(0,0,0,0.08)] cursor-pointer" data-tab="all">
             {currentLang === 'en' ? 'All' : 'すべて'}
           </button>
-          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-400 hover:text-white cursor-pointer" data-tab="news">
+          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="news">
             {currentLang === 'en' ? 'News' : 'お知らせ'}
           </button>
-          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-400 hover:text-white cursor-pointer" data-tab="activity">
+          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="activity">
             {currentLang === 'en' ? 'Activity' : '活動Note'}
           </button>
         </div>
@@ -167,7 +173,7 @@ function getCategoryBadge(rawCategory: any) {
               <a 
                 href={item.link || `/news/${item.id}`}
                 target={item.link?.startsWith('http') ? '_blank' : '_self'}
-                class="news-item group block p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 backdrop-blur-md transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] -translate-y-0 hover:-translate-y-1" 
+                class="news-item group block p-5 rounded-2xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-blue-300 backdrop-blur-md transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_25px_rgba(59,130,246,0.12)] -translate-y-0 hover:-translate-y-1" 
                 data-category={badge.normalized}
               >
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -175,14 +181,14 @@ function getCategoryBadge(rawCategory: any) {
                     <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
                       {(item.published_at ?? item.date_created).slice(0, 10).replace(/-/g, ".")}
                     </span>
-                    <span class={`text-[11px] font-bold px-3 py-1 rounded-full border backdrop-blur-md shrink-0 ${badge.class}`}>
+                    <span class={`text-[11px] font-bold px-3 py-1 rounded-full border shrink-0 ${badge.class}`}>
                       {item.badge_text || badge.defaultText}
                     </span>
-                    <span class="text-sm font-bold text-slate-100 group-hover:text-cyan-300 transition truncate">
+                    <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition truncate">
                       {item.title}
                     </span>
                   </div>
-                  <span class="text-xs font-bold text-slate-500 group-hover:text-cyan-400 shrink-0 hidden sm:inline-block transition">
+                  <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 shrink-0 hidden sm:inline-block transition">
                     ➔
                   </span>
                 </div>
@@ -190,14 +196,14 @@ function getCategoryBadge(rawCategory: any) {
             );
           })
         ) : (
-          <div class="text-center py-16 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+          <div class="text-center py-16 bg-white/80 rounded-2xl border border-slate-200">
             <p class="text-xs text-slate-400">現在掲載中のお知らせはありません。</p>
           </div>
         )}
       </div>
 
       <div class="text-center pt-4">
-        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-2 transition">
+        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-2 transition">
           <span>公式Noteで記事一覧を見る</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
@@ -208,14 +214,14 @@ function getCategoryBadge(rawCategory: any) {
 
   <!-- WHAT WE DO -->
   <section class="py-24 max-w-4xl mx-auto px-4 text-center relative">
-    <div class="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 font-extrabold text-xs tracking-widest uppercase mb-4">
+    <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-extrabold text-xs tracking-widest uppercase mb-4 shadow-xs">
       WHAT WE DO
     </div>
     <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">
       {currentLang === 'en' ? (
-        <>Moving Beyond Our Name:<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Our Challenge for the Future</span></>
+        <>Moving Beyond Our Name:<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">Our Challenge for the Future</span></>
       ) : (
-        <>名称の由来を超えて<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">私たちが目指す未来への挑戦</span></>
+        <>名称の由来を超えて<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">私たちが目指す未来への挑戦</span></>
       )}
     </h2>
     <p class="text-slate-600 text-sm md:text-lg leading-relaxed max-w-3xl mx-auto font-medium">
@@ -225,78 +231,76 @@ function getCategoryBadge(rawCategory: any) {
     </p>
   </section>
 
-  <!-- ギャラリー写真 (1) `/unnamed.jpg` と (2) `/unnamed (1).jpg` -->
+  <!-- 写真ギャラリー `/unnamed.jpg` & `/unnamed (1).jpg` -->
   <section class="pb-24 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="group relative overflow-hidden rounded-3xl shadow-2xl border border-slate-200/80 aspect-video">
-        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out" />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
+      <div class="group relative overflow-hidden rounded-3xl shadow-xl border border-slate-200/80 aspect-video">
+        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover group-hover:scale-108 transition duration-700 ease-out" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
           <span class="text-white text-xs font-bold tracking-widest">被災地支援の現場</span>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-3xl shadow-2xl border border-slate-200/80 aspect-video">
-        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out" />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-          <span class="text-white text-xs font-bold tracking-widest">全国から集まる学生たち</span>
+      <div class="group relative overflow-hidden rounded-3xl shadow-xl border border-slate-200/80 aspect-video">
+        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover group-hover:scale-108 transition duration-700 ease-out" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
+          <span class="text-white text-xs font-bold tracking-widest">全国から集まる学生メンバー</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VISION (クリスタルカード＆各種写真) -->
-  <section class="py-24 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+  <!-- VISION (ホワイトクリスタルカード & `/p_logo/sousei.png`, `/unnamed.jpg`) -->
+  <section class="py-24 bg-slate-50/60 text-slate-900 relative overflow-hidden border-t border-slate-200/80">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-200/30 via-indigo-200/20 to-pink-200/30 rounded-full blur-[150px] pointer-events-none"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto px-4 space-y-16">
       <div class="text-center">
-        <span class="text-xs font-black text-cyan-400 tracking-widest block mb-2 uppercase">VISION</span>
-        <h2 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+        <span class="text-xs font-black text-blue-600 tracking-widest block mb-2 uppercase">VISION</span>
+        <h2 class="text-3xl md:text-5xl font-black text-slate-900">
           {currentLang === 'en' ? 'The Value We Create' : '私たちが生み出す価値'}
         </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- カード1: `/p_logo/sousei.png` -->
-        <div class="crystal-card p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-cyan-400/40 transition-all duration-500 flex flex-col justify-between group">
+        <!-- カード1：`/p_logo/sousei.png` -->
+        <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-blue-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
           <div>
-            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative">
-              <img src="/p_logo/sousei.png" alt="能登の海とメンバー" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent"></div>
+            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
+              <img src="/p_logo/sousei.png" alt="能登創生" class="w-full h-full object-cover group-hover:scale-108 transition duration-700" />
             </div>
-            <h3 class="text-2xl font-black mb-3 group-hover:text-cyan-300 transition">
+            <h3 class="text-2xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition">
               {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
               {currentLang === 'en'
                 ? "In addition to supporting recovery in Noto, we leverage the unique flexibility and mobility of students to solve diverse societal challenges."
                 : "原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。"}
             </p>
           </div>
           <div class="mt-8">
-            <a href="/projects" class="crystal-btn block text-center bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-lg transition">
+            <a href="/projects" class="crystal-btn block text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transition">
               {t.projects} ➔
             </a>
           </div>
         </div>
 
-        <!-- カード2: `/unnamed.jpg` -->
-        <div class="crystal-card p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-pink-400/40 transition-all duration-500 flex flex-col justify-between group">
+        <!-- カード2：`/unnamed.jpg` -->
+        <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-amber-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
           <div>
-            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative">
-              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent"></div>
+            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
+              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover group-hover:scale-108 transition duration-700" />
             </div>
-            <h3 class="text-2xl font-black mb-3 group-hover:text-pink-300 transition">
-              {currentLang === 'en' ? 'Action by Students Nationwide' : '全国の学生による挑戦'}
+            <h3 class="text-2xl font-black mb-3 text-slate-900 group-hover:text-amber-600 transition">
+              {currentLang === 'en' ? 'Action by Students Nationwide' : '全国500名超の学生による挑戦'}
             </h3>
-            <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
               {currentLang === 'en'
                 ? "Over 500 members gathered from across Japan. Unbound by existing frameworks, we continuously improve and take steps to open up the future."
-                : "全国から500人を超えるメンバーが集結。存在意義の否定や既存の枠組みにとらわれず、絶えず改善を重ねながら未来を切り拓くアクションを起こします。"}
+                : "北海道から沖縄県まで、全国から500人を超えるメンバーが集結。行政・企業・地域と連携し、未来を創るアクションを起こします。"}
             </p>
           </div>
           <div class="mt-8">
-            <a href="/about" class="crystal-btn block text-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-lg transition">
+            <a href="/about" class="crystal-btn block text-center bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transition">
               {t.about} ➔
             </a>
           </div>
@@ -306,7 +310,7 @@ function getCategoryBadge(rawCategory: any) {
   </section>
 
   <!-- NOTE セクション -->
-  <section id="note" class="py-24 border-t border-slate-200 bg-slate-50/50">
+  <section id="note" class="py-24 border-t border-slate-200 bg-white">
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-14">
         <span class="text-xs font-black text-blue-600 tracking-widest block mb-1 uppercase">NOTE</span>
@@ -323,7 +327,7 @@ function getCategoryBadge(rawCategory: any) {
   </section>
 
   <!-- INSTAGRAM -->
-  <section id="instagram" class="py-20 bg-white border-t border-slate-200">
+  <section id="instagram" class="py-20 bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-10">
         <h2 class="text-xl font-extrabold text-slate-900">
@@ -358,13 +362,13 @@ function getCategoryBadge(rawCategory: any) {
         const allButtons = document.querySelectorAll('.tab-btn');
         const allItems = document.querySelectorAll('.news-item');
 
-        // タブのアクティブスタイル切替（クリスタル発光グラデーション）
+        // タブのアクティブスタイル切替（ホワイトテーマ）
         allButtons.forEach(btn => {
-          btn.classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600', 'text-white', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
-          btn.classList.add('text-slate-400');
+          btn.classList.remove('bg-white', 'text-blue-600', 'shadow-[0_2px_10px_rgba(0,0,0,0.08)]');
+          btn.classList.add('text-slate-600');
         });
-        newButton.classList.add('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600', 'text-white', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
-        newButton.classList.remove('text-slate-400');
+        newButton.classList.add('bg-white', 'text-blue-600', 'shadow-[0_2px_10px_rgba(0,0,0,0.08)]');
+        newButton.classList.remove('text-slate-600');
 
         const selectedTab = newButton.getAttribute('data-tab');
 
@@ -393,25 +397,25 @@ function getCategoryBadge(rawCategory: any) {
 </script>
 
 <style>
-  /* クリスタルオーロラアニメーション */
+  /* ホワイトオーロラ背景アニメーション */
   @keyframes aurora {
     0%, 100% {
       transform: translate(-50%, -50%) rotate(0deg) scale(1);
     }
     50% {
-      transform: translate(-45%, -55%) rotate(180deg) scale(1.2);
+      transform: translate(-45%, -55%) rotate(180deg) scale(1.15);
     }
   }
 
   .animate-aurora {
-    animation: aurora 20s infinite linear;
+    animation: aurora 22s infinite linear;
   }
 
   .animate-pulse-slow {
     animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* ボタン・カード hover エフェクト */
+  /* クリスタルボタン & カード hover エフェクト */
   .crystal-btn {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -423,6 +427,6 @@ function getCategoryBadge(rawCategory: any) {
   }
 
   .crystal-card {
-    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
