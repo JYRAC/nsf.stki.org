@@ -1,6 +1,6 @@
 ---
 // src/pages/contact.astro
-// 最新のホワイトテーマ（透明感・ソフトグラデーション・洗練されたすりガラスカード）に全面リデザイン
+// ホワイトテーマ・近未来感あふれる洗練されたモダンUIに全面リデザイン
 
 import Layout from "../layouts/Layout.astro";
 import { translations, type Lang } from "../lib/i18n";
@@ -12,24 +12,35 @@ const t = translations[currentLang];
 ---
 
 <Layout title={currentLang === 'en' ? "CONTACT - Contact Us" : "CONTACT - お問い合わせ"} activeKey="contact">
-  <!-- 背景オーロラオーナメント（明るいホワイト・ブルー基調） -->
-  <div class="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-blue-50/30 text-slate-900 py-12 md:py-20">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-blue-200/40 via-indigo-100/30 to-purple-100/20 blur-[120px] pointer-events-none rounded-full"></div>
-    <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-100/50 blur-[100px] pointer-events-none rounded-full"></div>
+  <!-- 背景オーロラオーナメント（ホワイト・ライトブルー基調） -->
+  <div class="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-blue-50/40 text-slate-900 py-12 md:py-24">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-gradient-to-tr from-blue-200/40 via-indigo-100/30 to-purple-100/20 blur-[130px] pointer-events-none rounded-full"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-100/60 blur-[100px] pointer-events-none rounded-full"></div>
 
-    <div class="max-w-5xl mx-auto px-4 space-y-12 w-full relative z-10 box-border">
+    <div class="max-w-5xl mx-auto px-4 space-y-16 w-full relative z-10 box-border">
       
-      <!-- ▼ タイトルヘッダー -->
-      <div class="text-center space-y-4 max-w-2xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-blue-600 text-xs font-black tracking-widest uppercase shadow-xs">
+      <!-- ▼ ヒーローセクション（タイトル） -->
+      <div class="text-center space-y-6 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-xs">
           <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
           <span>GET IN TOUCH</span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight break-words">
-          {currentLang === 'en' ? 'Contact Us' : 'お問い合わせ'}
+
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight break-words">
+          {currentLang === 'en' ? (
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900">
+              Contact Us
+            </span>
+          ) : (
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900">
+              お問い合わせ
+            </span>
+          )}
         </h2>
-        <div class="w-16 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full shadow-xs"></div>
-        <p class="text-slate-600 text-sm md:text-base leading-relaxed font-semibold break-words pt-2">
+
+        <div class="w-16 h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 mx-auto rounded-full shadow-xs"></div>
+
+        <p class="text-slate-600 text-sm md:text-base leading-relaxed font-semibold break-words max-w-2xl mx-auto">
           {currentLang === 'en' ? (
             <>
               Inquiries regarding NSF and requests for materials are accepted here.<br class="hidden sm:block">
@@ -44,15 +55,81 @@ const t = translations[currentLang];
         </p>
       </div>
 
+      <!-- ▼ お問い合わせ窓口 3選（ハイライト構造） -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto w-full box-border">
+        
+        <!-- メール -->
+        <div class="group bg-white/90 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:border-blue-400 hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)] transition-all duration-300 flex flex-col items-center text-center justify-between space-y-6 hover:-translate-y-1">
+          <div class="flex flex-col items-center space-y-4 w-full">
+            <div class="w-14 h-14 bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 rounded-2xl border border-blue-100 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="text-base font-black text-slate-900 tracking-wide break-words">
+              {currentLang === 'en' ? 'Email Inquiry' : 'メールでのお問い合わせ'}
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'Please email us directly for general consultations, document requests, media inquiries, or interview requests.' 
+                : '各種ご相談、資料請求、広報・取材のご依頼などはこちらのアドレスへ直接ご連絡ください。'}
+            </p>
+          </div>
+          <a href="mailto:pr@jyrac.stki.org" class="text-blue-600 font-black text-sm hover:underline break-all tracking-tight pt-2">
+            pr@jyrac.stki.org
+          </a>
+        </div>
+
+        <!-- Googleフォーム (メインCTAカード) -->
+        <div class="group relative bg-gradient-to-b from-blue-600 via-indigo-600 to-blue-700 p-8 rounded-3xl shadow-[0_15px_40px_rgba(37,99,235,0.28)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] flex flex-col items-center text-center justify-between space-y-6 text-white transition-all duration-300 hover:-translate-y-1 border border-white/20">
+          <div class="flex flex-col items-center space-y-4 w-full">
+            <div class="w-14 h-14 bg-white/10 text-white rounded-2xl border border-white/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
+            <h3 class="text-base font-black tracking-wide break-words">
+              {currentLang === 'en' ? 'Inquiry Form' : 'お問い合わせフォーム'}
+            </h3>
+            <p class="text-xs text-blue-100 leading-relaxed font-medium break-words opacity-90">
+              {currentLang === 'en' 
+                ? 'Available 24/7 via Google Forms. Please fill out the required items and submit.' 
+                : 'Googleフォームを使用して24時間受け付けております。必要事項をご記入の上、送信してください。'}
+            </p>
+          </div>
+          <a href="https://forms.gle/34JkMTyqU2xskQzW7" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-slate-50 text-blue-600 font-black text-xs py-4 rounded-full shadow-md transition-all duration-200 inline-block text-center break-words group-hover:shadow-lg">
+            {currentLang === 'en' ? 'Open Inquiry Form ➔' : 'お問い合わせフォームを開く ➔'}
+          </a>
+        </div>
+
+        <!-- 公式Instagram -->
+        <div class="group bg-white/90 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:border-orange-400 hover:shadow-[0_15px_35px_rgba(249,115,22,0.08)] transition-all duration-300 flex flex-col items-center text-center justify-between space-y-6 hover:-translate-y-1">
+          <div class="flex flex-col items-center space-y-4 w-full">
+            <div class="w-14 h-14 bg-gradient-to-br from-amber-50 to-orange-50 text-orange-600 rounded-2xl border border-orange-100 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <h3 class="text-base font-black text-slate-900 tracking-wide break-words">
+              {currentLang === 'en' ? 'Official Instagram (DM)' : '公式Instagram (DM)'}
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'Feel free to contact us via Instagram DM for quick questions or to follow our daily activities.' 
+                : '日々の活動の様子や速報の確認、SNS経由での簡単なご相談・ご質問はこちらからお気軽にどうぞ。'}
+            </p>
+          </div>
+          <a href="https://instagram.com/2024nsfproject" target="_blank" rel="noopener noreferrer" class="text-orange-600 font-black text-sm hover:underline pt-2 break-all">
+            @2024nsfproject
+          </a>
+        </div>
+
+      </div>
+
+      <!-- ▼ 詳細パネル（主要対応項目・注意事項・プライバシーポリシー） -->
       <div class="space-y-8 max-w-4xl mx-auto w-full box-border">
         
-        <!-- ▼ 主要対応項目 -->
+        <!-- 主要対応項目 -->
         <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] w-full box-border">
           <h3 class="font-black text-slate-900 text-center mb-6 border-b border-slate-100 pb-4 text-base md:text-lg flex items-center justify-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
             {currentLang === 'en' ? 'Main Inquiry Types' : '主に対応している項目'}
           </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 px-1 md:px-4 w-full">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 px-1 md:px-2 w-full">
             
             <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 flex items-start space-x-3">
               <span class="text-blue-600 font-bold text-lg shrink-0 leading-none">●</span>
@@ -97,7 +174,7 @@ const t = translations[currentLang];
           </div>
         </div>
 
-        <!-- ▼ フォームご利用注意事項 & プライバシーポリシー -->
+        <!-- 注意事項 ＆ プライバシーポリシー -->
         <div class="bg-white/90 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 md:p-8 space-y-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] w-full box-border">
           
           <div class="space-y-3 w-full">
@@ -195,77 +272,12 @@ const t = translations[currentLang];
 
       </div>
 
-      <!-- ▼ お問い合わせ窓口 3つ（ホワイトテーマ・立体ネオンホバー） -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto w-full box-border">
-        
-        <!-- メール -->
-        <div class="group bg-white/90 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:border-blue-400 hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)] transition-all duration-300 flex flex-col items-center text-center justify-between space-y-6 hover:-translate-y-1">
-          <div class="flex flex-col items-center space-y-4 w-full">
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 rounded-2xl border border-blue-100 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition duration-300">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            </div>
-            <h3 class="text-base font-black text-slate-900 tracking-wide break-words">
-              {currentLang === 'en' ? 'Email Inquiry' : 'メールでのお問い合わせ'}
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Please email us directly for general consultations, document requests, media inquiries, or interview requests.' 
-                : '各種ご相談、資料請求、広報・取材のご依頼などはこちらのアドレスへ直接ご連絡ください。'}
-            </p>
-          </div>
-          <a href="mailto:pr@jyrac.stki.org" class="text-blue-600 font-black text-sm hover:underline break-all tracking-tight pt-2">
-            pr@jyrac.stki.org
-          </a>
-        </div>
-
-        <!-- Googleフォーム (ハイライトカード) -->
-        <div class="group relative bg-gradient-to-b from-blue-600 via-indigo-600 to-blue-700 p-8 rounded-3xl shadow-[0_15px_35px_rgba(37,99,235,0.25)] hover:shadow-[0_20px_45px_rgba(37,99,235,0.35)] flex flex-col items-center text-center justify-between space-y-6 text-white transition-all duration-300 hover:-translate-y-1 border border-white/20">
-          <div class="flex flex-col items-center space-y-4 w-full">
-            <div class="w-14 h-14 bg-white/10 text-white rounded-2xl border border-white/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition duration-300">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            </div>
-            <h3 class="text-base font-black tracking-wide break-words">
-              {currentLang === 'en' ? 'Inquiry Form' : 'お問い合わせフォーム'}
-            </h3>
-            <p class="text-xs text-blue-100 leading-relaxed font-medium break-words opacity-90">
-              {currentLang === 'en' 
-                ? 'Available 24/7 via Google Forms. Please fill out the required items and submit.' 
-                : 'Googleフォームを使用して24時間受け付けております。必要事項をご記入の上、送信してください。'}
-            </p>
-          </div>
-          <a href="https://forms.gle/34JkMTyqU2xskQzW7" target="_blank" rel="noopener noreferrer" class="w-full bg-white hover:bg-slate-50 text-blue-600 font-black text-xs py-4 rounded-full shadow-md transition-all duration-200 inline-block text-center break-words group-hover:shadow-lg">
-            {currentLang === 'en' ? 'Open Inquiry Form ➔' : 'お問い合わせフォームを開く ➔'}
-          </a>
-        </div>
-
-        <!-- 公式Instagram -->
-        <div class="group bg-white/90 backdrop-blur-xl p-8 rounded-3xl border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:border-orange-400 hover:shadow-[0_15px_35px_rgba(249,115,22,0.08)] transition-all duration-300 flex flex-col items-center text-center justify-between space-y-6 hover:-translate-y-1">
-          <div class="flex flex-col items-center space-y-4 w-full">
-            <div class="w-14 h-14 bg-gradient-to-br from-amber-50 to-orange-50 text-orange-600 rounded-2xl border border-orange-100 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition duration-300">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-            <h3 class="text-base font-black text-slate-900 tracking-wide break-words">
-              {currentLang === 'en' ? 'Official Instagram (DM)' : '公式Instagram (DM)'}
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Feel free to contact us via Instagram DM for quick questions or to follow our daily activities.' 
-                : '日々の活動の様子や速報の確認、SNS経由での簡単なご相談・ご質問はこちらからお気軽にどうぞ。'}
-            </p>
-          </div>
-          <a href="https://instagram.com/2024nsfproject" target="_blank" rel="noopener noreferrer" class="text-orange-600 font-black text-sm hover:underline pt-2 break-all">
-            @2024nsfproject
-          </a>
-        </div>
-
-      </div>
-
     </div>
   </div>
 </Layout>
 
 <style>
-  /* Safariなどのブラウザでdetailsのデフォルト矢印マークを非表示化 */
+  /* Safari等のデフォルト矢印表示を制御 */
   summary::-webkit-details-marker {
     display: none;
   }
