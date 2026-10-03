@@ -54,7 +54,7 @@ function getCategoryBadge(rawCategory: any) {
 
 <Layout title={t.home} activeKey="home" showSplash>
 
-  <!-- 緊急お知らせ（ホワイトクリスタル・警告バナー） -->
+  <!-- 緊急お知らせ -->
   {urgentNews && (
     <div class="relative z-50 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 text-white py-3 px-4 shadow-lg border-b border-red-700">
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs md:text-sm font-medium">
@@ -76,18 +76,17 @@ function getCategoryBadge(rawCategory: any) {
     </div>
   )}
 
-  <!-- ヒーローセクション（ホワイトオーロラ & クリスタル） -->
+  <!-- ヒーローセクション -->
   <section class="relative min-h-[88vh] flex flex-col justify-center items-center overflow-hidden py-24 px-4 bg-white text-slate-900">
-    <!-- 写真背景：/NSF_.JPG（淡いホワイトフィルター） -->
+    <!-- 写真背景：/NSF_.JPG -->
     <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-15 scale-105 animate-pulse-slow" />
     <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-blue-50/40 to-white"></div>
     
-    <!-- ホワイト＆明るいオーロラスポット -->
     <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-cyan-200/50 via-blue-200/40 to-pink-200/50 rounded-full blur-[120px] pointer-events-none animate-aurora"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
       
-      <!-- キャッチコピー用バッジ -->
+      <!-- 能登半島の復興 × 中高生の防災意識向上 -->
       <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-[0_4px_20px_rgba(59,130,246,0.12)] backdrop-blur-xl">
         <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
         <span class="text-xs md:text-sm font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-amber-600">
@@ -95,39 +94,52 @@ function getCategoryBadge(rawCategory: any) {
         </span>
       </div>
 
-      <!-- メインタイトル -->
+      <!-- タイトル -->
       <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-tight">
         <span class="block text-2xl sm:text-4xl md:text-5xl font-extrabold text-blue-900 mb-2 drop-shadow-xs">
           「自然災害」から切り開く
         </span>
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 drop-shadow-sm">
-          日本のグランドデザイン
+          日本の未来デザイン
         </span>
       </h1>
 
-      <!-- 理念・文章 -->
+      <!-- 理念・説明本文 -->
       <p class="text-xs sm:text-base text-slate-700 max-w-3xl mx-auto font-medium leading-relaxed backdrop-blur-xl p-6 rounded-3xl bg-white/70 border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
         {currentLang === 'en' 
           ? "NSF PROJECTs started as a disaster relief initiative for the Noto Peninsula Earthquake and has grown into a student organization with over 500 members nationwide. Driven by the philosophy 'Youth Speak Up, Take Action, and Shape the Future,' we collaborate with local governments, corporations, and communities to take on bold challenges."
           : "NSF PROJECTsは能登半島地震の復興支援を出発点に、現在500名を超えるメンバーで活動する学生団体です。「能登の復興」と「中高生の防災意識向上」を目的に、北海道から沖縄まで全国のメンバーが奮闘中。「若者が声をあげ、行動し、未来を創る」を理念に行政・企業・地域と連携しながら挑戦を続けていきます。"}
       </p>
 
-      <!-- クリスタルCTAボタン群 -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-lg mx-auto">
-        <a href="/about" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_8px_25px_rgba(37,99,235,0.3)] transition-all duration-300 text-center">
+      <!-- 3つのCTAボタン群（改行・区切り位置を最適化） -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 w-full max-w-2xl mx-auto px-2">
+        <a 
+          href="/about" 
+          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm py-4 px-5 rounded-2xl shadow-[0_8px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center whitespace-nowrap min-h-[56px]"
+        >
           {t.about}
         </a>
-        <a href="/ema" class="crystal-btn w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-sm px-8 py-4 rounded-2xl shadow-[0_8px_25px_rgba(245,158,11,0.3)] transition-all duration-300 text-center">
-          {t.emaSubmit}
+
+        <a 
+          href="/ema" 
+          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-xs sm:text-sm py-4 px-5 rounded-2xl shadow-[0_8px_20px_rgba(245,158,11,0.25)] hover:shadow-[0_12px_28px_rgba(245,158,11,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center gap-1.5 whitespace-nowrap min-h-[56px]"
+        >
+          <span class="text-base leading-none">⛩️</span>
+          <span>{t.emaSubmit}</span>
         </a>
-        <a href="/projects" class="crystal-btn w-full sm:w-auto bg-white/90 hover:bg-white text-slate-800 border border-slate-200/80 shadow-[0_4px_15px_rgba(0,0,0,0.05)] font-black text-sm px-8 py-4 rounded-2xl backdrop-blur-md transition-all duration-300 text-center">
-          {t.projects} ➔
+
+        <a 
+          href="/projects" 
+          class="crystal-btn w-full sm:w-auto flex-1 bg-white/90 hover:bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.1)] font-black text-xs sm:text-sm py-4 px-5 rounded-2xl backdrop-blur-md transition-all duration-300 text-center flex items-center justify-center gap-1 whitespace-nowrap min-h-[56px]"
+        >
+          <span>{t.projects}</span>
+          <span class="text-xs transition-transform duration-300 group-hover:translate-x-1">➔</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- お知らせ & 活動Note (ホワイトグラスモフィズム) -->
+  <!-- お知らせ & 活動Note -->
   <section class="relative py-24 bg-gradient-to-b from-white via-slate-50/80 to-white text-slate-900 overflow-hidden border-t border-b border-slate-200/80" id="news">
     <div class="absolute top-0 right-0 w-96 h-96 bg-blue-100/60 rounded-full blur-[100px] pointer-events-none"></div>
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-100/60 rounded-full blur-[100px] pointer-events-none"></div>
@@ -140,7 +152,6 @@ function getCategoryBadge(rawCategory: any) {
           <h2 class="text-3xl font-black text-slate-900 mt-1">{t.news}</h2>
         </div>
 
-        <!-- タブボタン -->
         <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/60 border border-slate-300/50 backdrop-blur-xl w-full sm:w-auto">
           <button class="tab-btn active flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 bg-white text-blue-600 shadow-[0_2px_10px_rgba(0,0,0,0.08)] cursor-pointer" data-tab="all">
             {currentLang === 'en' ? 'All' : 'すべて'}
@@ -154,7 +165,6 @@ function getCategoryBadge(rawCategory: any) {
         </div>
       </div>
 
-      <!-- リスト一覧 -->
       <div class="space-y-4" id="filterableList">
         {regularNews.length > 0 ? (
           regularNews.map((item) => {
@@ -221,7 +231,7 @@ function getCategoryBadge(rawCategory: any) {
     </p>
   </section>
 
-  <!-- 写真ギャラリー `/unnamed.jpg` & `/unnamed (1).jpg` -->
+  <!-- 写真ギャラリー -->
   <section class="pb-24 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="group relative overflow-hidden rounded-3xl shadow-xl border border-slate-200/80 aspect-video">
@@ -239,7 +249,7 @@ function getCategoryBadge(rawCategory: any) {
     </div>
   </section>
 
-  <!-- VISION (ホワイトクリスタルカード & `/p_logo/sousei.png`, `/unnamed.jpg`) -->
+  <!-- VISION -->
   <section class="py-24 bg-slate-50/60 text-slate-900 relative overflow-hidden border-t border-slate-200/80">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-200/30 via-indigo-200/20 to-pink-200/30 rounded-full blur-[150px] pointer-events-none"></div>
 
@@ -252,7 +262,6 @@ function getCategoryBadge(rawCategory: any) {
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- カード1：`/p_logo/sousei.png` -->
         <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-blue-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
           <div>
             <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
@@ -274,7 +283,6 @@ function getCategoryBadge(rawCategory: any) {
           </div>
         </div>
 
-        <!-- カード2：`/unnamed.jpg` -->
         <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-amber-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
           <div>
             <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
@@ -335,7 +343,6 @@ function getCategoryBadge(rawCategory: any) {
         const allButtons = document.querySelectorAll('.tab-btn');
         const allItems = document.querySelectorAll('.news-item');
 
-        // タブのアクティブスタイル切替（ホワイトテーマ）
         allButtons.forEach(btn => {
           btn.classList.remove('bg-white', 'text-blue-600', 'shadow-[0_2px_10px_rgba(0,0,0,0.08)]');
           btn.classList.add('text-slate-600');
@@ -370,7 +377,6 @@ function getCategoryBadge(rawCategory: any) {
 </script>
 
 <style>
-  /* ホワイトオーロラ背景アニメーション */
   @keyframes aurora {
     0%, 100% {
       transform: translate(-50%, -50%) rotate(0deg) scale(1);
@@ -388,7 +394,6 @@ function getCategoryBadge(rawCategory: any) {
     animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* クリスタルボタン & カード hover エフェクト */
   .crystal-btn {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
