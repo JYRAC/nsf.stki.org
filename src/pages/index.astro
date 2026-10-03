@@ -46,7 +46,7 @@ function normalizeCategory(rawCategory: any): string {
   return String(rawCategory).toLowerCase();
 }
 
-// カテゴリに応じたバッジ色と内部属性（normalized）の正確な判定
+// カテゴリに応じたバッジ色と内部属性（normalized）の判定
 function getCategoryBadge(rawCategory: any) {
   const category = normalizeCategory(rawCategory);
   
@@ -126,6 +126,7 @@ function getCategoryBadge(rawCategory: any) {
           <h2 class="text-base font-black text-slate-900">{t.news}</h2>
         </div>
 
+        {/* タブメニュー（すべて・お知らせ・活動Note） */}
         <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full sm:w-auto justify-center">
           <button class="tab-btn active text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all bg-white text-slate-900 shadow-xs cursor-pointer" data-tab="all">
             {currentLang === 'en' ? 'All' : 'すべて'}
@@ -141,6 +142,7 @@ function getCategoryBadge(rawCategory: any) {
 
       <div class="space-y-3">
 
+        {/* 緊急お知らせ */}
         {urgentNews && (
           <div class="p-3.5 bg-red-50/70 hover:bg-red-50 rounded-2xl border-2 border-red-200 shadow-xs transition flex flex-col sm:flex-row sm:items-center justify-between gap-2" data-pinned="true">
             <div class="flex items-center gap-3 min-w-0">
@@ -158,6 +160,7 @@ function getCategoryBadge(rawCategory: any) {
           </div>
         )}
 
+        {/* 通常お知らせ一覧 (Directusデータ) */}
         <div class="space-y-3" id="filterableList">
           {regularNews.length > 0 ? (
             regularNews.map((item) => {
@@ -284,6 +287,7 @@ function getCategoryBadge(rawCategory: any) {
     </div>
   </section>
 
+  {/* 公式Note・活動記事セクション（Note APIデータ） */}
   <section id="note" class="py-16 border-t border-slate-200 bg-white">
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center mb-10">
@@ -328,7 +332,7 @@ function getCategoryBadge(rawCategory: any) {
     if (!tabButtons.length || !newsItems.length) return;
 
     tabButtons.forEach(button => {
-      // 重複登録を防止するための要素クローン
+      // イベント重複防止のノード置換
       const newButton = button.cloneNode(true) as HTMLElement;
       button.parentNode?.replaceChild(newButton, button);
 
@@ -336,7 +340,7 @@ function getCategoryBadge(rawCategory: any) {
         const allButtons = document.querySelectorAll('.tab-btn');
         const allItems = document.querySelectorAll('.news-item');
 
-        // タブボタンのアクティブスタイル変更
+        // タブのアクティブスタイル制御
         allButtons.forEach(btn => {
           btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
           btn.classList.add('text-slate-500');
@@ -346,22 +350,20 @@ function getCategoryBadge(rawCategory: any) {
 
         const selectedTab = newButton.getAttribute('data-tab');
 
+        // フィルタリング処理
         allItems.forEach(item => {
           const itemCategory = (item.getAttribute('data-category') || 'news').toLowerCase().trim();
           const el = item as HTMLElement;
 
           if (selectedTab === 'all') {
-            // 「すべて」タブ
             el.style.display = 'flex';
           } else if (selectedTab === 'activity') {
-            // 「活動Note」タブ：activity（または活動Note等）のみ表示
             if (itemCategory === 'activity') {
               el.style.display = 'flex';
             } else {
               el.style.display = 'none';
             }
           } else if (selectedTab === 'news') {
-            // 「お知らせ」タブ：activity（活動Note）以外のすべて（news, event, press, recruit等）を表示
             if (itemCategory !== 'activity') {
               el.style.display = 'flex';
             } else {
@@ -373,7 +375,7 @@ function getCategoryBadge(rawCategory: any) {
     });
   }
 
-  // DOM構築時およびAstro View Transitionsのページ切り替えに対応
+  // 初期読み込み・Astro View Transitions対応
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupNewsTabs);
   } else {
