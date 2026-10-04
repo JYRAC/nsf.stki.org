@@ -53,28 +53,30 @@ const navItems = [
 </head>
 <body class="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col antialiased text-[#081426] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-50 via-slate-50 to-blue-50/30 relative">
 
-  <!-- 全体背景：アンビエント光＆クリスタル浮遊オブジェクト -->
+  <!-- 全体背景：強化型アンビエントオーロラ＆クリスタル浮遊空間 -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <!-- オーラ背景グラデーション -->
-    <div class="absolute -top-[20vw] -left-[10vw] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-cyan-300/20 to-blue-500/10 blur-[100px] animate-[pulse_10s_ease-in-out_infinite]"></div>
-    <div class="absolute top-[40%] -right-[15vw] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-blue-400/15 to-indigo-300/10 blur-[120px] animate-[pulse_12s_ease-in-out_infinite_2s]"></div>
+    <!-- オーラ背景グラデーション光彩 -->
+    <div class="absolute -top-[15vw] -left-[10vw] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-cyan-400/25 via-blue-500/15 to-transparent blur-[120px] animate-[pulse_8s_ease-in-out_infinite]"></div>
+    <div class="absolute top-[30%] -right-[15vw] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tr from-indigo-400/20 via-purple-300/15 to-blue-300/10 blur-[140px] animate-[pulse_10s_ease-in-out_infinite_2s]"></div>
+    <div class="absolute bottom-[-10vw] left-[20%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-t from-sky-300/20 to-blue-400/10 blur-[130px] animate-[pulse_12s_ease-in-out_infinite_4s]"></div>
 
-    <!-- 浮遊クリスタルポリゴン 1 (左上) -->
+    <!-- 浮遊クリスタルポリゴン (全6基) -->
     <div class="crystal-shard crystal-1"></div>
-    <!-- 浮遊クリスタルポリゴン 2 (右上) -->
     <div class="crystal-shard crystal-2"></div>
-    <!-- 浮遊クリスタルポリゴン 3 (中央右) -->
     <div class="crystal-shard crystal-3"></div>
+    <div class="crystal-shard crystal-4"></div>
+    <div class="crystal-shard crystal-5"></div>
+    <div class="crystal-shard crystal-6"></div>
   </div>
 
   <!-- ガラスモルフィズム・スモーキーヘッダー -->
-  <header class="sticky top-0 z-50 w-full max-w-full box-border bg-white/75 backdrop-blur-md border-b border-white/60 shadow-[0_4px_20px_-10px_rgba(8,20,38,0.05)] transition-all">
+  <header class="sticky top-0 z-50 w-full max-w-full box-border bg-white/80 backdrop-blur-xl border-b border-white/80 shadow-[0_4px_25px_-5px_rgba(8,20,38,0.06)] transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between w-full box-border">
       
       <!-- ロゴ -->
       <a href="/" class="flex items-center gap-2.5 shrink-0 group">
-        <div class="p-1 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 group-hover:scale-105 transition-transform duration-300">
-          <img src="/logo.jpg" alt="NSF ロゴ" class="h-7 w-auto rounded-lg" />
+        <div class="p-1 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 group-hover:scale-105 transition-transform duration-300 shadow-xs">
+          <img src="/logo.jpg" alt="NSF PROJECTs ロゴ" class="h-7 w-auto rounded-lg" />
         </div>
         <span class="font-black text-[#081426] text-base sm:text-lg tracking-tight group-hover:text-[#1769ff] transition-colors">NSF PROJECTs</span>
       </a>
@@ -90,16 +92,16 @@ const navItems = [
                   class:list={[
                     "px-3.5 py-2 rounded-xl text-sm font-extrabold transition-all duration-200 flex items-center gap-1.5",
                     activeKey === item.key 
-                      ? "text-[#1769ff] bg-blue-50/80 shadow-sm border border-blue-200/50" 
-                      : "text-slate-700 hover:text-[#1769ff] hover:bg-slate-100/50"
+                      ? "text-[#1769ff] bg-blue-50/90 shadow-xs border border-blue-200/60" 
+                      : "text-slate-700 hover:text-[#1769ff] hover:bg-slate-100/60"
                   ]}
                 >
                   {item.label}
                   <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 text-slate-400 group-hover:text-[#1769ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
                 
-                <!-- ドロップダウンメニュー（クリスタルガラス感） -->
-                <div class="absolute left-0 top-full hidden group-hover:block w-max min-w-[240px] max-w-xs bg-white/90 backdrop-blur-xl border border-white/80 rounded-2xl shadow-[0_10px_30px_-5px_rgba(23,105,255,0.15)] p-2 z-50 animate-[fadeIn_0.2s_ease-out]">
+                <!-- ドロップダウンメニュー -->
+                <div class="absolute left-0 top-full hidden group-hover:block w-max min-w-[240px] max-w-xs bg-white/95 backdrop-blur-2xl border border-white/90 rounded-2xl shadow-[0_15px_35px_-5px_rgba(23,105,255,0.18)] p-2 z-50 animate-[fadeIn_0.2s_ease-out]">
                   {projectItems.map((sub) => (
                     <a href={sub.href} class="block px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-[#1769ff] hover:text-white transition-all duration-150 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
                       {sub.label}
@@ -113,8 +115,8 @@ const navItems = [
                 class:list={[
                   "px-3.5 py-2 rounded-xl text-sm font-extrabold transition-all duration-200",
                   activeKey === item.key 
-                    ? "text-[#1769ff] bg-blue-50/80 shadow-sm border border-blue-200/50" 
-                    : "text-slate-700 hover:text-[#1769ff] hover:bg-slate-100/50"
+                    ? "text-[#1769ff] bg-blue-50/90 shadow-xs border border-blue-200/60" 
+                    : "text-slate-700 hover:text-[#1769ff] hover:bg-slate-100/60"
                 ]}
               >
                 {item.label}
@@ -170,14 +172,13 @@ const navItems = [
     <slot />
   </main>
 
-  <!-- フッター -->
+  <!-- フッター（表記修正済み） -->
   <footer class="bg-[#081426] text-white py-12 mt-auto border-t border-white/10 relative z-10 overflow-hidden">
-    <!-- フッター背景のほのかな光 -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-[#1769ff]/10 to-transparent blur-2xl pointer-events-none"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-[#1769ff]/20 to-transparent blur-2xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
       <div class="flex items-center justify-center gap-2">
-        <span class="text-xs font-black tracking-widest text-[#24d5e8] uppercase">Noto Student Fund PROJECTs</span>
+        <span class="text-xs font-black tracking-widest text-[#24d5e8] uppercase">NSF PROJECTs</span>
       </div>
       <p class="text-xs text-slate-400 font-medium">© NSF PROJECTs. All rights reserved.</p>
     </div>
@@ -227,51 +228,84 @@ const navItems = [
     -webkit-font-smoothing: antialiased;
   }
 
-  /* --- クリスタル浮遊アニメーション CSS --- */
+  /* --- クリスタル浮遊オブジェクト CSS --- */
   .crystal-shard {
     position: absolute;
-    border: 1px solid rgba(23, 105, 255, 0.2);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(36, 213, 232, 0.15) 100%);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    clip-path: polygon(50% 0%, 100% 25%, 85% 100%, 15% 90%, 0% 35%);
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(36, 213, 232, 0.25) 50%, rgba(23, 105, 255, 0.15) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     pointer-events: none;
-    box-shadow: 0 8px 32px 0 rgba(23, 105, 255, 0.1);
+    box-shadow: 0 12px 40px 0 rgba(23, 105, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.6);
   }
 
   .crystal-1 {
-    width: 120px;
-    height: 120px;
-    top: 15%;
-    left: 4%;
-    animation: crystalFloat1 12s ease-in-out infinite;
+    width: 140px;
+    height: 140px;
+    top: 10%;
+    left: 3%;
+    clip-path: polygon(50% 0%, 100% 25%, 85% 100%, 15% 90%, 0% 35%);
+    animation: crystalFloat1 14s ease-in-out infinite;
   }
 
   .crystal-2 {
-    width: 180px;
-    height: 180px;
-    top: 30%;
-    right: 5%;
-    animation: crystalFloat2 15s ease-in-out infinite;
-    animation-delay: -4s;
+    width: 220px;
+    height: 220px;
+    top: 25%;
+    right: 2%;
+    clip-path: polygon(30% 0%, 80% 10%, 100% 70%, 60% 100%, 0% 80%);
+    animation: crystalFloat2 18s ease-in-out infinite;
+    animation-delay: -3s;
   }
 
   .crystal-3 {
+    width: 110px;
+    height: 110px;
+    top: 55%;
+    left: 5%;
+    clip-path: polygon(50% 0%, 90% 35%, 75% 100%, 10% 85%, 0% 25%);
+    animation: crystalFloat1 11s ease-in-out infinite;
+    animation-delay: -5s;
+  }
+
+  .crystal-4 {
+    width: 160px;
+    height: 160px;
+    top: 70%;
+    right: 6%;
+    clip-path: polygon(20% 0%, 100% 20%, 80% 100%, 0% 75%);
+    animation: crystalFloat2 15s ease-in-out infinite;
+    animation-delay: -8s;
+  }
+
+  .crystal-5 {
     width: 90px;
     height: 90px;
-    top: 65%;
-    left: 8%;
-    animation: crystalFloat1 10s ease-in-out infinite;
+    top: 85%;
+    left: 20%;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    animation: crystalFloat1 13s ease-in-out infinite;
     animation-delay: -2s;
   }
 
-  /* クリスタルゆらぎアニメーション Keyframes */
+  .crystal-6 {
+    width: 130px;
+    height: 130px;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    opacity: 0.6;
+    animation: crystalFloat2 20s ease-in-out infinite;
+    animation-delay: -10s;
+  }
+
   @keyframes crystalFloat1 {
     0%, 100% {
       transform: translateY(0px) rotate(0deg) scale(1);
     }
     50% {
-      transform: translateY(-25px) rotate(12deg) scale(1.05);
+      transform: translateY(-35px) rotate(20deg) scale(1.08);
     }
   }
 
@@ -280,7 +314,7 @@ const navItems = [
       transform: translateY(0px) rotate(0deg) scale(1);
     }
     50% {
-      transform: translateY(30px) rotate(-15deg) scale(0.95);
+      transform: translateY(40px) rotate(-25deg) scale(0.92);
     }
   }
 
