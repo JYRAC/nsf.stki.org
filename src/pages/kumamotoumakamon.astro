@@ -1,5 +1,7 @@
 ---
 // src/pages/kumamotoumakamon.astro
+// オーロラグラデーション＆Glassmorphism強化版 熊本うまかもんプロジェクト詳細ページ
+
 import Layout from "../layouts/Layout.astro";
 import { translations, type Lang } from "../lib/i18n";
 
@@ -10,150 +12,194 @@ const t = translations[currentLang];
 ---
 
 <Layout 
-  title={currentLang === 'en' ? "Kumamoto Umakamon Project | NSF PROJECTs" : "熊本うまかもんプロジェクト"} 
+  title={currentLang === 'en' ? "Kumamoto Umakamon Project | NSF PROJECTs" : "熊本うまかもんプロジェクト | NSF PROJECTs"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
-    <!-- コンセプト -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 w-full box-border overflow-hidden">
-      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-red-600 pl-4 py-1 break-words">
-        {currentLang === 'en' 
-          ? 'We provide reconstruction support that sustains Kumamoto’s economy through food by promoting consumption activities, such as tourism and purchasing ingredients produced in Kumamoto Prefecture.' 
-          : '観光や熊本県産の食材の購買など、消費活動を促進することで、食を通じて熊本の経済を支える復興支援を行います。'}
-      </p>
-    </section>
+  <!-- 背景オーロラグロー＆強力グラデーション -->
+  <section class="relative w-full overflow-hidden bg-gradient-to-b from-slate-50 via-red-50/30 to-rose-50/20 py-12 md:py-20">
+    <!-- 光彩アクセント1 (左上) -->
+    <div class="absolute -top-32 -left-20 w-[600px] h-[600px] bg-gradient-to-br from-red-500/20 via-rose-400/15 to-transparent rounded-full blur-[150px] pointer-events-none"></div>
+    <!-- 光彩アクセント2 (中央右) -->
+    <div class="absolute top-1/3 -right-24 w-[650px] h-[650px] bg-gradient-to-bl from-orange-400/15 via-red-400/15 to-transparent rounded-full blur-[160px] pointer-events-none"></div>
 
-    <!-- プロジェクト概要 & アプローチ -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full box-border">
-
-      <div class="lg:col-span-1 space-y-6 w-full box-border">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5 box-border overflow-hidden">
-          <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
-            <img src="/p_logo/KumamotoUmakamonPLogo.JPG" alt="熊本うまかもんプロジェクト ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
-          </div>
-
-          <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
-          <div class="space-y-3 w-full">
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? 'Kosei Ueda' : '上田 幸誠'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Start Date' : '開始時期'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? 'August 2026' : '2026年8月'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Members' : '現在の参加人数'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? '15 Members' : '15人'}
-              </p>
-            </div>
-          </div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
+      
+      <!-- タイトルヘッダー -->
+      <div class="text-center space-y-3 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-red-300/40 text-red-700 text-xs font-black tracking-widest uppercase backdrop-blur-md shadow-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+          <span>KUMAMOTO FOOD & RECONSTRUCTION</span>
         </div>
 
-        <div class="bg-gradient-to-br from-red-800 to-red-950 text-white p-6 rounded-2xl shadow-sm space-y-4 box-border overflow-hidden" style="background-color: #991b1b;">
-          <h4 class="font-black text-xs text-red-200 uppercase tracking-widest">Our Approach</h4>
-          <p class="text-xs text-slate-200 leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'Instead of treating support as a special act, we place it as an extension of everyday consumption like travel and shopping. By introducing Kumamoto through food, we create a flow that supports Kumamoto’s economy.' 
-              : '支援を特別な行為にするのではなく、旅行や買い物といった日常の消費の延長に置くこと。食を入り口に熊本を知ってもらうことで、熊本の経済を支える流れを生み出していきます。'}
-          </p>
-        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-red-950 to-rose-900">
+            {currentLang === 'en' ? 'Kumamoto Umakamon Project' : '熊本うまかもんプロジェクト'}
+          </span>
+        </h1>
+
+        <div class="w-20 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 mx-auto rounded-full shadow-xs"></div>
       </div>
 
-      <!-- 具体的な活動内容 -->
-      <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6 w-full box-border overflow-hidden">
-        <div class="space-y-6 w-full">
-          <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-red-600 rounded-full shrink-0"></span>
-            <h3 class="text-lg font-black text-slate-950 break-words">
-              {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
-            </h3>
-          </div>
-
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'We undertake initiatives to promote consumption actions—such as visiting Kumamoto and buying local products—by sharing the appeal of Kumamoto’s local cuisine, ingredients, and restaurants where they can be enjoyed.' 
-              : '熊本の郷土料理や食材、それらを実際に味わえるお店の魅力を発信し、熊本を訪れる・熊本のものを買うという消費行動につなげるための取り組みを行っています。'}
-          </p>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-red-100 text-red-700 font-black text-[10px] px-2 py-0.5 rounded whitespace-nowrap shrink-0">
-                {currentLang === 'en' ? 'Social Media' : 'SNS発信'}
-              </span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Promoting Local Cuisine, Ingredients & Shops' : '郷土料理・食材・お店の魅力を発信'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Through social media, we introduce Kumamoto’s local dishes, key regional agricultural products, and restaurants. Raising awareness serves as the first step toward encouraging people to visit Kumamoto and purchase local goods.' 
-                : 'SNSを通じて、熊本の郷土料理や、主要な生産地となっている食材、実際に味わえる店舗の紹介を行います。まず知ってもらうことを、熊本を訪れる・熊本のものを買うという行動につなげていきます。'}
-            </p>
-          </div>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-green-100 text-green-700 font-black text-[10px] px-2 py-0.5 rounded whitespace-nowrap shrink-0">
-                {currentLang === 'en' ? 'Events' : 'イベント開催'}
-              </span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Delivering Kumamoto’s Food Across Japan' : '日本各地で、熊本の食を直接届ける'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'We hold events across Japan to directly spread the taste of Kumamoto. By creating opportunities to experience local flavors, we increase touchpoints for people to support Kumamoto even from a distance.' 
-                : '日本各地でイベントを開催し、熊本の食を各地へ直接広めていきます。実際に味わえる機会をつくることで、離れた土地からでも熊本を応援できる接点を増やしていきます。'}
-            </p>
-          </div>
-        </div>
-
-        <!-- 熊本地震対応バナー -->
-        <div class="bg-red-50 border border-red-200/60 rounded-xl p-4 text-center md:text-left w-full box-border overflow-hidden">
-          <p class="text-red-800 text-xs md:text-sm font-bold leading-relaxed break-words">
-            {currentLang === 'en' 
-              ? 'In response to the 2026 Kumamoto Earthquake on July 28, 2026, NSF PROJECTs is advancing student-led support initiatives.' 
-              : 'NSF PROJECTsは、令和8年7月28日に発生した令和8年熊本地震を受け、学生による支援の取り組みを進めています。'}
-          </p>
-          <a href="/earthquake-notice" class="inline-flex items-center text-red-700 hover:text-red-900 font-black text-xs mt-2 transition break-words">
-            {currentLang === 'en' 
-              ? 'View our organization’s response to the 2026 Kumamoto Earthquake ➔' 
-              : '令和8年熊本地震への当団体の対応を見る ➔'}
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 今後の活動予定 -->
-    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
-      <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950 break-words">
-          {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
-        </h3>
-        <div class="w-12 h-1 bg-red-600 mx-auto mt-3 rounded-full"></div>
-      </div>
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center box-border overflow-hidden">
-        <p class="text-slate-700 text-xs md:text-sm font-medium leading-relaxed max-w-2xl mx-auto break-words">
+      <!-- コンセプトカード -->
+      <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] space-y-4">
+        <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-red-600 pl-4 sm:pl-6 py-1 break-words">
           {currentLang === 'en' 
-            ? 'Centered around social media communication and holding events nationwide, we plan to expand opportunities to deliver the culinary charm of Kumamoto. As details are finalized, updates will be announced on this page and official social media.' 
-            : 'SNSでの発信と各地でのイベント開催を軸に、熊本の食の魅力を届ける機会を広げていく予定です。詳細が決まり次第、本ページおよび公式SNSにてお知らせいたします。'}
-        </p>
-        <p class="text-slate-400 text-[10px] font-bold tracking-wider mt-4 uppercase">
-          NEXT STEP... COMING SOON
+            ? 'We provide reconstruction support that sustains Kumamoto’s economy through food by promoting consumption activities, such as tourism and purchasing ingredients produced in Kumamoto Prefecture.' 
+            : '観光や熊本県産の食材の購買など、消費活動を促進することで、食を通じて熊本の経済を支える復興支援を行います。'}
         </p>
       </div>
-    </section>
-  </div>
+
+      <!-- プロジェクト概要 & アプローチ (12カラムグリッド) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 左側：サイドバー（概要・アプローチ） -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl border border-slate-800/80 shadow-lg space-y-6 relative overflow-hidden">
+            <div class="w-full flex justify-center bg-white p-4 rounded-2xl border border-white/20 shadow-xs">
+              <img src="/p_logo/KumamotoUmakamonPLogo.JPG" alt="熊本うまかもんプロジェクト ロゴ" class="w-full h-auto max-h-36 object-contain rounded-xl">
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="font-black text-xs text-red-400 uppercase tracking-widest border-b border-slate-800 pb-2">
+                Project Overview
+              </h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? 'Kosei Ueda' : '上田 幸誠'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Start Date' : '開始時期'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? 'August 2026' : '2026年8月'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Members' : '現在の参加人数'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? '15 Members' : '15名'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-red-900 via-rose-950 to-slate-950 text-white p-6 sm:p-8 rounded-3xl shadow-md border border-white/10 space-y-3">
+            <span class="text-[10px] font-black uppercase text-red-200 bg-red-500/20 px-2.5 py-1 rounded-md border border-red-400/30">
+              Our Approach
+            </span>
+            <p class="text-xs sm:text-sm text-red-100 leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'Instead of treating support as a special act, we place it as an extension of everyday consumption like travel and shopping. By introducing Kumamoto through food, we create a flow that supports Kumamoto’s economy.' 
+                : '支援を特別な行為にするのではなく、旅行や買い物といった日常の消費の延長に置くこと。食を入り口に熊本を知ってもらうことで、熊本の経済を支える流れを生み出していきます。'}
+            </p>
+          </div>
+        </div>
+
+        <!-- 右側：具体的な活動内容 & 震災バナー -->
+        <div class="lg:col-span-8 bg-white/80 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-8">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+              <span class="w-2.5 h-6 bg-gradient-to-b from-red-600 to-rose-600 rounded-full shrink-0"></span>
+              <h3 class="text-xl font-black text-slate-900 break-words">
+                {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
+              </h3>
+            </div>
+            
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'We undertake initiatives to promote consumption actions—such as visiting Kumamoto and buying local products—by sharing the appeal of Kumamoto’s local cuisine, ingredients, and restaurants where they can be enjoyed.' 
+                : '熊本の郷土料理や食材、それらを実際に味わえるお店の魅力を発信し、熊本を訪れる・熊本のものを買うという消費行動につなげるための取り組みを行っています。'}
+            </p>
+
+            <div class="space-y-4">
+              <div class="bg-gradient-to-r from-red-50/80 to-rose-50/50 p-5 sm:p-6 rounded-2xl border border-red-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-red-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    {currentLang === 'en' ? 'Social Media' : 'SNS発信'}
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Promoting Local Cuisine, Ingredients & Shops' : '郷土料理・食材・お店の魅力を発信'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1 break-words">
+                  {currentLang === 'en' 
+                    ? 'Through social media, we introduce Kumamoto’s local dishes, key regional agricultural products, and restaurants. Raising awareness serves as the first step toward encouraging people to visit Kumamoto and purchase local goods.' 
+                    : 'SNSを通じて、熊本の郷土料理や、主要な生産地となっている食材、実際に味わえる店舗の紹介を行います。まず知ってもらうことを、熊本を訪れる・熊本のものを買うという行動につなげていきます。'}
+                </p>
+              </div>
+
+              <div class="bg-gradient-to-r from-emerald-50/80 to-teal-50/50 p-5 sm:p-6 rounded-2xl border border-emerald-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-emerald-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    {currentLang === 'en' ? 'Events' : 'イベント開催'}
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Delivering Kumamoto’s Food Across Japan' : '日本各地で、熊本の食を直接届ける'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1 break-words">
+                  {currentLang === 'en' 
+                    ? 'We hold events across Japan to directly spread the taste of Kumamoto. By creating opportunities to experience local flavors, we increase touchpoints for people to support Kumamoto even from a distance.' 
+                    : '日本各地でイベントを開催し、熊本の食を各地へ直接広めていきます。実際に味わえる機会をつくることで、離れた土地からでも熊本を応援できる接点を増やしていきます。'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 熊本地震対応バナー -->
+          <div class="bg-gradient-to-r from-red-500/10 via-rose-500/5 to-transparent border border-red-200/80 rounded-2xl p-5 md:p-6 text-center sm:text-left space-y-2 backdrop-blur-md">
+            <p class="text-red-900 text-xs md:text-sm font-bold leading-relaxed break-words">
+              {currentLang === 'en' 
+                ? 'In response to the 2026 Kumamoto Earthquake on July 28, 2026, NSF PROJECTs is advancing student-led support initiatives.' 
+                : 'NSF PROJECTsは、令和8年7月28日に発生した令和8年熊本地震を受け、学生による支援の取り組みを進めています。'}
+            </p>
+            <div>
+              <a href="/earthquake-notice" class="inline-flex items-center gap-1 text-red-700 hover:text-red-950 font-black text-xs transition duration-200 group break-words">
+                <span>
+                  {currentLang === 'en' 
+                    ? 'View our organization’s response to the 2026 Kumamoto Earthquake' 
+                    : '令和8年熊本地震への当団体の対応を見る'}
+                </span>
+                <span class="group-hover:translate-x-1 transition-transform">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 今後の活動予定 -->
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="text-center space-y-2">
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 break-words">
+            {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
+          </h3>
+          <div class="w-12 h-1 bg-gradient-to-r from-red-600 to-rose-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] text-center space-y-4">
+          <p class="text-slate-700 text-xs sm:text-sm font-medium leading-relaxed max-w-2xl mx-auto break-words">
+            {currentLang === 'en' 
+              ? 'Centered around social media communication and holding events nationwide, we plan to expand opportunities to deliver the culinary charm of Kumamoto. As details are finalized, updates will be announced on this page and official social media.' 
+              : 'SNSでの発信と各地でのイベント開催を軸に、熊本の食の魅力を届ける機会を広げていく予定です。詳細が決まり次第、本ページおよび公式SNSにてお知らせいたします。'}
+          </p>
+          
+          <div class="inline-block px-4 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/80 text-slate-400 text-[10px] font-black tracking-widest uppercase">
+            NEXT STEP... COMING SOON
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </Layout>
