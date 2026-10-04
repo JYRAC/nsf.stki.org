@@ -1,5 +1,7 @@
 ---
 // src/pages/umaimon.astro
+// オーロラグラデーション＆Glassmorphism強化版 能登うまいもん再発見プロジェクト詳細ページ
+
 import Layout from "../layouts/Layout.astro";
 import { translations, type Lang } from "../lib/i18n";
 
@@ -10,143 +12,181 @@ const t = translations[currentLang];
 ---
 
 <Layout 
-  title={currentLang === 'en' ? "Noto Umaimon Rediscovery Project | NSF PROJECTs" : "能登うまいもん再発見プロジェクト"} 
+  title={currentLang === 'en' ? "Noto Umaimon Rediscovery Project | NSF PROJECTs" : "能登うまいもん再発見プロジェクト | NSF PROJECTs"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
-    <!-- コンセプト -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 w-full box-border overflow-hidden">
-      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-orange-500 pl-4 py-1 break-words">
-        {currentLang === 'en' ? (
-          <>
-            In Term 1, we visited Noto, interacting with local high school students and making traditional dishes to deeply learn about local culture. In Term 2, we expanded to Tokyo, hosting events to share Noto's charm. Now in Term 3, we plan to continue our energetic activities even further!
-          </>
-        ) : (
-          <>
-            1期では能登にいき、能登の高校生との交流や郷土料理を実際に作ることで、地域の伝統や食文化について深く学びました。続く2期では活動の場を東京へと広げ、より多くの人に魅力を届けるイベントを開催。3期目を迎えるこれからも、さらにパワーアップしてどんどん精力的に活動していく予定です！
-          </>
-        )}
-      </p>
-    </section>
+  <!-- 背景オーロラグロー＆強力グラデーション -->
+  <section class="relative w-full overflow-hidden bg-gradient-to-b from-slate-50 via-orange-50/30 to-amber-50/20 py-12 md:py-20">
+    <!-- 光彩アクセント1 (左上) -->
+    <div class="absolute -top-32 -left-20 w-[600px] h-[600px] bg-gradient-to-br from-orange-400/20 via-amber-300/15 to-transparent rounded-full blur-[150px] pointer-events-none"></div>
+    <!-- 光彩アクセント2 (中央右) -->
+    <div class="absolute top-1/3 -right-24 w-[650px] h-[650px] bg-gradient-to-bl from-rose-400/15 via-orange-300/15 to-transparent rounded-full blur-[160px] pointer-events-none"></div>
 
-    <!-- プロジェクト概要 & アプローチ -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full box-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
       
-      <div class="lg:col-span-1 space-y-6 w-full box-border">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5 box-border overflow-hidden">
-          <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
-            <img src="/p_logo/umaimon.png" alt="プロジェクト ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
-          </div>
-
-          <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
-          <div class="space-y-3 w-full">
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? 'Kakeru Uehara' : '上原 かける'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Start Date' : '開始時期'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? 'February 2025' : '2025年2月'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Members' : '現在の参加人数'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? '10 Members' : '計 10 名'}
-              </p>
-            </div>
-          </div>
+      <!-- タイトルヘッダー -->
+      <div class="text-center space-y-3 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-300/40 text-orange-700 text-xs font-black tracking-widest uppercase backdrop-blur-md shadow-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"></span>
+          <span>NOTO FOOD & CULTURE REDISCOVERY</span>
         </div>
 
-        <div class="bg-gradient-to-br from-orange-800 to-amber-950 text-white p-6 rounded-2xl shadow-sm space-y-4 box-border overflow-hidden">
-          <h4 class="font-black text-xs text-orange-300 uppercase tracking-widest">Our Approach</h4>
-          <p class="text-xs text-slate-200 leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'Support is not just about consumption, but connecting with Noto’s culture and becoming a fan. Placing food at the center fosters natural interactions across generations and regions.' 
-              : 'ただ消費するだけの支援ではなく、能登の文化に深く触れ、ファンになってもらうこと。食を真ん中に置くことで、世代や地域を超えた自然な交流を生み出します。'}
-          </p>
-        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-orange-950 to-amber-900">
+            {currentLang === 'en' ? 'Noto Umaimon Rediscovery Project' : '能登うまいもん再発見プロジェクト'}
+          </span>
+        </h1>
+
+        <div class="w-20 h-1.5 bg-gradient-to-r from-orange-500 via-amber-400 to-rose-500 mx-auto rounded-full shadow-xs"></div>
       </div>
 
-      <!-- 具体的な活動内容 -->
-      <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6 w-full box-border overflow-hidden">
-        <div class="space-y-6 w-full">
-          <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-orange-600 rounded-full shrink-0"></span>
-            <h3 class="text-lg font-black text-slate-950 break-words">
-              {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
-            </h3>
+      <!-- コンセプトカード -->
+      <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] space-y-4">
+        <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-orange-500 pl-4 sm:pl-6 py-1 break-words">
+          {currentLang === 'en' ? (
+            <>
+              In Term 1, we visited Noto, interacting with local high school students and making traditional dishes to deeply learn about local culture. In Term 2, we expanded to Tokyo, hosting events to share Noto's charm. Now in Term 3, we plan to continue our energetic activities even further!
+            </>
+          ) : (
+            <>
+              1期では能登にいき、能登の高校生との交流や郷土料理を実際に作ることで、地域の伝統や食文化について深く学びました。続く2期では活動の場を東京へと広げ、より多くの人に魅力を届けるイベントを開催。3期目を迎えるこれからも、さらにパワーアップしてどんどん精力的に活動していく予定です！
+            </>
+          )}
+        </p>
+      </div>
+
+      <!-- プロジェクト概要 & アプローチ (12カラムグリッド) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 左側：サイドバー（概要・アプローチ） -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl border border-slate-800/80 shadow-lg space-y-6 relative overflow-hidden">
+            <div class="w-full flex justify-center bg-white p-4 rounded-2xl border border-white/20 shadow-xs">
+              <img src="/p_logo/umaimon.png" alt="能登うまいもん再発見プロジェクト ロゴ" class="w-full h-auto max-h-36 object-contain rounded-xl">
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="font-black text-xs text-orange-400 uppercase tracking-widest border-b border-slate-800 pb-2">
+                Project Overview
+              </h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? 'Kakeru Uehara' : '上原 かける'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Start Date' : '開始時期'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? 'February 2025' : '2025年2月'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Members' : '現在の参加人数'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? '10 Members' : '計 10 名'}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div class="bg-gradient-to-br from-orange-900 via-amber-950 to-slate-950 text-white p-6 sm:p-8 rounded-3xl shadow-md border border-white/10 space-y-3">
+            <span class="text-[10px] font-black uppercase text-orange-300 bg-orange-500/20 px-2.5 py-1 rounded-md border border-orange-400/30">
+              Our Approach
+            </span>
+            <p class="text-xs sm:text-sm text-orange-100 leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'Support is not just about consumption, but connecting with Noto’s culture and becoming a fan. Placing food at the center fosters natural interactions across generations and regions.' 
+                : 'ただ消費するだけの支援ではなく、能登の文化に深く触れ、ファンになってもらうこと。食を真ん中に置くことで、世代や地域を超えた自然な交流を生み出します。'}
+            </p>
+          </div>
+        </div>
+
+        <!-- 右側：具体的な活動内容 -->
+        <div class="lg:col-span-8 bg-white/80 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-8">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+              <span class="w-2.5 h-6 bg-gradient-to-b from-orange-500 to-amber-600 rounded-full shrink-0"></span>
+              <h3 class="text-xl font-black text-slate-900 break-words">
+                {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
+              </h3>
+            </div>
+            
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'We plan and operate events to share the appeal of local cuisine and regional ingredients with more people.' 
+                : '郷土料理や地元の食材について、魅力をより多くの人に知ってもらうためのイベントを企画・運営しています。'}
+            </p>
+
+            <div class="space-y-4">
+              <div class="bg-gradient-to-r from-orange-50/80 to-amber-50/50 p-5 sm:p-6 rounded-2xl border border-orange-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-orange-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    {currentLang === 'en' ? 'Event Planning' : 'イベント企画・運営'}
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Handmade Events from Scratch' : 'ゼロからの手作りイベント'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1 break-words">
+                  {currentLang === 'en' 
+                    ? 'Members voluntarily handle the entire process from procuring Noto ingredients, securing event venues, to designing programs that engage all five senses.' 
+                    : '能登の食材手配をはじめ、開催に向けたイベントスペースの確保、五感で楽しんでもらうためのプログラム企画など、1から全てのプロセスをメンバー自身が自発的に行っています。'}
+                </p>
+              </div>
+
+              <div class="bg-gradient-to-r from-amber-50/80 to-orange-50/50 p-5 sm:p-6 rounded-2xl border border-amber-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-amber-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    {currentLang === 'en' ? 'Connections' : 'つながりの創出'}
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Building Community Through Food' : '食を通じたコミュニティづくり'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1 break-words">
+                  {currentLang === 'en' 
+                    ? 'Gathering around delicious food expands a warm community circle where participants and Noto producers can share thoughts on recovery.' 
+                    : '美味しい料理を囲むことで、参加者同士や能登の生産者の方々との間に、復興への想いを共有できる温かいコミュニティの輪を広げています。'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 今後の活動予定 -->
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="text-center space-y-2">
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 break-words">
+            {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
+          </h3>
+          <div class="w-12 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] text-center space-y-4">
+          <p class="text-slate-700 text-xs sm:text-sm font-medium leading-relaxed max-w-2xl mx-auto break-words">
+            {currentLang === 'en' 
+              ? 'In the future, we hope to expand multifaceted events in Noto beyond local cuisine to let people experience the region’s charm in various ways.' 
+              : '今後は能登現地でも、郷土料理の枠にとどまらず、地域の魅力を多角的に体感できるような複合的なイベントを展開していけたらと思っております。'}
+          </p>
           
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'We plan and operate events to share the appeal of local cuisine and regional ingredients with more people.' 
-              : '郷土料理や地元の食材について、魅力をより多くの人に知ってもらうためのイベントを企画・運営しています。'}
-          </p>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-orange-100 text-orange-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
-                {currentLang === 'en' ? 'Event Planning' : 'イベント企画・運営'}
-              </span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Handmade Events from Scratch' : 'ゼロからの手作りイベント'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Members voluntarily handle the entire process from procuring Noto ingredients, securing event venues, to designing programs that engage all five senses.' 
-                : '能登の食材手配をはじめ、開催に向けたイベントスペースの確保、五感で楽しんでもらうためのプログラム企画など、1から全てのプロセスをメンバー自身が自発的に行っています。'}
-            </p>
-          </div>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-amber-100 text-amber-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">
-                {currentLang === 'en' ? 'Connections' : 'つながりの創出'}
-              </span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Building Community Through Food' : '食を通じたコミュニティづくり'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Gathering around delicious food expands a warm community circle where participants and Noto producers can share thoughts on recovery.' 
-                : '美味しい料理を囲むことで、参加者同士や能登の生産者の方々との間に、復興への想いを共有できる温かいコミュニティの輪を広げています。'}
-            </p>
+          <div class="inline-block px-4 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/80 text-slate-400 text-[10px] font-black tracking-widest uppercase">
+            NEXT STEP... COMING SOON
           </div>
         </div>
+      </div>
 
-      </div>
-    </section>
-
-    <!-- 今後の活動予定 -->
-    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
-      <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950 break-words">
-          {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
-        </h3>
-        <div class="w-12 h-1 bg-orange-500 mx-auto mt-3 rounded-full"></div>
-      </div>
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center box-border overflow-hidden">
-        <p class="text-slate-700 text-xs md:text-sm font-medium leading-relaxed max-w-2xl mx-auto break-words">
-          {currentLang === 'en' 
-            ? 'In the future, we hope to expand multifaceted events in Noto beyond local cuisine to let people experience the region’s charm in various ways.' 
-            : '今後は能登現地でも、郷土料理の枠にとどまらず、地域の魅力を多角的に体感できるような複合的なイベントを展開していけたらと思っております。'}
-        </p>
-        <p class="text-slate-400 text-[10px] font-bold tracking-wider mt-4 uppercase">
-          NEXT STEP... COMING SOON
-        </p>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </Layout>
