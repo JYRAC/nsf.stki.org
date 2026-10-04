@@ -14,42 +14,34 @@ const leaders = [
   {
     role: currentLang === 'en' ? "NSF PROJECTs 7th Term Leader" : "NSF PROJECTs 第7期代表",
     name: currentLang === 'en' ? "Shota Takada" : "高田 翔大",
-    message: currentLang === 'en' ? (
-      <>
-        <p>Our goal for this term is to revitalize projects within NSF and build a framework where every member can engage in disaster prevention and recovery activities tailored to their interests.</p>
-        <p>We believe that when youth across Japan take action, it builds real power to protect lives and shape a safer future.</p>
-        <p>We will dedicate all our efforts to making NSF a place where every member can continually take on new challenges.</p>
-      </>
-    ) : (
-      <>
-        <p>NSFに存在するプロジェクトを活性化させ、NSFに所属する全員が、それぞれに興味のある側面で「防災」と「復興」に関する活動を行える仕組みを作ることが、今期のゴールです。</p>
-        <p>中高生一人ひとりの「やりたい」という想いや関心を行動に移すことが、誰かの命を守り、未来の防災を変える力になると信じています。</p>
-        <p>メンバー全員が主体となって挑戦を続けられる組織を目指し、全力で努力していきます！</p>
-      </>
-    ),
+    paragraphs: currentLang === 'en' ? [
+      "Our goal for this term is to revitalize projects within NSF and build a framework where every member can engage in disaster prevention and recovery activities tailored to their interests.",
+      "We believe that when youth across Japan take action, it builds real power to protect lives and shape a safer future.",
+      "We will dedicate all our efforts to making NSF a place where every member can continually take on new challenges."
+    ] : [
+      "NSFに存在するプロジェクトを活性化させ、NSFに所属する全員が、それぞれに興味のある側面で「防災」と「復興」に関する活動を行える仕組みを作ることが、今期のゴールです。",
+      "中高生一人ひとりの「やりたい」という想いや関心を行動に移すことが、誰かの命を守り、未来の防災を変える力になると信じています。",
+      "メンバー全員が主体となって挑戦を続けられる組織を目指し、全力で努力していきます！"
+    ],
     img: "/p_logo/Takada.jpg",
     style: "object-cover object-top"
   },
   {
     role: currentLang === 'en' ? "Co-President" : "共同代表",
     name: currentLang === 'en' ? "Kenshin Kitamura" : "北村 謙心",
-    message: currentLang === 'en' ? (
-      <>
-        <p>To raise awareness about disaster prevention, it is crucial that everyone has a sense of personal responsibility. Joining NSF PROJECTS is the easiest way to start!</p>
-        <p>Even if you cannot join, please watch our journey and take a step together with us toward making Japan a disaster-resilient nation!</p>
-      </>
-    ) : (
-      <>
-        <p>NSF PROJECTsの団体理念には「中高生の防災意識向上」がありますが、僕は防災の意識を向上させるためには、全員が当事者意識を持つことが大事だと思っています。</p>
-        <p>探してその1番手軽な方法がNSF PROJECTSに入ることです！入れない人でもこれからのNSFの活躍を見守ってこの日本を防災大国にする一歩を一緒に踏み出しましょう！</p>
-      </>
-    ),
+    paragraphs: currentLang === 'en' ? [
+      "To raise awareness about disaster prevention, it is crucial that everyone has a sense of personal responsibility. Joining NSF PROJECTS is the easiest way to start!",
+      "Even if you cannot join, please watch our journey and take a step together with us toward making Japan a disaster-resilient nation!"
+    ] : [
+      "NSF PROJECTsの団体理念には「中高生の防災意識向上」がありますが、僕は防災の意識を向上させるためには、全員が当事者意識を持つことが大事だと思っています。",
+      "探してその1番手軽な方法がNSF PROJECTSに入ることです！入れない人でもこれからのNSFの活躍を見守ってこの日本を防災大国にする一歩を一緒に踏み出しましょう！"
+    ],
     img: "/p_logo/Kitamura.jpg",
     style: "object-cover object-top"
   }
 ];
 
-// 副代表・統括メンバーの定義 (計7名: 副代表4名 + 各統括3名)
+// 副代表・統括メンバーの定義 (7名)
 const executives = [
   {
     role: currentLang === 'en' ? "Vice President" : "副代表",
@@ -152,7 +144,7 @@ const executives = [
         </h2>
       </div>
 
-      <!-- 代表陣（高田代表・北村共同代表）のカード配置 -->
+      <!-- 代表 2名の並列カード -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
         {leaders.map((leader) => (
           <div class="bg-white/5 border border-white/10 rounded-[28px] p-6 md:p-8 flex flex-col justify-between space-y-6 backdrop-blur-sm">
@@ -174,8 +166,11 @@ const executives = [
                 </div>
               </div>
 
+              <!-- メッセージ本文 -->
               <div class="text-[#aebbd0] text-xs md:text-sm leading-relaxed space-y-3 font-normal border-t border-white/10 pt-4">
-                {leader.message}
+                {leader.paragraphs.map((p) => (
+                  <p>{p}</p>
+                ))}
               </div>
             </div>
           </div>
@@ -198,7 +193,7 @@ const executives = [
         </p>
       </div>
 
-      <!-- 副代表・統括 (計7名) のグリッド配置 -->
+      <!-- 副代表・統括 (7名) のグリッド配置 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {executives.map((member) => (
           <div class="bg-white border border-[#dfe8f3] rounded-[24px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between">
