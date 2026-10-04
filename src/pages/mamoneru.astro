@@ -1,5 +1,7 @@
 ---
 // src/pages/mamoneru.astro
+// オーロラグラデーション＆Glassmorphism強化版 Mamoneruプロジェクト詳細ページ
+
 import Layout from "../layouts/Layout.astro";
 import { translations, type Lang } from "../lib/i18n";
 
@@ -10,147 +12,191 @@ const t = translations[currentLang];
 ---
 
 <Layout 
-  title={currentLang === 'en' ? "Mamoneru Project | NSF PROJECTs" : "Mamoneruプロジェクト"} 
+  title={currentLang === 'en' ? "Mamoneru Project | NSF PROJECTs" : "Mamoneruプロジェクト | NSF PROJECTs"} 
   activeKey="projects"
 >
-  <div class="max-w-5xl mx-auto px-4 py-16 space-y-16 w-full max-w-full box-border overflow-hidden">
-    <!-- コンセプト -->
-    <section class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 w-full box-border overflow-hidden">
-      <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-red-500 pl-4 py-1 break-words">
-        {currentLang === 'en' ? (
-          <>
-            Aiming to improve Quality of Life (QOL) in evacuation centers and eliminate disaster-related deaths.<br><br>
-            The "Mamoneru Project" is an initiative led by middle and high school students nationwide to investigate and propose status updates regarding "Cardboard Bed Agreements" with local governments. We aim to construct a new disaster prevention model that improves harsh shelter environments during disasters, preventing health damage and related deaths caused by secondary disasters.
-          </>
-        ) : (
-          <>
-            避難所のQOL（生活の質）向上と、災害関連死の撲滅を目指して。<br><br>
-            「Mamoneruプロジェクト」は、全国の中高生が主体となり、地方自治体における「段ボールベッド協定」の締結状況を調査・提言していく活動です。災害時の過酷な避難所環境を改善し、二次災害による健康被害や関連死を防ぐための新たな防災モデルを構築します。
-          </>
-        )}
-      </p>
-    </section>
+  <!-- 背景オーロラグロー＆強力グラデーション -->
+  <section class="relative w-full overflow-hidden bg-gradient-to-b from-slate-50 via-rose-50/30 to-blue-50/40 py-12 md:py-20">
+    <!-- 光彩アクセント1 (左上) -->
+    <div class="absolute -top-32 -left-20 w-[600px] h-[600px] bg-gradient-to-br from-red-500/20 via-rose-400/15 to-transparent rounded-full blur-[150px] pointer-events-none"></div>
+    <!-- 光彩アクセント2 (中央右) -->
+    <div class="absolute top-1/3 -right-24 w-[650px] h-[650px] bg-gradient-to-bl from-amber-400/15 via-pink-300/15 to-transparent rounded-full blur-[160px] pointer-events-none"></div>
 
-    <!-- 概要 & ミッション -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full box-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
       
-      <div class="lg:col-span-1 space-y-6 w-full box-border">
-        <div class="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-sm space-y-5 box-border overflow-hidden">
-          <div class="w-full flex justify-center bg-white p-3 rounded-xl border border-white/10">
-            <img src="/p_logo/mamoneru.png" alt="プロジェクト ロゴ" class="w-full h-auto max-h-32 object-contain rounded-lg">
-          </div>
-          <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">Project Overview</h3>
-          <div class="space-y-3 w-full">
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? '(To be selected)' : '（選定中）'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Start Date' : '開始時期'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? 'September 2025' : '2025年9月'}
-              </p>
-            </div>
-            <div>
-              <p class="text-[10px] text-slate-500 font-bold uppercase">
-                {currentLang === 'en' ? 'Members' : '現在の参加人数'}
-              </p>
-              <p class="text-sm font-black text-slate-100 break-words">
-                {currentLang === 'en' ? '30 Members' : '計 30 名'}
-              </p>
-            </div>
-          </div>
+      <!-- タイトルヘッダー -->
+      <div class="text-center space-y-3 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-red-300/40 text-red-600 text-xs font-black tracking-widest uppercase backdrop-blur-md shadow-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+          <span>SHELTER QOL IMPROVEMENT</span>
         </div>
 
-        <div class="bg-gradient-to-br from-blue-900 to-slate-950 text-white p-6 rounded-2xl shadow-sm space-y-4 box-border overflow-hidden">
-          <h4 class="font-black text-xs text-blue-400 uppercase tracking-widest">Our Mission</h4>
-          <p class="text-xs text-slate-200 leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'We update society’s overall disaster preparedness by creating mechanisms where administration, industry, and citizens collaborate closely. Youth voices strengthen the community safety net.' 
-              : '行政・産業・市民が密接に連携する仕組みを作り、災害に対する社会全体の備えをアップデートします。若者の声が、地域の安全網（セーフティネット）をより強固なものへと変えていきます。'}
-          </p>
-        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-rose-950 to-red-900">
+            Mamoneruプロジェクト
+          </span>
+        </h1>
+
+        <div class="w-20 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 mx-auto rounded-full shadow-xs"></div>
       </div>
 
-      <!-- 具体的な活動内容 -->
-      <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-6 w-full box-border overflow-hidden">
-        <div class="space-y-6 w-full">
-          <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
-            <span class="w-2 h-6 bg-blue-600 rounded-full shrink-0"></span>
-            <h3 class="text-lg font-black text-slate-950 break-words">
-              {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
-            </h3>
-          </div>
-          
-          <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-medium break-words">
-            {currentLang === 'en' 
-              ? 'To protect lives in our towns, we grasp the current situation and directly engage local governments as active stakeholders.' 
-              : '自分たちの街の命を守るため、現状を把握し、当事者として自治体に直接働きかけを行います。'}
-          </p>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-blue-100 text-blue-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">STEP 1</span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Nationwide Survey on Agreements' : '協定締結状況の全国調査'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'We conduct detailed nationwide surveys targeting municipalities regarding the status of "Cardboard Bed Agreements" and stockpiling for disaster scenarios.' 
-                : '全国の自治体を対象に、災害時における「段ボールベッド協定」の締結状況や備蓄の現状について綿密な調査を進めていきます。'}
-            </p>
-          </div>
-
-          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-2 box-border overflow-hidden">
-            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
-              <span class="bg-red-100 text-red-700 font-black text-[10px] px-2 py-0.5 rounded shrink-0">STEP 2</span>
-              <h4 class="font-black text-slate-950 text-sm break-words">
-                {currentLang === 'en' ? 'Inquiries and Proposals to Local Governments' : '地方自治体への質問・提言活動'}
-              </h4>
-            </div>
-            <p class="text-slate-500 text-xs leading-relaxed font-medium break-words">
-              {currentLang === 'en' 
-                ? 'Based on survey results, members directly submit concrete questions and proposals from proactive perspectives to their home municipalities that lack agreements or have room for improvement.' 
-                : '調査結果をもとに、未締結の自治体や改善の余地がある地域に対して、各メンバーが在住・在学する地元自治体へ、主体的な視点から具体的な質問・提言を直接行います。'}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 今後の活動予定 -->
-    <section class="max-w-4xl mx-auto space-y-6 w-full box-border">
-      <div class="text-center">
-        <h3 class="text-xl font-black text-slate-950 break-words">
-          {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
-        </h3>
-        <div class="w-12 h-1 bg-blue-600 mx-auto mt-3 rounded-full"></div>
-      </div>
-      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-center box-border overflow-hidden">
-        <p class="text-slate-700 text-xs md:text-sm font-bold leading-relaxed tracking-wider text-slate-600 break-words">
+      <!-- コンセプトカード -->
+      <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] space-y-4">
+        <p class="text-slate-700 text-sm md:text-base leading-relaxed font-medium italic border-l-4 border-red-500 pl-4 sm:pl-6 py-1 break-words">
           {currentLang === 'en' ? (
             <>
-              Ahead of our kickoff in September 2025, we are currently preparing the groundwork for the nationwide survey.<br>
+              Aiming to improve Quality of Life (QOL) in evacuation centers and eliminate disaster-related deaths.<br><br>
+              The "Mamoneru Project" is an initiative led by middle and high school students nationwide to investigate and propose status updates regarding "Cardboard Bed Agreements" with local governments. We aim to construct a new disaster prevention model that improves harsh shelter environments during disasters, preventing health damage and related deaths caused by secondary disasters.
+            </>
+          ) : (
+            <>
+              避難所のQOL（生活の質）向上と、災害関連死の撲滅を目指して。<br><br>
+              「Mamoneruプロジェクト」は、全国の中高生が主体となり、地方自治体における「段ボールベッド協定」の締結状況を調査・提言していく活動です。災害時の過酷な避難所環境を改善し、二次災害による健康被害や関連死を防ぐための新たな防災モデルを構築します。
+            </>
+          )}
+        </p>
+      </div>
+
+      <!-- 概要 & ミッション (12カラムグリッド) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 左側：サイドバー（概要・ミッション） -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl border border-slate-800/80 shadow-lg space-y-6 relative overflow-hidden">
+            <div class="w-full flex justify-center bg-white p-4 rounded-2xl border border-white/20 shadow-xs">
+              <img src="/p_logo/mamoneru.png" alt="Mamoneruプロジェクト ロゴ" class="w-full h-auto max-h-36 object-contain rounded-xl">
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="font-black text-xs text-red-400 uppercase tracking-widest border-b border-slate-800 pb-2">
+                Project Overview
+              </h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Project Leader' : 'プロジェクトリーダー'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? '(To be selected)' : '（選定中）'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Start Date' : '開始時期'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? 'September 2025' : '2025年9月'}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[10px] text-slate-400 font-bold uppercase">
+                    {currentLang === 'en' ? 'Members' : '現在の参加人数'}
+                  </p>
+                  <p class="text-sm font-black text-white break-words">
+                    {currentLang === 'en' ? '30 Members' : '計 30 名'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-red-900 via-rose-950 to-slate-950 text-white p-6 sm:p-8 rounded-3xl shadow-md border border-white/10 space-y-3">
+            <span class="text-[10px] font-black uppercase text-red-300 bg-red-500/20 px-2.5 py-1 rounded-md border border-red-400/30">
+              Our Mission
+            </span>
+            <p class="text-xs sm:text-sm text-red-100 leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'We update society’s overall disaster preparedness by creating mechanisms where administration, industry, and citizens collaborate closely. Youth voices strengthen the community safety net.' 
+                : '行政・産業・市民が密接に連携する仕組みを作り、災害に対する社会全体の備えをアップデートします。若者の声が、地域の安全網（セーフティネット）をより強固なものへと変えていきます。'}
+            </p>
+          </div>
+        </div>
+
+        <!-- 右側：具体的な活動内容 -->
+        <div class="lg:col-span-8 bg-white/80 backdrop-blur-xl p-6 sm:p-8 md:p-10 rounded-3xl border border-white/90 shadow-[0_15px_35px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-8">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+              <span class="w-2.5 h-6 bg-gradient-to-b from-red-600 to-rose-600 rounded-full shrink-0"></span>
+              <h3 class="text-xl font-black text-slate-900 break-words">
+                {currentLang === 'en' ? 'Activities & Initiatives' : '具体的な活動内容'}
+              </h3>
+            </div>
+            
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium break-words">
+              {currentLang === 'en' 
+                ? 'To protect lives in our towns, we grasp the current situation and directly engage local governments as active stakeholders.' 
+                : '自分たちの街の命を守るため、現状を把握し、当事者として自治体に直接働きかけを行います。'}
+            </p>
+
+            <div class="space-y-4">
+              <!-- STEP 1 -->
+              <div class="bg-gradient-to-r from-red-50/80 to-rose-50/50 p-5 sm:p-6 rounded-2xl border border-red-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-red-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    STEP 1
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Nationwide Survey on Agreements' : '協定締結状況の全国調査'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium break-words pt-1">
+                  {currentLang === 'en' 
+                    ? 'We conduct detailed nationwide surveys targeting municipalities regarding the status of "Cardboard Bed Agreements" and stockpiling for disaster scenarios.' 
+                    : '全国の自治体を対象に、災害時における「段ボールベッド協定」の締結状況や備蓄の現状について綿密な調査を進めていきます。'}
+                </p>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="bg-gradient-to-r from-rose-50/80 to-amber-50/50 p-5 sm:p-6 rounded-2xl border border-rose-100/80 space-y-2">
+                <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span class="bg-rose-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-md shrink-0 shadow-xs">
+                    STEP 2
+                  </span>
+                  <h4 class="font-black text-slate-900 text-base break-words">
+                    {currentLang === 'en' ? 'Inquiries and Proposals to Local Governments' : '地方自治体への質問・提言活動'}
+                  </h4>
+                </div>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium break-words pt-1">
+                  {currentLang === 'en' 
+                    ? 'Based on survey results, members directly submit concrete questions and proposals from proactive perspectives to their home municipalities that lack agreements or have room for improvement.' 
+                    : '調査結果をもとに、未締結の自治体や改善の余地がある地域に対して、各メンバーが在住・在学する地元自治体へ、主体的な視点から具体的な質問・提言を直接行います。'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 今後の活動予定 -->
+      <div class="bg-white/80 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/90 shadow-[0_10px_30px_rgba(0,0,0,0.02)] text-center space-y-4 max-w-4xl mx-auto">
+        <div class="space-y-2">
+          <h3 class="text-xl font-black text-slate-900">
+            {currentLang === 'en' ? 'Upcoming Schedule' : '今後の活動予定'}
+          </h3>
+          <div class="w-12 h-1 bg-gradient-to-r from-red-600 to-rose-600 mx-auto rounded-full"></div>
+        </div>
+
+        <p class="text-slate-600 text-xs sm:text-sm font-semibold leading-relaxed max-w-2xl mx-auto break-words pt-2">
+          {currentLang === 'en' ? (
+            <>
+              Ahead of our kickoff in September 2025, we are currently preparing the groundwork for the nationwide survey.<br class="hidden sm:block">
               Look forward to the challenge of middle and high school students transforming the future of evacuation shelters.
             </>
           ) : (
             <>
-              2025年9月のキックオフに向けて、現在は全国調査の基盤を準備中です。<br>
+              2025年9月のキックオフに向けて、現在は全国調査の基盤を準備中です。<br class="hidden sm:block">
               未来の避難所のあり方を変える中高生の挑戦に、ぜひご期待ください。
             </>
           )}
         </p>
-        <div class="text-blue-600 text-xs font-black tracking-widest mt-4">
+
+        <div class="text-red-600 text-xs font-black tracking-widest uppercase pt-2">
           COMING SOON
         </div>
       </div>
-    </section>
-  </div>
+
+    </div>
+  </section>
 </Layout>
