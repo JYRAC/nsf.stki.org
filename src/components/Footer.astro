@@ -1,6 +1,6 @@
 ---
 // src/components/Footer.astro
-// トップページ・ヘッダーの最新UI（グラデーション・丸み・洗練されたカード感）に合わせたフッター
+// モダン・洗練されたカード感と透明感のあるフッター
 
 const PROJECT_LINKS = [
   { href: "/hatenaki", label: "果てなき復興プロジェクト" },
@@ -14,56 +14,93 @@ const PROJECT_LINKS = [
 ---
 
 <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-12 mt-auto relative overflow-hidden">
-  <!-- 背景アクセントグラデーション -->
-  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-blue-600/10 via-indigo-600/5 to-transparent blur-[120px] pointer-events-none"></div>
+  <!-- 背景オーロラグロー -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-blue-600/10 via-indigo-500/10 to-purple-500/5 blur-[140px] pointer-events-none rounded-full"></div>
 
-  <div class="max-w-6xl mx-auto px-4 relative z-10">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
+    
+    <!-- メインフッターグリッド -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-slate-800/80">
       
       <!-- ブランド情報 -->
-      <div class="md:col-span-5 space-y-4">
+      <div class="md:col-span-5 space-y-5">
         <a href="/" class="inline-flex items-center space-x-3 group">
-          <div class="p-1.5 rounded-xl bg-white border border-slate-200/20 shadow-xs transition-transform group-hover:scale-105 duration-300">
+          <div class="p-1.5 rounded-xl bg-white border border-slate-200/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
             <img src="/logo.jpg" alt="NSF ロゴ" class="h-10 w-auto object-contain rounded-lg">
           </div>
-          <span class="font-black text-xl tracking-wider text-white uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+          <span class="font-black text-xl tracking-wider text-white uppercase bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
             NSF PROJECTs
           </span>
         </a>
+
         <p class="text-xs text-slate-400 font-medium leading-relaxed max-w-sm">
           能登半島地震の復興支援を原点に、全国500名超の学生が集結。「若者が声をあげ、行動し、未来を創る」を理念に様々な社会課題に挑戦する学生団体です。
         </p>
+
         <div class="pt-2">
           <a 
             href="/apply" 
-            class="inline-flex items-center gap-2 text-xs font-black px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition shadow-md"
+            class="group inline-flex items-center gap-2.5 text-xs font-black px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white transition-all duration-300 shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50 hover:-translate-y-0.5 active:scale-95 border border-white/10"
           >
             <span>メンバー加入に応募する</span>
-            <span>➔</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
           </a>
         </div>
       </div>
 
       <!-- メインナビゲーション -->
-      <div class="md:col-span-3 space-y-3">
-        <p class="text-xs font-black text-blue-400 uppercase tracking-widest">Navigation</p>
-        <ul class="space-y-2 text-xs font-bold">
-          <li><a href="/" class="hover:text-white transition">HOME</a></li>
-          <li><a href="/about" class="hover:text-white transition">ABOUT</a></li>
-          <li><a href="/apply" class="hover:text-white transition">APPLY（メンバー募集）</a></li>
-          <li><a href="/contact" class="hover:text-white transition">CONTACT（お問い合わせ）</a></li>
-          <li><a href="/ema" class="hover:text-white transition">応援絵馬を投稿する</a></li>
+      <div class="md:col-span-3 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          <p class="text-xs font-black text-blue-400 uppercase tracking-widest">Navigation</p>
+        </div>
+        <ul class="space-y-2.5 text-xs font-bold">
+          <li>
+            <a href="/" class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group">
+              <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 text-blue-400">›</span>
+              <span>HOME</span>
+            </a>
+          </li>
+          <li>
+            <a href="/about" class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group">
+              <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 text-blue-400">›</span>
+              <span>ABOUT</span>
+            </a>
+          </li>
+          <li>
+            <a href="/apply" class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group">
+              <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 text-blue-400">›</span>
+              <span>APPLY（メンバー募集）</span>
+            </a>
+          </li>
+          <li>
+            <a href="/contact" class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group">
+              <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 text-blue-400">›</span>
+              <span>CONTACT（お問い合わせ）</span>
+            </a>
+          </li>
+          <li>
+            <a href="/ema" class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group">
+              <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 text-blue-400">›</span>
+              <span>応援絵馬を投稿する</span>
+            </a>
+          </li>
         </ul>
       </div>
 
       <!-- プロジェクト一覧 -->
-      <div class="md:col-span-4 space-y-3">
-        <p class="text-xs font-black text-blue-400 uppercase tracking-widest">Projects</p>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2 text-xs font-medium">
+      <div class="md:col-span-4 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+          <p class="text-xs font-black text-blue-400 uppercase tracking-widest">Projects</p>
+        </div>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2.5 text-xs font-medium">
           {PROJECT_LINKS.map((p) => (
             <li>
-              <a href={p.href} class="hover:text-white transition flex items-center gap-1.5">
-                <span class="text-blue-500 text-[10px]">●</span>
+              <a href={p.href} class="hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-blue-400 transition-colors duration-200"></span>
                 <span>{p.label}</span>
               </a>
             </li>
@@ -73,19 +110,34 @@ const PROJECT_LINKS = [
 
     </div>
 
-    <!-- 著作権 & 下部フッター -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
-      <p class="tracking-widest uppercase">
+    <!-- 著作権 & 下部SNSフッター -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
+      <p class="tracking-widest uppercase text-center sm:text-left">
         &copy; 2026 NSF PROJECTs. All Rights Reserved.
       </p>
+      
       <div class="flex items-center space-x-6">
-        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">
-          Instagram
+        <a 
+          href="https://www.instagram.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="hover:text-slate-200 transition-colors duration-200 flex items-center gap-1.5"
+        >
+          <span>Instagram</span>
+          <svg class="w-3.5 h-3.5 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
         </a>
-        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition">
+        <a 
+          href="https://note.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="hover:text-slate-200 transition-colors duration-200"
+        >
           Note
         </a>
       </div>
     </div>
+
   </div>
 </footer>
