@@ -56,8 +56,8 @@ function getCategoryBadge(rawCategory: any) {
 
   <!-- 緊急お知らせ -->
   {urgentNews && (
-    <div class="relative z-50 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 text-white py-3 px-4 shadow-lg border-b border-red-700">
-      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs md:text-sm font-medium">
+    <div class="relative z-50 bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white py-3 px-4 shadow-xl border-b border-red-700">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs md:text-sm font-medium">
         <div class="flex items-center gap-3 min-w-0">
           <span class="bg-white text-red-700 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm animate-pulse shrink-0">
             {currentLang === 'en' ? 'URGENT' : '緊急情報'}
@@ -65,257 +65,335 @@ function getCategoryBadge(rawCategory: any) {
           <span class="font-mono text-white/90 text-xs shrink-0">
             {(urgentNews.published_at ?? urgentNews.date_created).slice(0, 10).replace(/-/g, ".")}
           </span>
-          <a href={urgentNews.link || `/news/${urgentNews.id}`} class="font-bold hover:underline truncate">
+          <a 
+            href={urgentNews.link || `/news/${urgentNews.id}`} 
+            target={urgentNews.link?.startsWith('http') ? '_blank' : '_self'}
+            rel={urgentNews.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="font-bold hover:underline truncate"
+          >
             {urgentNews.title}
           </a>
         </div>
-        <a href={urgentNews.link || `/news/${urgentNews.id}`} class="text-xs font-bold underline shrink-0 hover:text-amber-100 self-end sm:self-auto">
-          詳細を見る ➔
+        <a 
+          href={urgentNews.link || `/news/${urgentNews.id}`} 
+          target={urgentNews.link?.startsWith('http') ? '_blank' : '_self'}
+          rel={urgentNews.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+          class="text-xs font-bold underline shrink-0 hover:text-amber-100 self-end sm:self-auto flex items-center gap-1"
+        >
+          <span>詳細を見る</span>
+          <span aria-hidden="true">➔</span>
         </a>
       </div>
     </div>
   )}
 
   <!-- ヒーローセクション -->
-  <section class="relative min-h-[88vh] flex flex-col justify-center items-center overflow-hidden py-24 px-4 bg-white text-slate-900">
+  <section class="relative min-h-[90vh] flex flex-col justify-center items-center overflow-hidden py-24 px-4 bg-slate-950 text-white">
     <!-- 写真背景：/NSF_.JPG -->
-    <img src="/NSF_.JPG" alt="街頭募金活動の様子" class="absolute inset-0 w-full h-full object-cover object-center opacity-15 scale-105 animate-pulse-slow" />
-    <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-blue-50/40 to-white"></div>
-    
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-cyan-200/50 via-blue-200/40 to-pink-200/50 rounded-full blur-[120px] pointer-events-none animate-aurora"></div>
+    <img 
+      src="/NSF_.JPG" 
+      alt="街頭募金活動の様子" 
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-30 scale-105 animate-pulse-slow filter brightness-90 contrast-110" 
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/60 to-slate-950"></div>
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] bg-gradient-to-tr from-blue-600/30 via-indigo-500/20 to-amber-500/20 rounded-full blur-[140px] pointer-events-none animate-aurora"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
       
       <!-- 能登半島の復興 × 中高生の防災意識向上 -->
-      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-[0_4px_20px_rgba(59,130,246,0.12)] backdrop-blur-xl">
-        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
-        <span class="text-xs md:text-sm font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-amber-600">
+      <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 border border-white/20 shadow-2xl backdrop-blur-2xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-blue-400 animate-ping"></span>
+        <span class="text-xs md:text-sm font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
           {currentLang === 'en' ? 'Noto Recovery & Disaster Awareness' : '能登半島の復興 × 中高生の防災意識向上'}
         </span>
       </div>
 
       <!-- タイトル -->
       <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-tight">
-        <span class="block text-2xl sm:text-4xl md:text-5xl font-extrabold text-blue-900 mb-2 drop-shadow-xs">
+        <span class="block text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-200 mb-3 drop-shadow-md">
           「自然災害」から切り開く
         </span>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 drop-shadow-sm">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-amber-400 drop-shadow-lg">
           日本の未来デザイン
         </span>
       </h1>
 
       <!-- 理念・説明本文 -->
-      <p class="text-xs sm:text-base text-slate-700 max-w-3xl mx-auto font-medium leading-relaxed backdrop-blur-xl p-6 rounded-3xl bg-white/70 border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+      <p class="text-xs sm:text-base text-slate-300 max-w-3xl mx-auto font-medium leading-relaxed backdrop-blur-2xl p-6 sm:p-8 rounded-3xl bg-white/5 border border-white/10 shadow-2xl">
         {currentLang === 'en' 
           ? "NSF PROJECTs started as a disaster relief initiative for the Noto Peninsula Earthquake and has grown into a student organization with over 500 members nationwide. Driven by the philosophy 'Youth Speak Up, Take Action, and Shape the Future,' we collaborate with local governments, corporations, and communities to take on bold challenges."
           : "NSF PROJECTsは能登半島地震の復興支援を出発点に、現在500名を超えるメンバーで活動する学生団体です。「能登の復興」と「中高生の防災意識向上」を目的に、北海道から沖縄まで全国のメンバーが奮闘中。「若者が声をあげ、行動し、未来を創る」を理念に行政・企業・地域と連携しながら挑戦を続けていきます。"}
       </p>
 
-      <!-- 3つのCTAボタン群（改行・区切り位置を最適化） -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 w-full max-w-2xl mx-auto px-2">
+      <!-- 3つのCTAボタン群 -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-2xl mx-auto px-2">
         <a 
           href="/about" 
-          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm py-4 px-5 rounded-2xl shadow-[0_8px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center whitespace-nowrap min-h-[56px]"
+          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm py-4 px-6 rounded-2xl shadow-[0_0_25px_rgba(37,99,235,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center whitespace-nowrap min-h-[56px]"
         >
           {t.about}
         </a>
 
         <a 
           href="/ema" 
-          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-xs sm:text-sm py-4 px-5 rounded-2xl shadow-[0_8px_20px_rgba(245,158,11,0.25)] hover:shadow-[0_12px_28px_rgba(245,158,11,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center gap-1.5 whitespace-nowrap min-h-[56px]"
+          class="crystal-btn w-full sm:w-auto flex-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-xs sm:text-sm py-4 px-6 rounded-2xl shadow-[0_0_25px_rgba(245,158,11,0.4)] border border-white/20 transition-all duration-300 text-center flex items-center justify-center gap-2 whitespace-nowrap min-h-[56px]"
         >
-          <span class="text-base leading-none">⛩️</span>
+          <span class="text-base leading-none" aria-hidden="true">⛩️</span>
           <span>{t.emaSubmit}</span>
         </a>
 
         <a 
           href="/projects" 
-          class="crystal-btn w-full sm:w-auto flex-1 bg-white/90 hover:bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.1)] font-black text-xs sm:text-sm py-4 px-5 rounded-2xl backdrop-blur-md transition-all duration-300 text-center flex items-center justify-center gap-1 whitespace-nowrap min-h-[56px]"
+          class="crystal-btn w-full sm:w-auto flex-1 bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-xl font-black text-xs sm:text-sm py-4 px-6 rounded-2xl shadow-lg transition-all duration-300 text-center flex items-center justify-center gap-1.5 whitespace-nowrap min-h-[56px]"
         >
           <span>{t.projects}</span>
-          <span class="text-xs transition-transform duration-300 group-hover:translate-x-1">➔</span>
+          <span class="text-xs transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">➔</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- お知らせ & 活動Note -->
-  <section class="relative py-24 bg-gradient-to-b from-white via-slate-50/80 to-white text-slate-900 overflow-hidden border-t border-b border-slate-200/80" id="news">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-100/60 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-100/60 rounded-full blur-[100px] pointer-events-none"></div>
+  <!-- お知らせ & 活動Note (グリッドカード配置へ完全刷新) -->
+  <section class="relative py-24 bg-slate-50 text-slate-900 overflow-hidden border-t border-b border-slate-200" id="news">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-100/50 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/50 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-4 space-y-10">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 space-y-12">
       
-      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b border-slate-200 pb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b border-slate-200 pb-8">
         <div>
           <span class="text-xs font-black tracking-widest text-blue-600 uppercase">Updates & Activity</span>
-          <h2 class="text-3xl font-black text-slate-900 mt-1">{t.news}</h2>
+          <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-1">{t.news}</h2>
         </div>
 
-        <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/60 border border-slate-300/50 backdrop-blur-xl w-full sm:w-auto">
-          <button class="tab-btn active flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 bg-white text-blue-600 shadow-[0_2px_10px_rgba(0,0,0,0.08)] cursor-pointer" data-tab="all">
+        <!-- タブ切り替えボタン -->
+        <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/80 border border-slate-300/60 backdrop-blur-xl w-full sm:w-auto" role="tablist">
+          <button class="tab-btn active flex-1 sm:flex-none text-xs font-black px-6 py-3 rounded-xl transition-all duration-300 bg-white text-blue-600 shadow-sm cursor-pointer" data-tab="all" role="tab" aria-selected="true">
             {currentLang === 'en' ? 'All' : 'すべて'}
           </button>
-          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="news">
+          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-6 py-3 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="news" role="tab" aria-selected="false">
             {currentLang === 'en' ? 'News' : 'お知らせ'}
           </button>
-          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-5 py-2.5 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="activity">
+          <button class="tab-btn flex-1 sm:flex-none text-xs font-black px-6 py-3 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 cursor-pointer" data-tab="activity" role="tab" aria-selected="false">
             {currentLang === 'en' ? 'Activity Note' : '活動Note'}
           </button>
         </div>
       </div>
 
-      <div class="space-y-4" id="filterableList">
+      <!-- ニュースカードグリッド (3列配置) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="filterableList">
         {regularNews.length > 0 ? (
           regularNews.map((item) => {
             const badge = getCategoryBadge(item.category);
+            const isExternal = item.link?.startsWith('http');
             return (
               <a 
                 href={item.link || `/news/${item.id}`}
-                target={item.link?.startsWith('http') ? '_blank' : '_self'}
-                class="news-item group block p-5 rounded-2xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-blue-300 backdrop-blur-md transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_25px_rgba(59,130,246,0.12)] -translate-y-0 hover:-translate-y-1" 
+                target={isExternal ? '_blank' : '_self'}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                class="news-item group flex flex-col justify-between p-6 rounded-3xl bg-white border border-slate-200/80 hover:border-blue-400 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1.5" 
                 data-category={badge.normalized}
               >
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-xs font-mono font-bold text-slate-400 shrink-0">
-                      {(item.published_at ?? item.date_created).slice(0, 10).replace(/-/g, ".")}
-                    </span>
-                    <span class={`text-[11px] font-bold px-3 py-1 rounded-full border shrink-0 ${badge.class}`}>
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class={`text-[11px] font-extrabold px-3 py-1 rounded-full border ${badge.class}`}>
                       {item.badge_text || badge.defaultText}
                     </span>
-                    <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition truncate">
-                      {item.title}
+                    <span class="text-xs font-mono font-bold text-slate-400">
+                      {(item.published_at ?? item.date_created).slice(0, 10).replace(/-/g, ".")}
                     </span>
                   </div>
-                  <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 shrink-0 hidden sm:inline-block transition">
-                    ➔
-                  </span>
+                  <h3 class="text-base font-bold text-slate-800 group-hover:text-blue-600 transition leading-snug line-clamp-3">
+                    {item.title}
+                  </h3>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 flex items-center justify-end text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
+                  <span>記事を読む</span>
+                  <span class="ml-1" aria-hidden="true">➔</span>
                 </div>
               </a>
             );
           })
         ) : (
-          <div class="text-center py-16 bg-white/80 rounded-2xl border border-slate-200">
+          <div class="col-span-full text-center py-16 bg-white rounded-3xl border border-slate-200">
             <p class="text-xs text-slate-400">現在掲載中のお知らせはありません。</p>
           </div>
         )}
       </div>
 
-      <div class="text-center pt-4">
-        <a href="https://note.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-2 transition">
+      <div class="text-center pt-6">
+        <a 
+          href="https://note.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:text-blue-600 hover:border-blue-300 shadow-sm transition-all duration-300"
+        >
           <span>公式Noteで記事一覧を見る</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
       </div>
 
     </div>
   </section>
 
-  <!-- WHAT WE DO -->
-  <section class="py-24 max-w-4xl mx-auto px-4 text-center relative">
-    <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-extrabold text-xs tracking-widest uppercase mb-4 shadow-xs">
-      WHAT WE DO
+  <!-- WHAT WE DO (Bento Grid レイアウトへ再構築) -->
+  <section class="py-24 max-w-6xl mx-auto px-4 relative">
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+      <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-black text-xs tracking-widest uppercase">
+        WHAT WE DO
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+        {currentLang === 'en' ? (
+          <>Moving Beyond Our Name:<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">Our Challenge for the Future</span></>
+        ) : (
+          <>名称の由来を超えて<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">私たちが目指す未来への挑戦</span></>
+        )}
+      </h2>
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
+        {currentLang === 'en' 
+          ? "NSF PROJECTs is more than just 'Noto Student Fund.' While our roots stem from disaster relief for the Noto Peninsula Earthquake, we have evolved into a project-driven organization where students nationwide actively tackle various social issues."
+          : "NSF PROJECTsは「Noto Student Fund」という名称の時点に留まる組織ではありません。能登半島地震をきっかけに始まった活動をすべての原点としつつ、現在は全国の学生が社会課題に対して主体的に挑戦するプロジェクト型組織へと発展を遂げています。"}
+      </p>
     </div>
-    <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">
-      {currentLang === 'en' ? (
-        <>Moving Beyond Our Name:<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">Our Challenge for the Future</span></>
-      ) : (
-        <>名称の由来を超えて<br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500">私たちが目指す未来への挑戦</span></>
-      )}
-    </h2>
-    <p class="text-slate-600 text-sm md:text-lg leading-relaxed max-w-3xl mx-auto font-medium">
-      {currentLang === 'en' 
-        ? "NSF PROJECTs is more than just 'Noto Student Fund.' While our roots stem from disaster relief for the Noto Peninsula Earthquake, we have evolved into a project-driven organization where students nationwide actively tackle various social issues."
-        : "NSF PROJECTsは「Noto Student Fund」という名称の時点に留まる組織ではありません。能登半島地震をきっかけに始まった活動をすべての原点としつつ、現在は全国の学生が社会課題に対して主体的に挑戦するプロジェクト型組織へと発展を遂げています。"}
-    </p>
-  </section>
 
-  <!-- 写真ギャラリー -->
-  <section class="pb-24 max-w-5xl mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="group relative overflow-hidden rounded-3xl shadow-xl border border-slate-200/80 aspect-video">
-        <img src="/unnamed.jpg" alt="被災地支援活動の様子1" class="w-full h-full object-cover group-hover:scale-108 transition duration-700 ease-out" />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-          <span class="text-white text-xs font-bold tracking-widest">被災地支援の現場</span>
+    <!-- Bento Grid 配置 -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      
+      <!-- メイン大型フォトカード (7列) -->
+      <div class="md:col-span-7 group relative overflow-hidden rounded-3xl min-h-[320px] md:min-h-[400px] border border-slate-200/80 shadow-lg">
+        <img 
+          src="/unnamed.jpg" 
+          alt="被災地支援活動の現場" 
+          class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out" 
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 p-8 text-white space-y-2">
+          <span class="text-xs font-mono font-bold text-blue-300 uppercase tracking-widest block">FIELD ACTIVITY</span>
+          <h3 class="text-xl md:text-2xl font-black">被災地支援の現場から生まれるリアルな挑戦</h3>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-3xl shadow-xl border border-slate-200/80 aspect-video">
-        <img src="/unnamed (1).jpg" alt="被災地支援活動の様子2" class="w-full h-full object-cover group-hover:scale-108 transition duration-700 ease-out" />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-          <span class="text-white text-xs font-bold tracking-widest">全国から集まる学生メンバー</span>
+
+      <!-- サブフォトカード (5列) -->
+      <div class="md:col-span-5 group relative overflow-hidden rounded-3xl min-h-[320px] md:min-h-[400px] border border-slate-200/80 shadow-lg">
+        <img 
+          src="/unnamed (1).jpg" 
+          alt="全国から集まる学生メンバー" 
+          class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out" 
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 p-8 text-white space-y-2">
+          <span class="text-xs font-mono font-bold text-amber-300 uppercase tracking-widest block">NATIONWIDE COMMUNITY</span>
+          <h3 class="text-xl md:text-2xl font-black">全国から集まる500名超の熱量</h3>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- VISION -->
-  <section class="py-24 bg-slate-50/60 text-slate-900 relative overflow-hidden border-t border-slate-200/80">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-200/30 via-indigo-200/20 to-pink-200/30 rounded-full blur-[150px] pointer-events-none"></div>
+  <!-- VISION (デザイン＆カードレイアウト再構築) -->
+  <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-amber-500/20 rounded-full blur-[160px] pointer-events-none"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-4 space-y-16">
-      <div class="text-center">
-        <span class="text-xs font-black text-blue-600 tracking-widest block mb-2 uppercase">VISION</span>
-        <h2 class="text-3xl md:text-5xl font-black text-slate-900">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 space-y-16">
+      <div class="text-center space-y-2">
+        <span class="text-xs font-black text-blue-400 tracking-widest block uppercase">VISION</span>
+        <h2 class="text-3xl md:text-5xl font-black text-white">
           {currentLang === 'en' ? 'The Value We Create' : '私たちが生み出す価値'}
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-blue-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-          <div>
-            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
-              <img src="/p_logo/sousei.png" alt="能登創生" class="w-full h-full object-cover group-hover:scale-108 transition duration-700" />
+      <!-- VISION 2カードグリッド -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- VISION Card 1 -->
+        <div class="crystal-card relative p-8 sm:p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-2xl hover:border-blue-500/50 transition-all duration-500 flex flex-col justify-between group shadow-2xl overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 text-9xl font-black text-white/[0.03] select-none pointer-events-none">01</div>
+          <div class="space-y-6">
+            <div class="h-56 rounded-2xl overflow-hidden relative border border-white/10">
+              <img 
+                src="/p_logo/sousei.png" 
+                alt="能登創生" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-700" 
+                loading="lazy"
+                decoding="async"
+              />
             </div>
-            <h3 class="text-2xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition">
-              {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
-            </h3>
-            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              {currentLang === 'en'
-                ? "In addition to supporting recovery in Noto, we leverage the unique flexibility and mobility of students to solve diverse societal challenges."
-                : "原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。"}
-            </p>
+            <div class="space-y-3">
+              <h3 class="text-2xl font-black text-white group-hover:text-blue-400 transition">
+                {currentLang === 'en' ? 'Noto Revitalization & Project Expansion' : '能登創生とプロジェクト展開'}
+              </h3>
+              <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                {currentLang === 'en'
+                  ? "In addition to supporting recovery in Noto, we leverage the unique flexibility and mobility of students to solve diverse societal challenges."
+                  : "原点である能登の復興支援はもちろん、学生ならではの柔軟な発想と機動力を活かし、多様な社会課題の解決に向けた取り組みを展開しています。"}
+              </p>
+            </div>
           </div>
-          <div class="mt-8">
-            <a href="/projects" class="crystal-btn block text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transition">
-              {t.projects} ➔
+          <div class="mt-8 pt-6 border-t border-white/10">
+            <a href="/projects" class="crystal-btn flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs py-4 rounded-xl shadow-lg transition">
+              <span>{t.projects}</span>
+              <span aria-hidden="true">➔</span>
             </a>
           </div>
         </div>
 
-        <div class="crystal-card p-8 rounded-3xl bg-white/90 border border-slate-200/80 backdrop-blur-xl hover:border-amber-400 transition-all duration-500 flex flex-col justify-between group shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-          <div>
-            <div class="h-56 rounded-2xl overflow-hidden mb-6 relative border border-slate-100">
-              <img src="/unnamed.jpg" alt="集結した学生たち" class="w-full h-full object-cover group-hover:scale-108 transition duration-700" />
+        <!-- VISION Card 2 -->
+        <div class="crystal-card relative p-8 sm:p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-2xl hover:border-amber-500/50 transition-all duration-500 flex flex-col justify-between group shadow-2xl overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 text-9xl font-black text-white/[0.03] select-none pointer-events-none">02</div>
+          <div class="space-y-6">
+            <div class="h-56 rounded-2xl overflow-hidden relative border border-white/10">
+              <img 
+                src="/unnamed.jpg" 
+                alt="集結した学生たち" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-700" 
+                loading="lazy"
+                decoding="async"
+              />
             </div>
-            <h3 class="text-2xl font-black mb-3 text-slate-900 group-hover:text-amber-600 transition">
-              {currentLang === 'en' ? 'Action by Students Nationwide' : '全国500名超の学生による挑戦'}
-            </h3>
-            <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
-              {currentLang === 'en'
-                ? "Over 500 members gathered from across Japan. Unbound by existing frameworks, we continuously improve and take steps to open up the future."
-                : "北海道から沖縄県まで、全国から500人を超えるメンバーが集結。行政・企業・地域と連携し、未来を創るアクションを起こします。"}
-            </p>
+            <div class="space-y-3">
+              <h3 class="text-2xl font-black text-white group-hover:text-amber-400 transition">
+                {currentLang === 'en' ? 'Action by Students Nationwide' : '全国500名超の学生による挑戦'}
+              </h3>
+              <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+                {currentLang === 'en'
+                  ? "Over 500 members gathered from across Japan. Unbound by existing frameworks, we continuously improve and take steps to open up the future."
+                  : "北海道から沖縄県まで、全国から500人を超えるメンバーが集結。行政・企業・地域と連携し、未来を創るアクションを起こします。"}
+              </p>
+            </div>
           </div>
-          <div class="mt-8">
-            <a href="/about" class="crystal-btn block text-center bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transition">
-              {t.about} ➔
+          <div class="mt-8 pt-6 border-t border-white/10">
+            <a href="/about" class="crystal-btn flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-xs py-4 rounded-xl shadow-lg transition">
+              <span>{t.about}</span>
+              <span aria-hidden="true">➔</span>
             </a>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- INSTAGRAM -->
-  <section id="instagram" class="py-20 bg-slate-50 border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-10">
-        <h2 class="text-xl font-extrabold text-slate-900">
+  <section id="instagram" class="py-24 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 space-y-10">
+      <div class="text-center">
+        <span class="text-xs font-black tracking-widest text-pink-600 uppercase block mb-1">Social Media</span>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-900">
           {currentLang === 'en' ? 'Latest Instagram Updates' : '最新のInstagram活動報告'}
         </h2>
       </div>
-      <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
+      
+      <div class="rounded-3xl p-4 bg-white border border-slate-200 shadow-sm overflow-hidden">
+        <behold-widget feed-id="6GsUr7TV7peuDQ7JbdpG"></behold-widget>
+      </div>
+
       <script>
         (() => {
           const d = document, s = d.createElement("script");
@@ -326,42 +404,43 @@ function getCategoryBadge(rawCategory: any) {
       </script>
     </div>
   </section>
+
 </Layout>
 
 <script>
   function setupNewsTabs() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const newsItems = document.querySelectorAll('.news-item');
+    const filterContainer = document.getElementById('news');
+    if (!filterContainer) return;
+
+    const tabButtons = filterContainer.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const newsItems = filterContainer.querySelectorAll<HTMLElement>('.news-item');
 
     if (!tabButtons.length || !newsItems.length) return;
 
     tabButtons.forEach(button => {
-      const newButton = button.cloneNode(true) as HTMLElement;
-      button.parentNode?.replaceChild(newButton, button);
+      button.addEventListener('click', () => {
+        const selectedTab = button.getAttribute('data-tab');
 
-      newButton.addEventListener('click', () => {
-        const allButtons = document.querySelectorAll('.tab-btn');
-        const allItems = document.querySelectorAll('.news-item');
-
-        allButtons.forEach(btn => {
-          btn.classList.remove('bg-white', 'text-blue-600', 'shadow-[0_2px_10px_rgba(0,0,0,0.08)]');
-          btn.classList.add('text-slate-600');
+        // タブスタイル & aria 属性更新
+        tabButtons.forEach(btn => {
+          const isSelected = btn === button;
+          btn.setAttribute('aria-selected', isSelected.toString());
+          btn.classList.toggle('bg-white', isSelected);
+          btn.classList.toggle('text-blue-600', isSelected);
+          btn.classList.toggle('shadow-sm', isSelected);
+          btn.classList.toggle('text-slate-600', !isSelected);
         });
-        newButton.classList.add('bg-white', 'text-blue-600', 'shadow-[0_2px_10px_rgba(0,0,0,0.08)]');
-        newButton.classList.remove('text-slate-600');
 
-        const selectedTab = newButton.getAttribute('data-tab');
-
-        allItems.forEach(item => {
+        // カードフィルタリング
+        newsItems.forEach(item => {
           const itemCategory = (item.getAttribute('data-category') || 'news').toLowerCase().trim();
-          const el = item as HTMLElement;
 
           if (selectedTab === 'all') {
-            el.style.display = 'block';
+            item.style.display = 'flex';
           } else if (selectedTab === 'activity') {
-            el.style.display = itemCategory === 'activity' ? 'block' : 'none';
+            item.style.display = itemCategory === 'activity' ? 'flex' : 'none';
           } else if (selectedTab === 'news') {
-            el.style.display = itemCategory !== 'activity' ? 'block' : 'none';
+            item.style.display = itemCategory !== 'activity' ? 'flex' : 'none';
           }
         });
       });
@@ -398,7 +477,7 @@ function getCategoryBadge(rawCategory: any) {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .crystal-btn:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-2px) scale(1.01);
   }
   .crystal-btn:active {
     transform: translateY(0px) scale(0.98);
