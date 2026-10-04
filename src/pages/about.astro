@@ -9,17 +9,48 @@ import { translations, type Lang } from "../lib/i18n";
 const url = new URL(Astro.request.url);
 const currentLang: Lang = url.searchParams.get("lang") === "en" ? "en" : "ja";
 
-// 第7期 幹部メンバーの定義 (日英対応)
-const executives = [
+// 代表陣（代表・共同代表）の定義
+const leaders = [
+  {
+    role: currentLang === 'en' ? "NSF PROJECTs 7th Term Leader" : "NSF PROJECTs 第7期代表",
+    name: currentLang === 'en' ? "Shota Takada" : "高田 翔大",
+    message: currentLang === 'en' ? (
+      <>
+        <p>Our goal for this term is to revitalize projects within NSF and build a framework where every member can engage in disaster prevention and recovery activities tailored to their interests.</p>
+        <p>We believe that when youth across Japan take action, it builds real power to protect lives and shape a safer future.</p>
+        <p>We will dedicate all our efforts to making NSF a place where every member can continually take on new challenges.</p>
+      </>
+    ) : (
+      <>
+        <p>NSFに存在するプロジェクトを活性化させ、NSFに所属する全員が、それぞれに興味のある側面で「防災」と「復興」に関する活動を行える仕組みを作ることが、今期のゴールです。</p>
+        <p>中高生一人ひとりの「やりたい」という想いや関心を行動に移すことが、誰かの命を守り、未来の防災を変える力になると信じています。</p>
+        <p>メンバー全員が主体となって挑戦を続けられる組織を目指し、全力で努力していきます！</p>
+      </>
+    ),
+    img: "/p_logo/Takada.jpg",
+    style: "object-cover object-top"
+  },
   {
     role: currentLang === 'en' ? "Co-President" : "共同代表",
     name: currentLang === 'en' ? "Kenshin Kitamura" : "北村 謙心",
-    message: currentLang === 'en' 
-      ? "To raise awareness about disaster prevention, it is crucial that everyone has a sense of personal responsibility. Joining NSF PROJECTS is the easiest way to start! Let's take a step together toward making Japan a disaster-resilient nation!" 
-      : "NSF PROJECTsの団体理念には「中高生の防災意識向上」がありますが、僕は防災の意識を向上させるためには、全員が当事者意識を持つことが大事だと思っています。探してその1番手軽な方法がNSF PROJECTSに入ることです！入れない人でもこれからのNSFの活躍を見守ってこの日本を防災大国にする一歩を一緒に踏み出しましょう！",
+    message: currentLang === 'en' ? (
+      <>
+        <p>To raise awareness about disaster prevention, it is crucial that everyone has a sense of personal responsibility. Joining NSF PROJECTS is the easiest way to start!</p>
+        <p>Even if you cannot join, please watch our journey and take a step together with us toward making Japan a disaster-resilient nation!</p>
+      </>
+    ) : (
+      <>
+        <p>NSF PROJECTsの団体理念には「中高生の防災意識向上」がありますが、僕は防災の意識を向上させるためには、全員が当事者意識を持つことが大事だと思っています。</p>
+        <p>探してその1番手軽な方法がNSF PROJECTSに入ることです！入れない人でもこれからのNSFの活躍を見守ってこの日本を防災大国にする一歩を一緒に踏み出しましょう！</p>
+      </>
+    ),
     img: "/p_logo/Kitamura.jpg",
     style: "object-cover object-top"
-  },
+  }
+];
+
+// 副代表・統括メンバーの定義 (7名)
+const executives = [
   {
     role: currentLang === 'en' ? "Vice President" : "副代表",
     name: currentLang === 'en' ? "Momo Yoshida" : "吉田 桃",
@@ -113,71 +144,52 @@ const executives = [
     </div>
   </section>
 
-  <!-- 代表メッセージ（ダーク背景 #081426） -->
+  <!-- 代表・共同代表メッセージ（ダーク背景 #081426） -->
   <section class="bg-[#081426] text-white py-20 md:py-28 px-6 md:px-16 relative overflow-hidden">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-      
-      <!-- 代表写真 -->
-      <div class="lg:col-span-5 relative">
-        <div class="w-full aspect-[3/4] rounded-[32px] overflow-hidden bg-gradient-to-br from-[#173b72] to-[#1bcddd] relative shadow-2xl border border-white/10">
-          <img 
-            src="/p_logo/Takada.jpg" 
-            alt="NSF 代表 高田 翔大" 
-            class="w-full h-full object-cover relative z-10"
-            onerror="this.style.display='none';"
-          />
-          <!-- ウォーターマークテキスト -->
-          <span class="absolute -left-3 -bottom-8 font-black text-9xl tracking-tighter opacity-10 text-white select-none z-0">NSF</span>
-        </div>
+    <div class="max-w-6xl mx-auto space-y-16">
+      <!-- セクション見出し -->
+      <div class="text-center md:text-left border-b border-white/10 pb-6">
+        <div class="text-xs font-black tracking-[0.2em] text-[#24d5e8] uppercase mb-2">REPRESENTATIVE MESSAGE</div>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          {currentLang === 'en' ? 'Empowering Youth Action for Recovery.' : '中高生一人ひとりが\n「防災」と「復興」の主体へ。'}
+        </h2>
       </div>
 
-      <!-- 代表メッセージ本文 -->
-      <div class="lg:col-span-7 space-y-6">
-        <div>
-          <div class="text-xs font-black tracking-[0.2em] text-[#24d5e8] uppercase mb-2">REPRESENTATIVE MESSAGE</div>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-            {currentLang === 'en' ? 'Empowering Youth Action for Recovery.' : '中高生一人ひとりが\n「防災」と「復興」の主体へ。'}
-          </h2>
-        </div>
+      <!-- 代表 2名の並列カード -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
+        {leaders.map((leader) => (
+          <div class="bg-white/5 border border-white/10 rounded-[28px] p-6 md:p-8 flex flex-col justify-between space-y-6 backdrop-blur-sm">
+            <div class="space-y-6">
+              <!-- 写真と基本情報 -->
+              <div class="flex items-center space-x-5">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-[20px] overflow-hidden bg-gradient-to-br from-[#173b72] to-[#1bcddd] relative shrink-0 shadow-lg border border-white/20">
+                  <img 
+                    src={leader.img} 
+                    alt={leader.name} 
+                    class={`w-full h-full ${leader.style}`}
+                    onerror="this.style.display='none';"
+                  />
+                </div>
+                <div>
+                  <span class="text-xs font-black tracking-wider text-[#24d5e8] uppercase block mb-1">
+                    {leader.role}
+                  </span>
+                  <h3 class="text-2xl font-black text-white">{leader.name}</h3>
+                </div>
+              </div>
 
-        <div class="border-l-4 border-[#1769ff] pl-4 py-1">
-          <p class="text-[#24d5e8] font-bold text-sm md:text-base">
-            {currentLang === 'en' 
-              ? '― Restoring hope and building a resilient future together ―' 
-              : '― 被災地とともに歩み、未来の防災を変える力を育む ―'}
-          </p>
-        </div>
-
-        <div class="text-[#aebbd0] text-sm md:text-base leading-relaxed space-y-4 font-normal">
-          {currentLang === 'en' ? (
-            <>
-              <p>Our goal for this term is to revitalize projects within NSF and build a framework where every member can engage in disaster prevention and recovery activities tailored to their interests.</p>
-              <p>We believe that when youth across Japan take action, it builds real power to protect lives and shape a safer future.</p>
-              <p>We will dedicate all our efforts to making NSF a place where every member can continually take on new challenges.</p>
-            </>
-          ) : (
-            <>
-              <p>NSFに存在するプロジェクトを活性化させ、NSFに所属する全員が、それぞれに興味のある側面で「防災」と「復興」に関する活動を行える仕組みを作ることが、今期のゴールです。</p>
-              <p>中高生一人ひとりの「やりたい」という想いや関心を行動に移すことが、誰かの命を守り、未来の防災を変える力になると信じています。</p>
-              <p>メンバー全員が主体となって挑戦を続けられる組織を目指し、全力で努力していきます！</p>
-            </>
-          )}
-        </div>
-
-        <div class="pt-4 border-t border-white/10 flex items-baseline gap-3">
-          <span class="text-xs font-bold text-slate-400">
-            {currentLang === 'en' ? 'NSF PROJECTs 7th Term Leader' : 'NSF PROJECTs 第7期代表'}
-          </span>
-          <span class="text-xl md:text-2xl font-black text-white tracking-wide">
-            {currentLang === 'en' ? 'Shota Takada' : '高田 翔大'}
-          </span>
-        </div>
+              <!-- メッセージ本文 -->
+              <div class="text-[#aebbd0] text-xs md:text-sm leading-relaxed space-y-3 font-normal border-t border-white/10 pt-4">
+                {leader.message}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-
     </div>
   </section>
 
-  <!-- 幹部メンバー紹介 -->
+  <!-- 幹部メンバー紹介（副代表・統括） -->
   <section class="bg-[#f6f9fc] py-20 md:py-28 px-6 md:px-16">
     <div class="max-w-6xl mx-auto space-y-12">
       
@@ -191,6 +203,7 @@ const executives = [
         </p>
       </div>
 
+      <!-- 副代表・統括 (7名) のグリッド配置 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {executives.map((member) => (
           <div class="bg-white border border-[#dfe8f3] rounded-[24px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between">
