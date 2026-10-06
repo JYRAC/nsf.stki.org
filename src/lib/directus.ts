@@ -1,7 +1,5 @@
 // src/lib/directus.ts
 // Directus REST API (nsf_news コレクション) からお知らせ・活動報告を取得する。
-// microcms.ts の後継。インターフェース(NewsArticle, getNewsList, getNewsDetail)は
-// 呼び出し側(index.astro, news/[id].astro)との互換性のためできるだけ維持している。
 
 const DIRECTUS_URL = import.meta.env.DIRECTUS_URL ?? "https://directus.jyrac.stki.org";
 const COLLECTION = "nsf_news";
@@ -35,37 +33,63 @@ export type NewsListQuery = {
 
 /**
  * お知らせ一覧を取得する。
- * デフォルトで公開済み(status=published)のみ、published_at降順で返す。
+ * Directusが落ちている場合やタイムアウト時は、サイトを落とさず空配列を返す。
  */
 export const getNewsList = async (
   query: NewsListQuery = {}
 ): Promise<{ contents: NewsArticle[] }> => {
-  const params = new URLSearchParams();
-  params.set("filter[status][_eq]", "published");
-  params.set("sort", query.sort ?? "-published_at");
-  if (query.limit) params.set("limit", String(query.limit));
+  try {
+    const params = new URLSearchParams();
+    params.set("filter[status][_eq]", "published");
+    params.set("sort", query.sort ?? "-published_at");
+    if (query.limit) params.set("limit", String(query.limit));
 
-  const res = await fetch(`${DIRECTUS_URL}/items/${COLLECTION}?${params.toString()}`);
+    // Directusがハングした時にサイトが止まらないよう3秒でタイムアウト設定
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-  if (!res.ok) {
-    throw new Error(`Directus getNewsList failed: ${res.status} ${res.statusText}`);
+    const res = await fetch(`${DIRECTUS_URL}/items/${COLLECTION}?${params.toString()}`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) {
+      console.error(`Directus getNewsList failed with status: ${res.status}`);
+      return { contents: [] };
+    }
+
+    const json = (await res.json()) as DirectusListResponse;
+    return { contents: json.data ?? [] };
+  } catch (error) {
+    console.error("Directus getNewsList error (fallbacking to empty list):", error);
+    // エラーが起きても例外を投げずに空配列を返す
+    return { contents: [] };
   }
-
-  const json = (await res.json()) as DirectusListResponse;
-  return { contents: json.data ?? [] };
 };
 
 /**
  * 記事詳細を取得する(news/[id].astro で使用)。
- * 下書き(draft)は取得できるが、呼び出し側で status を見て 404 に倒す想定。
+ * Directusが落ちている場合や存在しない場合は null を返す。
  */
-export const getNewsDetail = async (id: string | number): Promise<NewsArticle> => {
-  const res = await fetch(`${DIRECTUS_URL}/items/${COLLECTION}/${id}`);
+export const getNewsDetail = async (id: string | number): Promise<NewsArticle | null> => {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-  if (!res.ok) {
-    throw new Error(`Directus getNewsDetail failed: ${res.status} ${res.statusText}`);
+    const res = await fetch(`${DIRECTUS_URL}/items/${COLLECTION}/${id}`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) {
+      console.error(`Directus getNewsDetail failed with status: ${res.status}`);
+      return null;
+    }
+
+    const json = (await res.json()) as DirectusItemResponse;
+    return json.data ?? null;
+  } catch (error) {
+    console.error("Directus getNewsDetail error:", error);
+    return null;
   }
-
-  const json = (await res.json()) as DirectusItemResponse;
-  return json.data;
 };
